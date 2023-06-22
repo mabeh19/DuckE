@@ -35,10 +35,10 @@ Scheduler_SwitchTask:
         mov     sp, r0
 
         // Restore status registers 
-        pop     {r0-r2}
+        pop     {r0-r1}
         msr     apsr, r0 
-        msr     primask, r1 
-        msr     control, r2
+        @msr     primask, r1 
+        msr     control, r1
        
         // Restore r8-r12
         pop     {r0-r4}
@@ -76,12 +76,13 @@ isr_systick:
         push    {r0-r7}
         push    {lr}
 
-        movs    r0, #1
-        ldr     r1, =systickICPR
-        str     r0, [r1]
+        @ movs    r0, #1
+        ldr     r1, =syst_CSR
+        ldr     r1, [r1]
+        ldr     r1, [r1]
 
-        bl      Scheduler_ArmTimer
-        bl      print
+        @bl      Scheduler_ArmTimer
+        //bl      print
 
         pop     {r0}
         mov     lr, r0
@@ -89,6 +90,6 @@ isr_systick:
 
         b       Scheduler_ContextSwitch
 
-        //.sect ".data"
-systickICPR:    .word 0x40054034
+        .sect ".data"
+syst_CSR:       .word 0xe000e010
 debugMsg:       .asciz "tick\n"

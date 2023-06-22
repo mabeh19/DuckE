@@ -10,11 +10,6 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
 
 
-find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
-if(CMAKE_CXX_CPPCHECK)
-  list(APPEND CMAKE_CXX_CPPCHECK "--enable=all")
-endif()
-
 pico_sdk_init()
 
 
@@ -25,7 +20,7 @@ add_executable(PiPico
                   src/scheduler/tick.c)
 
 set(PICO_TIME_DEFAULT_ALARM_POOL_DISABLED 1)
-set_target_properties(PiPico PROPERTIES COMPILE_FLAGS "-save-temps") 
+#set_target_properties(PiPico PROPERTIES COMPILE_FLAGS "-save-temps") 
 
 target_link_libraries(PiPico 
                       pico_stdlib 
@@ -36,7 +31,7 @@ target_link_libraries(PiPico
 
 target_compile_definitions(PiPico PRIVATE PICO_HEAP_SIZE=32768)
 
-pico_enable_stdio_usb(PiPico 1)
-pico_enable_stdio_uart(PiPico 0)
+pico_enable_stdio_usb(PiPico 0)
+pico_enable_stdio_uart(PiPico 1)
 
 pico_add_extra_outputs(PiPico)

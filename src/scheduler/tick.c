@@ -4,7 +4,7 @@
 #include "hardware/exception.h"
 #include "hardware/clocks.h"
 
-#define configTICK_RATE_HZ (10U)
+#define configTICK_RATE_HZ (100U)
 /* Constants required to manipulate the NVIC. */
 #define portNVIC_SYSTICK_CTRL_REG             ( *( ( volatile uint32_t * ) 0xe000e010 ) )
 #define portNVIC_SYSTICK_LOAD_REG             ( *( ( volatile uint32_t * ) 0xe000e014 ) )

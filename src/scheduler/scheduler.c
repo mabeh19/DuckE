@@ -19,10 +19,11 @@
         "mov    r4, r12\n" \
         "push   {r0-r4}\n" \
         "mrs    r0, apsr\n" \
-        "mrs    r1, primask\n" \
-        "mrs    r2, control\n" \
-        "push   {r0-r2}\n" \
+        "mrs    r1, control\n" \
+        "push   {r0-r1}\n" \
     )
+
+    //"mrs    r1, primask\n"
 
 #define Scheduler_EnableInterrupts() __asm(" cpsie i")
 #define Scheduler_DisableInterrupts() __asm(" cpsid i")
@@ -45,7 +46,7 @@ typedef struct {
     void* stackPtr;
     Scheduler_Task* task;
     u32 ticksRemaining;
-    u32 registers[16];
+    u32 registers[15];
 } Scheduler_TaskTableEntry;
 
 typedef struct {
@@ -85,18 +86,19 @@ const u32 internalStackSize = 4096;
     __internal_stack__ = extMalloc(internalStackSize);
     __internal_stackPtr__ = __internal_stack__ + internalStackSize - 4;
 
-    Scheduler_CreateTask("Idle Task", 4096, 0, Scheduler_IdleTask, NULL);
+    Scheduler_CreateTask("Idle Task", 128, 0, Scheduler_IdleTask, NULL);
 }
 
 void Scheduler_Start(void)
 {
+    Scheduler_DisableInterrupts();
     printf("Starting tick...\n");
     Scheduler_InitTick();
     printf("Running first task...\n");
     Scheduler_EnableInterrupts();
     Scheduler_StartFirstTask();
     for ( ;; ) {
-        printf("Stuck in Scheduler_Start\n");
+        //printf("Stuck in Scheduler_Start\n");
     }
 }
 
@@ -137,7 +139,7 @@ TaskHandle Scheduler_CreateTask(const char *name, u32 stackSize, u8 priority, Sc
 
             memcpy(entry->stackPtr, &newTask->entryPoint, sizeof(newTask->entryPoint));
             memcpy(entry->stackPtr - 4, data, sizeof(data));
-            entry->stackPtr -= 16 * sizeof(uint32_t);
+            entry->stackPtr -= 15 * sizeof(uint32_t);
             entry->ticksRemaining = 0;
         } else {
             __task_table__.entries = extRealloc(newTable, (__task_table__.numEntries) * sizeof(Scheduler_TaskTableEntry));
@@ -171,7 +173,7 @@ void Scheduler_Sleep(u32 ticks)
 static void Scheduler_IdleTask(void* data)
 {
     
-    for (;;) { printf("idle!\n"); }
+    for (;;) {}
 }
 
 extern void Scheduler_SaveStackPointer(void** stackPtr);
@@ -233,7 +235,6 @@ void Scheduler_ContextSwitch(void)
 
     Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable();
 
-
     Scheduler_EnableInterrupts();
 
     Scheduler_SwitchTask(newTask->stackPtr);
@@ -245,7 +246,7 @@ void Scheduler_UpdateTicks(void)
     for (u32 i = 0U; i < __task_table__.numEntries; i++) {
         Scheduler_TaskTableEntry* entry = __task_table__.entries[i];
 
-        printf("%s: %d\n", entry->task->name, entry->ticksRemaining);
+        //printf("%s: %d\n", entry->task->name, entry->ticksRemaining);
 
         if ( entry->ticksRemaining > 0U ) {
             entry->ticksRemaining--;

@@ -22,9 +22,8 @@ void* tmp;
 
     //cyw43_arch_init();
     
-    sleep_ms(5000);
+    //sleep_ms(5000);
 
-    __asm(" cpsie i\n");
     //blink(10);
     //blink(200);
 
