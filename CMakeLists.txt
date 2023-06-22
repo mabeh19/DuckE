@@ -4,8 +4,16 @@ include(pico_sdk_import.cmake)
 
 project(PiPico C CXX ASM)
 
+set(PICO_BOARD pico_w)
+set(CXX_EXPORT_COMPILE_COMMANDS TRUE)
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 17)
+
+
+find_program(CMAKE_CXX_CPPCHECK NAMES cppcheck)
+if(CMAKE_CXX_CPPCHECK)
+  list(APPEND CMAKE_CXX_CPPCHECK "--enable=all")
+endif()
 
 pico_sdk_init()
 
@@ -17,8 +25,15 @@ add_executable(PiPico
                   src/scheduler/tick.c)
 
 set(PICO_TIME_DEFAULT_ALARM_POOL_DISABLED 1)
+set_target_properties(PiPico PROPERTIES COMPILE_FLAGS "-save-temps") 
 
-target_link_libraries(PiPico pico_stdlib pico_cyw43_arch_none hardware_clocks hardware_exception pico_base_headers)
+target_link_libraries(PiPico 
+                      pico_stdlib 
+                      #pico_cyw43_arch_none 
+                      hardware_clocks 
+                      hardware_exception 
+                      pico_base_headers)
+
 target_compile_definitions(PiPico PRIVATE PICO_HEAP_SIZE=32768)
 
 pico_enable_stdio_usb(PiPico 1)

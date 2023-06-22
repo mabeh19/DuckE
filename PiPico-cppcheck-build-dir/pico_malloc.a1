@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="5843520952132381125">
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c:19:14" call-funcname="__real_realloc" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c" line="70" col="16" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c:66:7" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c:20:13" call-funcname="__real_free" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c" line="87" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c:83:6" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="check_alloc" lineNumber="24"/>
+    <functiondecl functionName="__wrap_malloc" lineNumber="32"/>
+    <functiondecl functionName="__wrap_calloc" lineNumber="49"/>
+    <functiondecl functionName="__wrap_realloc" lineNumber="66"/>
+    <functiondecl functionName="__wrap_free" lineNumber="83"/>
+    <functioncall functionName="__real_calloc"/>
+    <functioncall functionName="__real_free"/>
+    <functioncall functionName="__real_malloc"/>
+    <functioncall functionName="__real_realloc"/>
+    <functioncall functionName="check_alloc"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="panic"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

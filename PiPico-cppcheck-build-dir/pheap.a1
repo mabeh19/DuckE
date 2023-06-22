@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="9480432099608144780">
+        <error id="invalidPrintfArgType_sint" severity="warning" msg="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." verbose="%d in format string (no. 1) requires &apos;int&apos; but the argument type is &apos;unsigned int&apos;." cwe="686" file0="/home/mathias/pico-sdk/src/common/pico_util/pheap.c">
+            <location file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="137" column="5"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:118:13" call-funcname="ph_dump_node" call-argnr="5" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="136" col="30" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" call-funcname="ph_get_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="110" col="23" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:109:13" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" call-funcname="ph_get_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="166" col="24" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:164:31" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:198:17" call-funcname="ph_remove_head" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="213" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:212:31" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:234:20" call-funcname="ph_contains_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="246" col="19" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:245:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:275:6" call-funcname="ph_post_alloc_init" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="15" col="5" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:86:10" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:275:6" call-funcname="ph_post_alloc_init" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="15" col="5" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:86:10" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" call-funcname="ph_get_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="43" col="17" my-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:42:17" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" call-funcname="ph_get_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="58" col="13" my-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:55:24" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:179:31" call-funcname="ph_peek_head" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="77" col="35" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:198:17" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" call-funcname="ph_get_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="125" col="30" my-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:118:13" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:118:13" call-funcname="ph_dump_node" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="136" col="18" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:264:6" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:118:13" call-funcname="ph_dump_node" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="136" col="18" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:264:6" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_util/pheap.c:118:13" call-funcname="ph_dump_node" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="136" col="18" my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:264:6" my-argnr="3"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="105" col="12" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:143:31" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="144" col="10" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:179:31" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="180" col="12" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:234:20" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="235" col="18" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:245:20" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="247" col="9" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:275:6" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="21" col="5" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:92:6" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="28" col="5" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:100:6" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="38" col="10" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:103:29" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="105" col="12" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:143:31" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="144" col="10" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:179:31" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="180" col="12" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:234:20" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="235" col="18" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:245:20" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h" line="247" col="9" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/pheap.h:100:6" my-argnr="1" my-argname="heap" file="/home/mathias/pico-sdk/src/common/pico_util/pheap.c" line="38" col="10" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ph_create" lineNumber="11"/>
+    <functiondecl functionName="ph_post_alloc_init" lineNumber="19"/>
+    <functiondecl functionName="ph_clear" lineNumber="27"/>
+    <functiondecl functionName="ph_destroy" lineNumber="37"/>
+    <functiondecl functionName="ph_merge_two_pass" lineNumber="42"/>
+    <functiondecl functionName="ph_remove_any_head" lineNumber="55"/>
+    <functiondecl functionName="ph_remove_head" lineNumber="76"/>
+    <functiondecl functionName="ph_remove_and_free_node" lineNumber="82"/>
+    <functiondecl functionName="ph_dump_node" lineNumber="118"/>
+    <functiondecl functionName="ph_dump" lineNumber="135"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="calloc"/>
+    <functioncall functionName="comparator"/>
+    <functioncall functionName="dump_key"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="ph_add_child_node"/>
+    <functioncall functionName="ph_clear"/>
+    <functioncall functionName="ph_contains_node"/>
+    <functioncall functionName="ph_dump_node"/>
+    <functioncall functionName="ph_get_node"/>
+    <functioncall functionName="ph_merge_nodes"/>
+    <functioncall functionName="ph_merge_two_pass"/>
+    <functioncall functionName="ph_peek_head"/>
+    <functioncall functionName="ph_post_alloc_init"/>
+    <functioncall functionName="ph_remove_and_free_head"/>
+    <functioncall functionName="ph_remove_any_head"/>
+    <functioncall functionName="ph_remove_head"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="putchar"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

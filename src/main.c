@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
-#include "pico/cyw43_arch.h"
+//#include "pico/cyw43_arch.h"
 #include "scheduler/scheduler.h"
 
 typedef enum {
@@ -20,10 +20,14 @@ int main()
 void* tmp;
     stdio_init_all();
 
-    cyw43_arch_init();
+    //cyw43_arch_init();
     
-    sleep_ms(10000);
+    sleep_ms(5000);
+
+    __asm(" cpsie i\n");
+    //blink(10);
     //blink(200);
+
 
     printf("Starting scheduler...\n");
 
@@ -51,21 +55,21 @@ void* tmp;
 
 void turn_on_led(void)
 {
-    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
+    //cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
 }
 
 void turn_off_led(void)
 {
-    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
+    //cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 0);
 }
 
 void blink(int rate)
 {
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 1; i++) {
         turn_on_led();
-        sleep_ms(rate);
+        sleep_us(rate);
         turn_off_led();
-        sleep_ms(rate);
+        sleep_us(rate);
     }
 }
 
@@ -84,10 +88,12 @@ uint8_t lvl = 0;
 
 void task2(void* data)
 {
-
+    //sleep_ms(1000);
+    //Scheduler_Sleep(1000);
     for (;;) {
-        printf("Task2\n");
-        Scheduler_Sleep(500);
+        turn_off_led();
+        printf("Hello Task2\n");
+        Scheduler_Sleep(2000);
     }
 }
 
@@ -96,7 +102,8 @@ void task3(void* data)
 {
 
     for (;;) {
-        printf("Task3\n");
+        turn_on_led();
+        printf("Hello Task3\n");
         Scheduler_Sleep(2000);
     }
 }

@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="13794722436670625686">
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;exp(x) - 1&apos; can be replaced by &apos;expm1(x)&apos; to avoid loss of precision." verbose="Expression &apos;exp(x) - 1&apos; can be replaced by &apos;expm1(x)&apos; to avoid loss of precision." cwe="758" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="345" column="8"/>
+        </error>
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." verbose="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." cwe="758" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="346" column="8"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference" cwe="476" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="620" column="86" info="Null pointer dereference"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference" cwe="476" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="622" column="91" info="Null pointer dereference"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e&apos; can be reduced." verbose="The scope of the variable &apos;e&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="404" column="9"/>
+            <symbol>e</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e&apos; can be reduced." verbose="The scope of the variable &apos;e&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="452" column="9"/>
+            <symbol>e</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;q&apos; can be reduced." verbose="The scope of the variable &apos;q&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="542" column="15"/>
+            <symbol>q</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;s&apos; can be reduced." verbose="The scope of the variable &apos;s&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="542" column="21"/>
+            <symbol>s</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c:83:22" call-funcname="dldexp" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="354" col="18" call-argexpr="-a" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="356" col="9" info="Assuming that condition &apos;a==0&apos; is not redundant"/>
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="355" col="9" info="Assuming condition is false"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c:541:12" call-funcname="drem_0" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="576" col="14" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c:541:12" call-funcname="drem_0" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_double/double_math.c" line="609" col="18" call-argexpr="&amp;q" call-argvaluetype="7" call-argvalue="4"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ui642double" lineNumber="47"/>
+    <functiondecl functionName="double2ui64" lineNumber="53"/>
+    <functiondecl functionName="disnan" lineNumber="59"/>
+    <functiondecl functionName="dgetsignexp" lineNumber="73"/>
+    <functiondecl functionName="dgetexp" lineNumber="78"/>
+    <functiondecl functionName="dldexp" lineNumber="83"/>
+    <functiondecl functionName="__wrap_ldexp" lineNumber="95"/>
+    <functiondecl functionName="dcopysign" lineNumber="101"/>
+    <functiondecl functionName="__wrap_copysign" lineNumber="107"/>
+    <functiondecl functionName="diszero" lineNumber="111"/>
+    <functiondecl functionName="dispzero" lineNumber="112"/>
+    <functiondecl functionName="dismzero" lineNumber="113"/>
+    <functiondecl functionName="disinf" lineNumber="114"/>
+    <functiondecl functionName="dispinf" lineNumber="115"/>
+    <functiondecl functionName="disminf" lineNumber="116"/>
+    <functiondecl functionName="disint" lineNumber="118"/>
+    <functiondecl functionName="disoddint" lineNumber="131"/>
+    <functiondecl functionName="disstrictneg" lineNumber="144"/>
+    <functiondecl functionName="disneg" lineNumber="150"/>
+    <functiondecl functionName="dneg" lineNumber="155"/>
+    <functiondecl functionName="dispo2" lineNumber="161"/>
+    <functiondecl functionName="dnan_or" lineNumber="169"/>
+    <functiondecl functionName="__wrap_trunc" lineNumber="177"/>
+    <functiondecl functionName="__wrap_round" lineNumber="193"/>
+    <functiondecl functionName="__wrap_floor" lineNumber="216"/>
+    <functiondecl functionName="__wrap_ceil" lineNumber="237"/>
+    <functiondecl functionName="__wrap_asin" lineNumber="258"/>
+    <functiondecl functionName="__wrap_acos" lineNumber="266"/>
+    <functiondecl functionName="__wrap_atan" lineNumber="274"/>
+    <functiondecl functionName="__wrap_sinh" lineNumber="281"/>
+    <functiondecl functionName="__wrap_cosh" lineNumber="286"/>
+    <functiondecl functionName="__wrap_tanh" lineNumber="291"/>
+    <functiondecl functionName="__wrap_asinh" lineNumber="304"/>
+    <functiondecl functionName="__wrap_acosh" lineNumber="316"/>
+    <functiondecl functionName="__wrap_atanh" lineNumber="325"/>
+    <functiondecl functionName="__wrap_exp2" lineNumber="330"/>
+    <functiondecl functionName="__wrap_log2" lineNumber="340"/>
+    <functiondecl functionName="__wrap_exp10" lineNumber="341"/>
+    <functiondecl functionName="__wrap_log10" lineNumber="342"/>
+    <functiondecl functionName="__wrap_expm1" lineNumber="345"/>
+    <functiondecl functionName="__wrap_log1p" lineNumber="346"/>
+    <functiondecl functionName="__wrap_fma" lineNumber="347"/>
+    <functiondecl functionName="dpow_1" lineNumber="350"/>
+    <functiondecl functionName="dpow_int2" lineNumber="387"/>
+    <functiondecl functionName="dpowint_1" lineNumber="397"/>
+    <functiondecl functionName="dpowint_0" lineNumber="403"/>
+    <functiondecl functionName="__wrap_powint" lineNumber="421"/>
+    <functiondecl functionName="dpow_0" lineNumber="451"/>
+    <functiondecl functionName="__wrap_pow" lineNumber="470"/>
+    <functiondecl functionName="__wrap_hypot" lineNumber="512"/>
+    <functiondecl functionName="__wrap_cbrt" lineNumber="527"/>
+    <functiondecl functionName="drem_0" lineNumber="541"/>
+    <functiondecl functionName="__wrap_fmod" lineNumber="562"/>
+    <functiondecl functionName="__wrap_remquo" lineNumber="581"/>
+    <functiondecl functionName="__wrap_drem" lineNumber="620"/>
+    <functiondecl functionName="__wrap_remainder" lineNumber="622"/>
+    <functioncall functionName="HUGE_VAL"/>
+    <functioncall functionName="atan2"/>
+    <functioncall functionName="cbrt"/>
+    <functioncall functionName="check_nan_d1"/>
+    <functioncall functionName="dcopysign"/>
+    <functioncall functionName="dgetexp"/>
+    <functioncall functionName="dgetsignexp"/>
+    <functioncall functionName="disinf"/>
+    <functioncall functionName="disint"/>
+    <functioncall functionName="disminf"/>
+    <functioncall functionName="disneg"/>
+    <functioncall functionName="disoddint"/>
+    <functioncall functionName="dispinf"/>
+    <functioncall functionName="dispo2"/>
+    <functioncall functionName="disstrictneg"/>
+    <functioncall functionName="diszero"/>
+    <functioncall functionName="dldexp"/>
+    <functioncall functionName="dnan_or"/>
+    <functioncall functionName="dneg"/>
+    <functioncall functionName="double2ui64"/>
+    <functioncall functionName="dpow_0"/>
+    <functioncall functionName="dpow_1"/>
+    <functioncall functionName="dpow_int2"/>
+    <functioncall functionName="dpowint_0"/>
+    <functioncall functionName="dpowint_1"/>
+    <functioncall functionName="drem_0"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="exp2"/>
+    <functioncall functionName="fix642double"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="ldexp"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="log2"/>
+    <functioncall functionName="pow"/>
+    <functioncall functionName="remquo"/>
+    <functioncall functionName="round"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="ui642double"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

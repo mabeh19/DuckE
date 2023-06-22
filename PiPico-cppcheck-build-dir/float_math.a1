@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="17686077472107286533">
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;exp(x) - 1&apos; can be replaced by &apos;expm1(x)&apos; to avoid loss of precision." verbose="Expression &apos;exp(x) - 1&apos; can be replaced by &apos;expm1(x)&apos; to avoid loss of precision." cwe="758" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="332" column="71"/>
+        </error>
+        <error id="unpreciseMathCall" severity="style" msg="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." verbose="Expression &apos;log(1 + x)&apos; can be replaced by &apos;log1p(x)&apos; to avoid loss of precision." cwe="758" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="333" column="71"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference" cwe="476" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="578" column="84" info="Null pointer dereference"/>
+        </error>
+        <error id="nullPointer" severity="error" msg="Null pointer dereference" verbose="Null pointer dereference" cwe="476" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="580" column="89" info="Null pointer dereference"/>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e&apos; can be reduced." verbose="The scope of the variable &apos;e&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="362" column="9"/>
+            <symbol>e</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;e&apos; can be reduced." verbose="The scope of the variable &apos;e&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="410" column="9"/>
+            <symbol>e</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;q&apos; can be reduced." verbose="The scope of the variable &apos;q&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="498" column="15"/>
+            <symbol>q</symbol>
+        </error>
+        <error id="variableScope" severity="style" msg="The scope of the variable &apos;s&apos; can be reduced." verbose="The scope of the variable &apos;s&apos; can be reduced. Warning: Be careful when fixing this message, especially when there are inner loops. Here is an example where cppcheck will write that the scope for &apos;i&apos; can be reduced:\012void f(int x)\012{\012    int i = 0;\012    if (x) {\012        // it&apos;s safe to move &apos;int i = 0;&apos; here\012        for (int n = 0; n &lt; 10; ++n) {\012            // it is possible but not safe to move &apos;int i = 0;&apos; here\012            do_something(&amp;i);\012        }\012    }\012}\012When you see this message it is always safe to reduce the variable scope 1 level." cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="498" column="21"/>
+            <symbol>s</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c:45:21" call-funcname="ui322float" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="89" col="22" call-argexpr="iy" call-argvaluetype="0" call-argvalue="0">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="86" col="19" info="Assignment &apos;iy=ix&amp;0x80000000&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c:497:12" call-funcname="frem_0" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="534" col="14" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c:497:12" call-funcname="frem_0" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_float/float_math.c" line="567" col="18" call-argexpr="&amp;q" call-argvaluetype="7" call-argvalue="4"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="ui322float" lineNumber="45"/>
+    <functiondecl functionName="float2ui32" lineNumber="51"/>
+    <functiondecl functionName="fisnan" lineNumber="57"/>
+    <functiondecl functionName="fgetsignexp" lineNumber="70"/>
+    <functiondecl functionName="fgetexp" lineNumber="75"/>
+    <functiondecl functionName="fldexp" lineNumber="80"/>
+    <functiondecl functionName="__wrap_ldexpf" lineNumber="92"/>
+    <functiondecl functionName="fcopysign" lineNumber="97"/>
+    <functiondecl functionName="__wrap_copysignf" lineNumber="103"/>
+    <functiondecl functionName="fiszero" lineNumber="108"/>
+    <functiondecl functionName="fispzero" lineNumber="109"/>
+    <functiondecl functionName="fismzero" lineNumber="110"/>
+    <functiondecl functionName="fisinf" lineNumber="111"/>
+    <functiondecl functionName="fispinf" lineNumber="112"/>
+    <functiondecl functionName="fisminf" lineNumber="113"/>
+    <functiondecl functionName="fisint" lineNumber="115"/>
+    <functiondecl functionName="fisoddint" lineNumber="128"/>
+    <functiondecl functionName="fisstrictneg" lineNumber="141"/>
+    <functiondecl functionName="fisneg" lineNumber="147"/>
+    <functiondecl functionName="fneg" lineNumber="152"/>
+    <functiondecl functionName="fispo2" lineNumber="158"/>
+    <functiondecl functionName="fnan_or" lineNumber="166"/>
+    <functiondecl functionName="__wrap_truncf" lineNumber="174"/>
+    <functiondecl functionName="__wrap_roundf" lineNumber="190"/>
+    <functiondecl functionName="__wrap_floorf" lineNumber="213"/>
+    <functiondecl functionName="__wrap_ceilf" lineNumber="234"/>
+    <functiondecl functionName="__wrap_asinf" lineNumber="255"/>
+    <functiondecl functionName="__wrap_acosf" lineNumber="263"/>
+    <functiondecl functionName="__wrap_atanf" lineNumber="271"/>
+    <functiondecl functionName="__wrap_sinhf" lineNumber="278"/>
+    <functiondecl functionName="__wrap_coshf" lineNumber="283"/>
+    <functiondecl functionName="__wrap_tanhf" lineNumber="288"/>
+    <functiondecl functionName="__wrap_asinhf" lineNumber="301"/>
+    <functiondecl functionName="__wrap_acoshf" lineNumber="313"/>
+    <functiondecl functionName="__wrap_atanhf" lineNumber="322"/>
+    <functiondecl functionName="__wrap_exp2f" lineNumber="327"/>
+    <functiondecl functionName="__wrap_log2f" lineNumber="328"/>
+    <functiondecl functionName="__wrap_exp10f" lineNumber="329"/>
+    <functiondecl functionName="__wrap_log10f" lineNumber="330"/>
+    <functiondecl functionName="__wrap_expm1f" lineNumber="332"/>
+    <functiondecl functionName="__wrap_log1pf" lineNumber="333"/>
+    <functiondecl functionName="__wrap_fmaf" lineNumber="334"/>
+    <functiondecl functionName="fpow_1" lineNumber="341"/>
+    <functiondecl functionName="fpow_int2" lineNumber="345"/>
+    <functiondecl functionName="fpowint_1" lineNumber="355"/>
+    <functiondecl functionName="fpowint_0" lineNumber="361"/>
+    <functiondecl functionName="__wrap_powintf" lineNumber="379"/>
+    <functiondecl functionName="fpow_0" lineNumber="409"/>
+    <functiondecl functionName="__wrap_powf" lineNumber="428"/>
+    <functiondecl functionName="__wrap_hypotf" lineNumber="468"/>
+    <functiondecl functionName="__wrap_cbrtf" lineNumber="483"/>
+    <functiondecl functionName="frem_0" lineNumber="497"/>
+    <functiondecl functionName="__wrap_fmodf" lineNumber="518"/>
+    <functiondecl functionName="__wrap_remquof" lineNumber="539"/>
+    <functiondecl functionName="__wrap_dremf" lineNumber="578"/>
+    <functiondecl functionName="__wrap_remainderf" lineNumber="580"/>
+    <functioncall functionName="HUGE_VALF"/>
+    <functioncall functionName="atan2f"/>
+    <functioncall functionName="cbrtf"/>
+    <functioncall functionName="exp"/>
+    <functioncall functionName="expf"/>
+    <functioncall functionName="fcopysign"/>
+    <functioncall functionName="fgetexp"/>
+    <functioncall functionName="fgetsignexp"/>
+    <functioncall functionName="fisinf"/>
+    <functioncall functionName="fisint"/>
+    <functioncall functionName="fisminf"/>
+    <functioncall functionName="fisneg"/>
+    <functioncall functionName="fisoddint"/>
+    <functioncall functionName="fispinf"/>
+    <functioncall functionName="fispo2"/>
+    <functioncall functionName="fisstrictneg"/>
+    <functioncall functionName="fiszero"/>
+    <functioncall functionName="fix2float"/>
+    <functioncall functionName="fldexp"/>
+    <functioncall functionName="float2ui32"/>
+    <functioncall functionName="fnan_or"/>
+    <functioncall functionName="fneg"/>
+    <functioncall functionName="fpow_0"/>
+    <functioncall functionName="fpow_1"/>
+    <functioncall functionName="fpow_int2"/>
+    <functioncall functionName="fpowint_0"/>
+    <functioncall functionName="fpowint_1"/>
+    <functioncall functionName="frem_0"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="log"/>
+    <functioncall functionName="logf"/>
+    <functioncall functionName="remquof"/>
+    <functioncall functionName="sqrt"/>
+    <functioncall functionName="sqrtf"/>
+    <functioncall functionName="ui322float"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="5898062471976840856">
+        <error id="syntaxError" severity="error" msg="syntax error" verbose="syntax error" file0="/home/mathias/pico-sdk/src/rp2_common/pico_stdio/stdio.c">
+            <location file="/home/mathias/pico-sdk/src/common/pico_sync/include/pico/mutex.h" line="47" column="1"/>
+        </error>
+</analyzerinfo>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="15440045583958858390">
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="298" col="24" call-argexpr="buf" call-argvaluetype="7" call-argvalue="32"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="7" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="298" col="24" call-argexpr="negative" call-argvaluetype="0" call-argvalue="0">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="567" col="100" info="Calling function &apos;_ntoa_long&apos;, 6th argument &apos;expval&lt;0&apos; value is 0"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="9" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="298" col="24" call-argexpr="prec" call-argvaluetype="0" call-argvalue="0">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="567" col="109" info="Calling function &apos;_ntoa_long&apos;, 8th argument &apos;0&apos; value is 0"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="325" col="24" call-argexpr="buf" call-argvaluetype="7" call-argvalue="32"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:200:15" call-funcname="_out_rev" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="460" col="20" call-argexpr="buf" call-argvaluetype="7" call-argvalue="32"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" call-funcname="_ntoa_long" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="567" col="25" call-argexpr="(unsigned int)((expval&lt;0)?-expval:expval)" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="567" col="67" info="Assuming that condition &apos;expval&lt;0&apos; is not redundant"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" call-funcname="_ntoa_long" call-argnr="8" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="567" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:190:21" call-funcname="_atoi" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="643" col="26" call-argexpr="&amp;format" call-argvaluetype="7" call-argvalue="1"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:190:21" call-funcname="_atoi" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="661" col="34" call-argexpr="&amp;format" call-argvaluetype="7" call-argvalue="1"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:305:15" call-funcname="_ntoa_long_long" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="747" col="46" call-argexpr="(unsigned long long)(value&gt;0?value:0-value)" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="748" col="75" info="Assuming that condition &apos;value&gt;0&apos; is not redundant"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" call-funcname="_ntoa_long" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="753" col="41" call-argexpr="(unsigned long)(value&gt;0?value:0-value)" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="753" col="91" info="Assuming that condition &apos;value&gt;0&apos; is not redundant"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" call-funcname="_ntoa_long" call-argnr="5" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="759" col="41" call-argexpr="(unsigned int)(value&gt;0?value:0-value)" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="759" col="90" info="Assuming that condition &apos;value&gt;0&apos; is not redundant"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:200:15" call-funcname="_out_rev" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="274" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:200:15" call-funcname="_out_rev" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="274" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="298" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="298" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:279:15" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="325" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:305:15" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:228:15" call-funcname="_ntoa_format" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="325" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:305:15" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:200:15" call-funcname="_out_rev" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="353" col="16" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:342:15" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:200:15" call-funcname="_out_rev" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="353" col="16" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:342:15" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:342:15" call-funcname="_ftoa" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="471" col="16" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:335:15" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:342:15" call-funcname="_ftoa" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="471" col="16" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:335:15" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" call-funcname="_vsnprintf" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="899" col="21" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:896:5" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" call-funcname="_vsnprintf" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="907" col="21" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:904:5" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" call-funcname="_vsnprintf" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="913" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:912:5" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" call-funcname="_vsnprintf" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="913" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:912:5" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" call-funcname="_vsnprintf" call-argnr="4" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="918" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/include/pico/printf.h:80:5" my-argnr="3"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:190:21" my-argnr="1" my-argname="str" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="192" col="24" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" my-argnr="4" my-argname="format" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="593" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:190:21" my-argnr="1" my-argname="str" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="192" col="24" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c:581:12" my-argnr="4" my-argname="format" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="593" col="13" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/include/pico/printf.h:80:5" my-argnr="1" my-argname="out" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="917" col="45" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/pico_printf/include/pico/printf.h:80:5" my-argnr="2" my-argname="arg" file="/home/mathias/pico-sdk/src/rp2_common/pico_printf/printf.c" line="917" col="50" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="_putchar" lineNumber="115"/>
+    <functiondecl functionName="_out_buffer" lineNumber="137"/>
+    <functiondecl functionName="_out_null" lineNumber="144"/>
+    <functiondecl functionName="_out_char" lineNumber="152"/>
+    <functiondecl functionName="_out_fct" lineNumber="163"/>
+    <functiondecl functionName="_strnlen_s" lineNumber="175"/>
+    <functiondecl functionName="_is_digit" lineNumber="184"/>
+    <functiondecl functionName="_atoi" lineNumber="190"/>
+    <functiondecl functionName="_out_rev" lineNumber="200"/>
+    <functiondecl functionName="_ntoa_format" lineNumber="228"/>
+    <functiondecl functionName="_ntoa_long" lineNumber="279"/>
+    <functiondecl functionName="_ntoa_long_long" lineNumber="305"/>
+    <functiondecl functionName="_ftoa" lineNumber="342"/>
+    <functiondecl functionName="_etoa" lineNumber="467"/>
+    <functiondecl functionName="_vsnprintf" lineNumber="581"/>
+    <functiondecl functionName="__wrap_sprintf" lineNumber="896"/>
+    <functiondecl functionName="__wrap_snprintf" lineNumber="904"/>
+    <functiondecl functionName="__wrap_vsnprintf" lineNumber="912"/>
+    <functiondecl functionName="vfctprintf" lineNumber="916"/>
+    <functiondecl functionName="weak_raw_printf" lineNumber="923"/>
+    <functiondecl functionName="weak_raw_vprintf" lineNumber="931"/>
+    <functioncall functionName="DBL_MAX"/>
+    <functioncall functionName="__builtin_isnan"/>
+    <functioncall functionName="_atoi"/>
+    <functioncall functionName="_etoa"/>
+    <functioncall functionName="_ftoa"/>
+    <functioncall functionName="_is_digit"/>
+    <functioncall functionName="_ntoa_format"/>
+    <functioncall functionName="_ntoa_long"/>
+    <functioncall functionName="_ntoa_long_long"/>
+    <functioncall functionName="_out_buffer"/>
+    <functioncall functionName="_out_char"/>
+    <functioncall functionName="_out_fct"/>
+    <functioncall functionName="_out_null"/>
+    <functioncall functionName="_out_rev"/>
+    <functioncall functionName="_putchar"/>
+    <functioncall functionName="_strnlen_s"/>
+    <functioncall functionName="_vsnprintf"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="fct"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="lazy_vsnprintf"/>
+    <functioncall functionName="out"/>
+    <functioncall functionName="putchar"/>
+    <functioncall functionName="puts"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="update_us_since_boot"/>
+    <functioncall functionName="va_arg"/>
+    <functioncall functionName="va_end"/>
+    <functioncall functionName="va_start"/>
+    <functioncall functionName="weak_raw_printf"/>
+    <functioncall functionName="weak_raw_vprintf"/>
+  </FileInfo>
+</analyzerinfo>

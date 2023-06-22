@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="3380820852193269308">
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c:36:6" call-funcname="_watchdog_enable" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c" line="96" col="21" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="watchdog_start_tick" lineNumber="14"/>
+    <functiondecl functionName="watchdog_update" lineNumber="25"/>
+    <functiondecl functionName="watchdog_get_count" lineNumber="30"/>
+    <functiondecl functionName="_watchdog_enable" lineNumber="36"/>
+    <functiondecl functionName="watchdog_enable" lineNumber="70"/>
+    <functiondecl functionName="watchdog_reboot" lineNumber="77"/>
+    <functiondecl functionName="watchdog_caused_reboot" lineNumber="99"/>
+    <functiondecl functionName="watchdog_enable_caused_reboot" lineNumber="104"/>
+    <functioncall functionName="_watchdog_enable"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="ctrl"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="hw_clear_bits"/>
+    <functioncall functionName="hw_set_bits"/>
+    <functioncall functionName="hw_xor_bits"/>
+    <functioncall functionName="offsetof"/>
+    <functioncall functionName="reason"/>
+    <functioncall functionName="static_assert"/>
+    <functioncall functionName="update_us_since_boot"/>
+    <functioncall functionName="watchdog_update"/>
+    <functioncall functionName="wdsel"/>
+  </FileInfo>
+</analyzerinfo>

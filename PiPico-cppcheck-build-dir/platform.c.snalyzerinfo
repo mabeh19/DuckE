@@ -1,0 +1,19 @@
+hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
+to_us_since_boot
+update_us_since_boot
+from_us_since_boot call:[update_us_since_boot]
+__breakpoint call:[asm] noreturn:[asm]
+__compiler_memory_barrier call:[asm] noreturn:[asm]
+rp2040_rom_version
+tight_loop_contents
+__mul_instruction call:[asm]
+__get_current_exception call:[asm]
+busy_wait_at_least_cycles call:[asm] noreturn:[asm]
+get_core_num call:[return] noreturn:[return]
+xip_alias_check_addr call:[assert] noreturn:[assert]
+hw_set_bits
+hw_clear_bits
+hw_xor_bits
+hw_write_masked call:[hw_xor_bits] noreturn:[hw_xor_bits]
+running_on_fpga
+rp2040_chip_version call:[assert,return]

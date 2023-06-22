@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="12051378688106930418">
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/datetime.h:29:6" my-argnr="1" my-argname="buf" file="/home/mathias/pico-sdk/src/common/pico_util/datetime.c" line="31" col="14" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/datetime.h:29:6" my-argnr="3" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_util/datetime.c" line="34" col="28" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_util/include/pico/util/datetime.h:29:6" my-argnr="3" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_util/datetime.c" line="34" col="28" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="datetime_to_str" lineNumber="30"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="snprintf"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

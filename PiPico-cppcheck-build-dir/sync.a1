@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="8612781420639163706">
+        <error id="funcArgNamesDifferent" severity="style" msg="Function &apos;spin_lock_claim_mask&apos; argument 1 names different: declaration &apos;lock_num_mask&apos; definition &apos;mask&apos;." verbose="Function &apos;spin_lock_claim_mask&apos; argument 1 names different: declaration &apos;lock_num_mask&apos; definition &apos;mask&apos;." cwe="628" inconclusive="true" file0="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/sync.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/sync.c" line="44" column="36"/>
+            <location file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="364" column="36"/>
+            <symbol>spin_lock_claim_mask</symbol>
+        </error>
+        <error id="constParameter" severity="style" msg="Parameter &apos;lock&apos; can be declared as pointer to const" verbose="Parameter &apos;lock&apos; can be declared as pointer to const" cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/sync.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="253" column="67" info="Parameter &apos;lock&apos; can be declared as pointer to const"/>
+            <symbol>lock</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:230:36" call-funcname="spin_lock_instance" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/sync.c" line="20" col="46" call-argexpr="i" call-argvaluetype="0" call-argvalue="0">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/sync.c" line="19" col="19" info="Assignment &apos;i=0&apos;, assigned value is 0"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" call-funcname="spin_lock_unsafe_blocking" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="281" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:279:32" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:241:28" call-funcname="spin_lock_get_num" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="292" col="21" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:290:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:266:28" call-funcname="spin_unlock_unsafe" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="308" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:307:28" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="257" col="31" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:266:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="268" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="257" col="31" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="check_lock_num" lineNumber="14"/>
+    <functiondecl functionName="spin_locks_reset" lineNumber="18"/>
+    <functiondecl functionName="spin_lock_init" lineNumber="24"/>
+    <functiondecl functionName="next_striped_spin_lock_num" lineNumber="31"/>
+    <functiondecl functionName="spin_lock_claim" lineNumber="39"/>
+    <functiondecl functionName="spin_lock_claim_mask" lineNumber="44"/>
+    <functiondecl functionName="spin_lock_unclaim" lineNumber="50"/>
+    <functiondecl functionName="spin_lock_claim_unused" lineNumber="56"/>
+    <functiondecl functionName="spin_lock_is_claimed" lineNumber="60"/>
+    <functioncall functionName="__builtin_expect"/>
+    <functioncall functionName="__dmb"/>
+    <functioncall functionName="__mem_fence_acquire"/>
+    <functioncall functionName="__mem_fence_release"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="check_lock_num"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="hw_claim_clear"/>
+    <functioncall functionName="hw_claim_or_assert"/>
+    <functioncall functionName="hw_claim_unused_from_range"/>
+    <functioncall functionName="hw_is_claimed"/>
+    <functioncall functionName="hw_xor_bits"/>
+    <functioncall functionName="restore_interrupts"/>
+    <functioncall functionName="save_and_disable_interrupts"/>
+    <functioncall functionName="spin_lock_claim"/>
+    <functioncall functionName="spin_lock_get_num"/>
+    <functioncall functionName="spin_lock_instance"/>
+    <functioncall functionName="spin_lock_unsafe_blocking"/>
+    <functioncall functionName="spin_unlock_unsafe"/>
+    <functioncall functionName="static_assert"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

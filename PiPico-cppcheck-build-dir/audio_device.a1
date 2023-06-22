@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="2466337176253203892">
+        <error id="preprocessorErrorDirective" severity="error" msg="#error &quot;Compiler attribute porting is required&quot;" verbose="#error &quot;Compiler attribute porting is required&quot;">
+            <location file="/home/mathias/pico-sdk/lib/tinyusb/src/common/tusb_compiler.h" line="236" column="0"/>
+        </error>
+</analyzerinfo>

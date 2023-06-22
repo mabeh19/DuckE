@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="2859446620962780034">
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/>  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="rom_func_lookup" lineNumber="15"/>
+    <functiondecl functionName="rom_data_lookup" lineNumber="19"/>
+    <functiondecl functionName="rom_funcs_lookup" lineNumber="26"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="func"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="rom_func_lookup"/>
+    <functioncall functionName="rom_func_lookup_inline"/>
+    <functioncall functionName="rom_table_lookup"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

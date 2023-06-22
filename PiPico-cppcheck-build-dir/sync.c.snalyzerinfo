@@ -1,0 +1,43 @@
+hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
+to_us_since_boot
+update_us_since_boot
+from_us_since_boot call:[update_us_since_boot]
+__breakpoint call:[asm] noreturn:[asm]
+__compiler_memory_barrier call:[asm] noreturn:[asm]
+rp2040_rom_version
+tight_loop_contents
+__mul_instruction call:[asm]
+__get_current_exception call:[asm]
+busy_wait_at_least_cycles call:[asm] noreturn:[asm]
+get_core_num call:[return] noreturn:[return]
+xip_alias_check_addr call:[assert] noreturn:[assert]
+hw_set_bits
+hw_clear_bits
+hw_xor_bits
+hw_write_masked call:[hw_xor_bits] noreturn:[hw_xor_bits]
+__sev call:[asm] noreturn:[asm]
+__wfe call:[asm] noreturn:[asm]
+__wfi call:[asm] noreturn:[asm]
+__dmb call:[asm] noreturn:[asm]
+__dsb call:[asm] noreturn:[asm]
+__isb call:[asm] noreturn:[asm]
+__mem_fence_acquire call:[__dmb] noreturn:[__dmb]
+__mem_fence_release call:[__dmb] noreturn:[__dmb]
+save_and_disable_interrupts call:[asm]
+restore_interrupts call:[asm] noreturn:[asm]
+spin_lock_instance call:[assert,return] noreturn:[assert]
+spin_lock_get_num call:[assert,return,sizeof] noreturn:[assert]
+spin_lock_unsafe_blocking call:[__builtin_expect,__mem_fence_acquire] noreturn:[__mem_fence_acquire]
+spin_unlock_unsafe call:[__mem_fence_release]
+spin_lock_blocking call:[save_and_disable_interrupts,spin_lock_unsafe_blocking]
+is_spin_locked call:[sizeof,spin_lock_get_num,static_assert]
+spin_unlock call:[restore_interrupts,spin_unlock_unsafe] noreturn:[restore_interrupts]
+check_lock_num call:[assert] noreturn:[assert]
+spin_locks_reset call:[spin_lock_instance,spin_unlock_unsafe] noreturn:[spin_unlock_unsafe]
+spin_lock_init call:[assert,spin_lock_instance,spin_unlock_unsafe]
+next_striped_spin_lock_num global:[striped_spin_lock_num]
+spin_lock_claim global:[claimed] call:[check_lock_num,hw_claim_or_assert] noreturn:[hw_claim_or_assert]
+spin_lock_claim_mask call:[spin_lock_claim] noreturn:[spin_lock_claim]
+spin_lock_unclaim global:[claimed] call:[check_lock_num,hw_claim_clear,spin_lock_instance,spin_unlock_unsafe] noreturn:[hw_claim_clear]
+spin_lock_claim_unused global:[claimed] call:[hw_claim_unused_from_range] noreturn:[hw_claim_unused_from_range]
+spin_lock_is_claimed global:[claimed] call:[check_lock_num,hw_is_claimed] noreturn:[hw_is_claimed]

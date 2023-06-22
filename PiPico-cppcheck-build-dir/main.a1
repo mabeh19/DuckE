@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="4974535156620943920">
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" verbose="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" cwe="570" file0="/home/mathias/Documents/C/PiPico/src/main.c">
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="98" column="26" info="Condition &apos;(int64_t)delayed&lt;0&apos; is always false"/>
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="97" column="22" info="delayed is assigned &apos;base+us&apos; here."/>
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="97" column="29" info="Assignment &apos;delayed=base+us&apos;, assigned value is greater than -1"/>
+        </error>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" verbose="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" cwe="570" file0="/home/mathias/Documents/C/PiPico/src/main.c">
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="117" column="26" info="Condition &apos;(int64_t)delayed&lt;0&apos; is always false"/>
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="116" column="22" info="delayed is assigned &apos;base+ms*1000ull&apos; here."/>
+            <location file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="116" column="29" info="Assignment &apos;delayed=base+ms*1000ull&apos;, assigned value is greater than -1"/>
+        </error>
+        <error id="constParameter" severity="style" msg="Parameter &apos;uart&apos; can be declared as pointer to const" verbose="Parameter &apos;uart&apos; can be declared as pointer to const" cwe="398" file0="/home/mathias/Documents/C/PiPico/src/main.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="100" column="48" info="Parameter &apos;uart&apos; can be declared as pointer to const"/>
+            <symbol>uart</symbol>
+        </error>
+        <error id="unusedVariable" severity="style" msg="Unused variable: tmp" verbose="Unused variable: tmp" cwe="563" file0="/home/mathias/Documents/C/PiPico/src/main.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/main.c" line="20" column="7"/>
+            <symbol>tmp</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;lvl&apos; is assigned a value that is never used." verbose="Variable &apos;lvl&apos; is assigned a value that is never used." cwe="563" file0="/home/mathias/Documents/C/PiPico/src/main.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/main.c" line="78" column="13"/>
+            <symbol>lvl</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="63" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="102" col="25" call-argexpr="&amp;t2" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="121" col="25" call-argexpr="&amp;t2" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="222" col="24" call-argexpr="0&lt;&lt;3u" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="227" col="24" call-argexpr="0&lt;&lt;0u" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="249" col="20" call-argexpr="((unsigned int)!!enabled)&lt;&lt;4u" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="250" col="21" info="Assuming that condition &apos;!enabled&apos; is not redundant"/>
+</function-call><function-call call-id="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h:113:6" call-funcname="check_sys_clock_khz" call-argnr="2" file="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h" line="128" col="28" call-argexpr="&amp;vco" call-argvaluetype="7" call-argvalue="4"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h:113:6" call-funcname="check_sys_clock_khz" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h" line="128" col="28" call-argexpr="&amp;postdiv1" call-argvaluetype="7" call-argvalue="4"/><function-call call-id="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h:113:6" call-funcname="check_sys_clock_khz" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h" line="128" col="28" call-argexpr="&amp;postdiv2" call-argvaluetype="7" call-argvalue="4"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="522" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="522" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="522" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" my-argnr="4"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="549" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="549" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="549" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" my-argnr="4"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="586" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:585:26" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="586" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:585:26" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" call-funcname="alarm_pool_add_alarm_in_us" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="612" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:611:26" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" call-funcname="alarm_pool_add_alarm_in_us" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="612" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:611:26" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" call-funcname="alarm_pool_add_alarm_in_ms" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="638" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:637:26" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" call-funcname="alarm_pool_add_alarm_in_ms" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="638" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:637:26" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="4"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="5"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="747" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:746:20" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="747" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:746:20" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="747" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:746:20" my-argnr="4"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="3" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="768" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:767:20" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="768" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:767:20" my-argnr="3"/>
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h" line="768" col="12" my-id="/home/mathias/pico-sdk/src/common/pico_time/include/pico/time.h:767:20" my-argnr="4"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:516:6" call-funcname="gpio_add_raw_irq_handler_with_order_priority_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="547" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:545:20" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:578:6" call-funcname="gpio_add_raw_irq_handler_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="606" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:604:20" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:620:6" call-funcname="gpio_remove_raw_irq_handler_masked" call-argnr="2" file="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="635" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:633:20" my-argnr="2"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="112" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="172" col="22" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:171:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="191" col="22" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:187:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="217" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:212:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="239" col="15" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:238:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="249" col="22" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:248:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="265" col="14" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:264:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="274" col="12" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:273:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="286" col="14" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:284:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:264:20" call-funcname="uart_is_writable" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="300" col="17" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:298:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:284:20" call-funcname="uart_is_readable" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="317" col="17" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:315:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:298:20" call-funcname="uart_write_blocking" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="335" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:334:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="349" col="32" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:346:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:334:20" call-funcname="uart_putc_raw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="369" col="13" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:315:20" call-funcname="uart_read_blocking" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="390" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:388:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="402" col="22" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:400:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="445" col="28" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:441:20" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="2" my-argname="s" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="366" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="2" my-argname="s" file="/home/mathias/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="366" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="18"/>
+    <functiondecl functionName="turn_on_led" lineNumber="55"/>
+    <functiondecl functionName="turn_off_led" lineNumber="60"/>
+    <functiondecl functionName="blink" lineNumber="65"/>
+    <functiondecl functionName="task1" lineNumber="76"/>
+    <functiondecl functionName="task2" lineNumber="88"/>
+    <functiondecl functionName="task3" lineNumber="100"/>
+    <functioncall functionName="Scheduler_Initialize"/>
+    <functioncall functionName="Scheduler_Sleep"/>
+    <functioncall functionName="Scheduler_Start"/>
+    <functioncall functionName="__CONCAT"/>
+    <functioncall functionName="alarm_pool_add_alarm_at"/>
+    <functioncall functionName="alarm_pool_add_alarm_in_ms"/>
+    <functioncall functionName="alarm_pool_add_alarm_in_us"/>
+    <functioncall functionName="alarm_pool_add_repeating_timer_us"/>
+    <functioncall functionName="alarm_pool_cancel_alarm"/>
+    <functioncall functionName="alarm_pool_get_default"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="check_gpio_param"/>
+    <functioncall functionName="check_sys_clock_khz"/>
+    <functioncall functionName="delayed_by_ms"/>
+    <functioncall functionName="delayed_by_us"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="get_absolute_time"/>
+    <functioncall functionName="get_core_num"/>
+    <functioncall functionName="gpio_add_raw_irq_handler_masked"/>
+    <functioncall functionName="gpio_add_raw_irq_handler_with_order_priority_masked"/>
+    <functioncall functionName="gpio_clr_mask"/>
+    <functioncall functionName="gpio_in"/>
+    <functioncall functionName="gpio_is_dir_out"/>
+    <functioncall functionName="gpio_remove_raw_irq_handler_masked"/>
+    <functioncall functionName="gpio_set_dir_in_masked"/>
+    <functioncall functionName="gpio_set_dir_out_masked"/>
+    <functioncall functionName="gpio_set_mask"/>
+    <functioncall functionName="gpio_set_pulls"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="hw_clear_bits"/>
+    <functioncall functionName="hw_set_bits"/>
+    <functioncall functionName="hw_write_masked"/>
+    <functioncall functionName="hw_xor_bits"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="panic"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="proc0_irq_ctrl"/>
+    <functioncall functionName="proc1_irq_ctrl"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="set_sys_clock_pll"/>
+    <functioncall functionName="sleep_ms"/>
+    <functioncall functionName="static_assert"/>
+    <functioncall functionName="stdio_init_all"/>
+    <functioncall functionName="tight_loop_contents"/>
+    <functioncall functionName="time_us_64"/>
+    <functioncall functionName="timerawh"/>
+    <functioncall functionName="timerawl"/>
+    <functioncall functionName="to_us_since_boot"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="turn_off_led"/>
+    <functioncall functionName="turn_on_led"/>
+    <functioncall functionName="uart"/>
+    <functioncall functionName="uart_get_hw"/>
+    <functioncall functionName="uart_get_index"/>
+    <functioncall functionName="uart_is_readable"/>
+    <functioncall functionName="uart_is_writable"/>
+    <functioncall functionName="uart_putc"/>
+    <functioncall functionName="uart_putc_raw"/>
+    <functioncall functionName="uart_read_blocking"/>
+    <functioncall functionName="uart_tx_wait_blocking"/>
+    <functioncall functionName="uart_write_blocking"/>
+    <functioncall functionName="update_us_since_boot"/>
+    <functioncall functionName="us_to_ms"/>
+  </FileInfo>
+</analyzerinfo>

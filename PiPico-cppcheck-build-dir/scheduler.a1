@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="3989262646075986567">
+        <error id="pointerSize" severity="warning" msg="Size of pointer &apos;data&apos; used instead of size of its data." verbose="Size of pointer &apos;data&apos; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &apos;sizeof(*data)&apos;." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="133" column="41"/>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;__internal_stack__&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;__internal_stack__&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="81" column="48"/>
+            <symbol>__internal_stack__</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;__internal_stack__+internalStackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;__internal_stack__+internalStackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="81" column="68"/>
+            <symbol>__internal_stack__+internalStackSize</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;newTask-&gt;stack&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;newTask-&gt;stack&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="130" column="46"/>
+            <symbol>newTask-&gt;stack</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;newTask-&gt;stack+stackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;newTask-&gt;stack+stackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="130" column="58"/>
+            <symbol>newTask-&gt;stack+stackSize</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;entry-&gt;stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;entry-&gt;stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="133" column="36"/>
+            <symbol>entry-&gt;stackPtr</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;entry-&gt;stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;entry-&gt;stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="134" column="29"/>
+            <symbol>entry-&gt;stackPtr</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;oldTaskIndex&apos; is assigned a value that is never used." verbose="Variable &apos;oldTaskIndex&apos; is assigned a value that is never used." cwe="563" file0="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c">
+            <location file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="177" column="18"/>
+            <symbol>oldTaskIndex</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.h:22:12" call-funcname="Scheduler_CreateTask" call-argnr="3" file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="83" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.h:22:12" call-funcname="Scheduler_CreateTask" call-argnr="5" file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="83" col="25" call-argexpr="NULL" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.h:23:6" call-funcname="Scheduler_Sleep" call-argnr="1" file="/home/mathias/Documents/C/PiPico/src/scheduler/scheduler.c" line="169" col="31" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/>  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="Scheduler_Initialize" lineNumber="69"/>
+    <functiondecl functionName="Scheduler_Start" lineNumber="86"/>
+    <functiondecl functionName="Scheduler_CreateTask" lineNumber="98"/>
+    <functiondecl functionName="Scheduler_Sleep" lineNumber="158"/>
+    <functiondecl functionName="Scheduler_IdleTask" lineNumber="166"/>
+    <functiondecl functionName="Scheduler_FindHighestPriorityTaskAvailable" lineNumber="174"/>
+    <functiondecl functionName="Scheduler_StartFirstTask" lineNumber="204"/>
+    <functiondecl functionName="Scheduler_ContextSwitch" lineNumber="222"/>
+    <functiondecl functionName="Scheduler_UpdateTicks" lineNumber="245"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="Scheduler_ContextSwitch"/>
+    <functioncall functionName="Scheduler_CreateTask"/>
+    <functioncall functionName="Scheduler_FindHighestPriorityTaskAvailable"/>
+    <functioncall functionName="Scheduler_IdleTask"/>
+    <functioncall functionName="Scheduler_InitTick"/>
+    <functioncall functionName="Scheduler_SaveStackPointer"/>
+    <functioncall functionName="Scheduler_Sleep"/>
+    <functioncall functionName="Scheduler_SwitchTask"/>
+    <functioncall functionName="extFree"/>
+    <functioncall functionName="extMalloc"/>
+    <functioncall functionName="extRealloc"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="tableAllocError"/>
+    <functioncall functionName="taskAllocError"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

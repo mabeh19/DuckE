@@ -1,0 +1,18 @@
+hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
+to_us_since_boot
+update_us_since_boot
+from_us_since_boot call:[update_us_since_boot]
+__breakpoint call:[asm] noreturn:[asm]
+__compiler_memory_barrier call:[asm] noreturn:[asm]
+rp2040_rom_version
+tight_loop_contents
+__mul_instruction call:[asm]
+__get_current_exception call:[asm]
+busy_wait_at_least_cycles call:[asm] noreturn:[asm]
+get_core_num call:[return] noreturn:[return]
+rom_table_code call:[return] noreturn:[return]
+rom_func_lookup_inline call:[rom_table_lookup] noreturn:[rom_table_lookup]
+reset_usb_boot call:[func,rom_func_lookup,void] noreturn:[func]
+rom_func_lookup call:[rom_func_lookup_inline] noreturn:[rom_func_lookup_inline]
+rom_data_lookup call:[rom_table_lookup] noreturn:[rom_table_lookup]
+rom_funcs_lookup call:[rom_func_lookup]

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="1481899383799791803">
+        <error id="constParameter" severity="style" msg="Parameter &apos;lock&apos; can be declared as pointer to const" verbose="Parameter &apos;lock&apos; can be declared as pointer to const" cwe="398" file0="/home/mathias/pico-sdk/src/rp2_common/hardware_exception/exception.c">
+            <location file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="253" column="67" info="Parameter &apos;lock&apos; can be declared as pointer to const"/>
+            <symbol>lock</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" call-funcname="spin_lock_unsafe_blocking" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="281" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:279:32" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:241:28" call-funcname="spin_lock_get_num" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="292" col="21" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:290:20" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:266:28" call-funcname="spin_unlock_unsafe" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="308" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:307:28" my-argnr="1"/>
+<function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_exception/exception.c:14:13" call-funcname="exception_is_compile_time_default" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_exception/exception.c" line="56" col="17" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_exception/include/hardware/exception.h:92:6" my-argnr="2"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="257" col="31" value="0"/>
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:266:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="268" col="6" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h:253:28" my-argnr="1" my-argname="lock" file="/home/mathias/pico-sdk/src/rp2_common/hardware_sync/include/hardware/sync.h" line="257" col="31" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="exception_is_compile_time_default" lineNumber="14"/>
+    <functiondecl functionName="get_vtable" lineNumber="22"/>
+    <functiondecl functionName="set_raw_exception_handler_and_restore_interrupts" lineNumber="26"/>
+    <functiondecl functionName="check_exception_param" lineNumber="33"/>
+    <functiondecl functionName="exception_get_vtable_handler" lineNumber="37"/>
+    <functiondecl functionName="exception_set_exclusive_handler" lineNumber="42"/>
+    <functiondecl functionName="exception_restore_handler" lineNumber="55"/>
+    <functioncall functionName="__builtin_expect"/>
+    <functioncall functionName="__dmb"/>
+    <functioncall functionName="__mem_fence_acquire"/>
+    <functioncall functionName="__mem_fence_release"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="check_exception_param"/>
+    <functioncall functionName="exception_get_vtable_handler"/>
+    <functioncall functionName="exception_is_compile_time_default"/>
+    <functioncall functionName="get_vtable"/>
+    <functioncall functionName="hard_assert"/>
+    <functioncall functionName="hard_assertion_failure"/>
+    <functioncall functionName="hw_xor_bits"/>
+    <functioncall functionName="restore_interrupts"/>
+    <functioncall functionName="save_and_disable_interrupts"/>
+    <functioncall functionName="set_raw_exception_handler_and_restore_interrupts"/>
+    <functioncall functionName="spin_lock_get_num"/>
+    <functioncall functionName="spin_lock_unsafe_blocking"/>
+    <functioncall functionName="spin_unlock_unsafe"/>
+    <functioncall functionName="static_assert"/>
+    <functioncall functionName="update_us_since_boot"/>
+    <functioncall functionName="vtor"/>
+  </FileInfo>
+</analyzerinfo>

@@ -6,7 +6,7 @@
         .global Scheduler_SaveCoreRegisters
         .global Scheduler_SwitchTask
         .global Scheduler_SaveStackPointer
-        .global SysTick_Handler
+        .global isr_systick 
 
         
         .code 16
@@ -33,6 +33,12 @@
 // r0: void* newStackPtr
 Scheduler_SwitchTask:
         mov     sp, r0
+
+        // Restore status registers 
+        pop     {r0-r2}
+        msr     apsr, r0 
+        msr     primask, r1 
+        msr     control, r2
        
         // Restore r8-r12
         pop     {r0-r4}
@@ -58,27 +64,31 @@ Scheduler_SaveStackPointer:
         str     r1, [r0]
         bx      lr
 
+
+
+        .type isr_systick,%function
         .thumb_func
         .code 16
         .align 2
-SysTick_Handler:
+isr_systick:
+//SysTick_Handler:
         // Clear SysTick int
         push    {r0-r7}
         push    {lr}
 
         movs    r0, #1
         ldr     r1, =systickICPR
-        ldr     r1, [r1]
         str     r0, [r1]
-        
-        bl      Scheduler_UpdateTicks
+
+        bl      Scheduler_ArmTimer
+        bl      print
 
         pop     {r0}
         mov     lr, r0
         pop     {r0-r7}
-        
-        bl      Scheduler_ArmTimer
+
         b       Scheduler_ContextSwitch
 
-        .sect ".data"
-systickICPR:     .word 0x40054034
+        //.sect ".data"
+systickICPR:    .word 0x40054034
+debugMsg:       .asciz "tick\n"

@@ -1,0 +1,31 @@
+hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
+to_us_since_boot
+update_us_since_boot
+from_us_since_boot call:[update_us_since_boot]
+__breakpoint call:[asm] noreturn:[asm]
+__compiler_memory_barrier call:[asm] noreturn:[asm]
+rp2040_rom_version
+tight_loop_contents
+__mul_instruction call:[asm]
+__get_current_exception call:[asm]
+busy_wait_at_least_cycles call:[asm] noreturn:[asm]
+get_core_num call:[return] noreturn:[return]
+ph_get_node call:[assert]
+ph_add_child_node call:[assert,ph_get_node]
+ph_merge_nodes call:[comparator,ph_add_child_node]
+ph_new_node call:[ph_get_node]
+ph_insert_node call:[assert,ph_get_node,ph_merge_nodes]
+ph_peek_head
+ph_remove_and_free_head call:[ph_remove_head] noreturn:[ph_remove_head]
+ph_contains_node call:[ph_get_node]
+ph_free_node call:[assert,ph_contains_node,ph_get_node]
+ph_create call:[assert,calloc,ph_post_alloc_init,sizeof] noreturn:[assert]
+ph_post_alloc_init call:[assert,ph_clear,sizeof] noreturn:[assert,ph_clear]
+ph_clear call:[ph_get_node]
+ph_destroy call:[free] noreturn:[free]
+ph_merge_two_pass call:[ph_get_node,ph_merge_nodes,ph_merge_two_pass] noreturn:[ph_merge_nodes]
+ph_remove_any_head call:[assert,ph_get_node,ph_merge_two_pass]
+ph_remove_head call:[ph_peek_head,ph_remove_any_head]
+ph_remove_and_free_node call:[assert,ph_get_node,ph_merge_nodes,ph_remove_and_free_head,ph_remove_any_head,while] noreturn:[assert]
+ph_dump_node call:[dump_key,ph_dump_node,ph_get_node,printf,putchar] noreturn:[dump_key,ph_dump_node,putchar]
+ph_dump call:[ph_dump_node,printf] noreturn:[printf]
