@@ -1,6 +1,5 @@
-hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
 to_us_since_boot
-update_us_since_boot
+update_us_since_boot call:[assert]
 from_us_since_boot call:[update_us_since_boot]
 __breakpoint call:[asm] noreturn:[asm]
 __compiler_memory_barrier call:[asm] noreturn:[asm]
@@ -18,5 +17,5 @@ hw_write_masked call:[hw_xor_bits] noreturn:[hw_xor_bits]
 frequency_count_mhz call:[frequency_count_khz,return]
 clock_gpio_init call:[clock_gpio_init_int_frac] noreturn:[clock_gpio_init_int_frac]
 Scheduler_ArmTimer call:[clock_get_hz]
-Scheduler_InitTimer call:[Scheduler_ArmTimer,asm,exception_set_exclusive_handler] noreturn:[asm]
-Scheduler_InitTick call:[Scheduler_InitTimer,printf] noreturn:[printf]
+Scheduler_InitTimer call:[Scheduler_ArmTimer,exception_set_exclusive_handler] noreturn:[exception_set_exclusive_handler]
+Scheduler_InitTick call:[Scheduler_InitTimer] noreturn:[Scheduler_InitTimer]

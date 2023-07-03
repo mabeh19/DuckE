@@ -17,7 +17,8 @@
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "files.associations": {
         "cstdint": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "scheduler.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }

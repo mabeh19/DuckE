@@ -20,6 +20,7 @@ typedef void* TaskHandle;
 void Scheduler_Initialize(Scheduler_Malloc _malloc, Scheduler_Realloc _realloc, Scheduler_Free _free);
 void Scheduler_Start(void);
 TaskHandle Scheduler_CreateTask(const char* name, u32 stackSize, u8 priority, Scheduler_TaskFunc task, void* data);
+void Scheduler_DeleteTask(TaskHandle handle);
 void Scheduler_Sleep(u32 ticks);
 
 #endif /* __SCHEDULER_H__ */

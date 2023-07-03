@@ -1,29 +1,27 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="14615687218892604521">
+<analyzerinfo hash="16829793033758195862">
   <FileInfo check="ctu">
-<function-call call-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="8"/><function-call call-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="/home/mathias/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="t" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
   </FileInfo>
   <FileInfo check="Null pointer">
-    <unsafe-usage my-id="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="/home/mathias/pico-sdk/src/common/pico_base/include/pico/types.h" line="61" col="6" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="64" col="5" value="0"/>
   </FileInfo>
   <FileInfo check="CheckUnusedFunctions">
-    <functiondecl functionName="Scheduler_ArmTimer" lineNumber="32"/>
-    <functiondecl functionName="Scheduler_InitTimer" lineNumber="38"/>
-    <functiondecl functionName="Scheduler_InitTick" lineNumber="57"/>
+    <functiondecl functionName="Scheduler_ArmTimer" lineNumber="34"/>
+    <functiondecl functionName="Scheduler_InitTimer" lineNumber="41"/>
+    <functiondecl functionName="Scheduler_InitTick" lineNumber="59"/>
     <functioncall functionName="CLK_COUNT"/>
     <functioncall functionName="SYSTICK_EXCEPTION"/>
     <functioncall functionName="Scheduler_ArmTimer"/>
     <functioncall functionName="Scheduler_InitTimer"/>
-    <functioncall functionName="SysTick_Handler"/>
     <functioncall functionName="assert"/>
     <functioncall functionName="clk_sys"/>
     <functioncall functionName="clock_get_hz"/>
     <functioncall functionName="clock_gpio_init_int_frac"/>
     <functioncall functionName="exception_set_exclusive_handler"/>
     <functioncall functionName="frequency_count_khz"/>
-    <functioncall functionName="hard_assertion_failure"/>
     <functioncall functionName="hw_xor_bits"/>
-    <functioncall functionName="printf"/>
+    <functioncall functionName="isr_systick"/>
     <functioncall functionName="static_assert"/>
     <functioncall functionName="update_us_since_boot"/>
   </FileInfo>

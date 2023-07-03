@@ -24,7 +24,7 @@ set(PICO_TIME_DEFAULT_ALARM_POOL_DISABLED 1)
 
 target_link_libraries(PiPico 
                       pico_stdlib 
-                      #pico_cyw43_arch_none 
+                      pico_cyw43_arch_none 
                       hardware_clocks 
                       hardware_exception 
                       pico_base_headers)

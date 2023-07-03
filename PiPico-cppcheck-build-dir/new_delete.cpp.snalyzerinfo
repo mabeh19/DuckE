@@ -1,4 +1,0 @@
-operatornew call:[malloc] noreturn:[malloc]
-operatornew[] call:[malloc] noreturn:[malloc]
-operatordelete call:[free] noreturn:[free]
-operatordelete[] call:[free] noreturn:[free]

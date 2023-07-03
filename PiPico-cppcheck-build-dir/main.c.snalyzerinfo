@@ -1,6 +1,5 @@
-hard_assert call:[hard_assertion_failure] noreturn:[hard_assertion_failure]
 to_us_since_boot
-update_us_since_boot
+update_us_since_boot call:[assert]
 from_us_since_boot call:[update_us_since_boot]
 __breakpoint call:[asm] noreturn:[asm]
 __compiler_memory_barrier call:[asm] noreturn:[asm]
@@ -87,10 +86,46 @@ uart_set_break call:[hw_clear_bits,hw_set_bits,uart_get_hw] noreturn:[hw_clear_b
 uart_default_tx_wait_blocking call:[__CONCAT,uart_tx_wait_blocking] noreturn:[uart_tx_wait_blocking]
 uart_get_dreq call:[static_assert,uart_get_index]
 set_sys_clock_khz call:[check_sys_clock_khz,panic,set_sys_clock_pll] noreturn:[panic]
-main call:[Scheduler_Initialize,Scheduler_Start,printf,sleep_ms,stdio_init_all]
-turn_on_led
-turn_off_led
-blink call:[sleep_ms,turn_off_led,turn_on_led] noreturn:[sleep_ms]
-task1 call:[Scheduler_Sleep,printf] noreturn:[Scheduler_Sleep]
-task2 call:[Scheduler_Sleep,printf,turn_off_led] noreturn:[Scheduler_Sleep]
+cyw43_hal_ticks_us call:[time_us_32] noreturn:[time_us_32]
+cyw43_hal_ticks_ms call:[get_absolute_time,to_ms_since_boot] noreturn:[to_ms_since_boot]
+cyw43_hal_pin_read call:[gpio_get] noreturn:[gpio_get]
+cyw43_hal_pin_low call:[gpio_clr_mask] noreturn:[gpio_clr_mask]
+cyw43_hal_pin_high call:[gpio_set_mask] noreturn:[gpio_set_mask]
+cyw43_hal_pin_config call:[assert,gpio_set_dir,gpio_set_pulls] noreturn:[gpio_set_pulls]
+cyw43_wifi_scan_active
+cyw43_wifi_ap_get_ssid
+cyw43_wifi_ap_get_auth
+cyw43_wifi_ap_set_channel
+cyw43_wifi_ap_set_ssid call:[memcpy,sizeof] noreturn:[memcpy]
+cyw43_wifi_ap_set_password call:[memcpy,sizeof] noreturn:[memcpy]
+cyw43_wifi_ap_set_auth
+cyw43_is_initialized
+cyw43_pm_value
+async_context_acquire_lock_blocking call:[acquire_lock_blocking] noreturn:[acquire_lock_blocking]
+async_context_release_lock call:[release_lock] noreturn:[release_lock]
+async_context_lock_check call:[lock_check] noreturn:[lock_check]
+async_context_execute_sync call:[execute_sync] noreturn:[execute_sync]
+async_context_add_at_time_worker call:[add_at_time_worker] noreturn:[add_at_time_worker]
+async_context_add_at_time_worker_at call:[add_at_time_worker] noreturn:[add_at_time_worker]
+async_context_add_at_time_worker_in_ms call:[add_at_time_worker,make_timeout_time_ms] noreturn:[add_at_time_worker]
+async_context_remove_at_time_worker call:[remove_at_time_worker] noreturn:[remove_at_time_worker]
+async_context_add_when_pending_worker call:[add_when_pending_worker] noreturn:[add_when_pending_worker]
+async_context_remove_when_pending_worker call:[remove_when_pending_worker] noreturn:[remove_when_pending_worker]
+async_context_set_work_pending call:[set_work_pending] noreturn:[set_work_pending]
+async_context_poll call:[poll] noreturn:[poll]
+async_context_wait_until call:[wait_until] noreturn:[wait_until]
+async_context_wait_for_work_until call:[wait_for_work_until] noreturn:[wait_for_work_until]
+async_context_wait_for_work_ms call:[async_context_wait_for_work_until,make_timeout_time_ms] noreturn:[async_context_wait_for_work_until]
+async_context_core_num
+async_context_deinit call:[deinit] noreturn:[deinit]
+cyw43_arch_lwip_begin call:[cyw43_thread_enter] noreturn:[cyw43_thread_enter]
+cyw43_arch_lwip_end call:[cyw43_thread_exit] noreturn:[cyw43_thread_exit]
+cyw43_arch_lwip_protect call:[cyw43_arch_lwip_begin,cyw43_arch_lwip_end,func]
+main call:[Scheduler_CreateTask,Scheduler_Initialize,Scheduler_Start,cyw43_arch_init,printf,stdio_init_all] noreturn:[printf]
+turn_on_led call:[cyw43_arch_gpio_put] noreturn:[cyw43_arch_gpio_put]
+turn_off_led call:[cyw43_arch_gpio_put] noreturn:[cyw43_arch_gpio_put]
+blink call:[sleep_us,turn_off_led,turn_on_led] noreturn:[sleep_us]
+task1 call:[Scheduler_DeleteTask,Scheduler_Sleep,printf] noreturn:[Scheduler_DeleteTask]
+task1x call:[Scheduler_DeleteTask,printf] noreturn:[Scheduler_DeleteTask]
+task2 call:[Scheduler_CreateTask,Scheduler_Sleep,printf,turn_off_led] noreturn:[Scheduler_Sleep]
 task3 call:[Scheduler_Sleep,printf,turn_on_led] noreturn:[Scheduler_Sleep]

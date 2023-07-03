@@ -4,7 +4,7 @@
 #include "hardware/exception.h"
 #include "hardware/clocks.h"
 
-#define configTICK_RATE_HZ (100U)
+#define configTICK_RATE_HZ (1000U)
 /* Constants required to manipulate the NVIC. */
 #define portNVIC_SYSTICK_CTRL_REG             ( *( ( volatile uint32_t * ) 0xe000e010 ) )
 #define portNVIC_SYSTICK_LOAD_REG             ( *( ( volatile uint32_t * ) 0xe000e014 ) )
@@ -30,13 +30,15 @@
 //extern void SysTick_Handler(void);
 extern void isr_systick(void);
 
-void Scheduler_ArmTimer(void)
+void
+Scheduler_ArmTimer(void)
 {
     portNVIC_SYSTICK_LOAD_REG = ( clock_get_hz( clk_sys ) / configTICK_RATE_HZ ) - 1UL;
     //timer_hw->alarm[SYSTICK_NUM] = 1000U;
 }
 
-static void Scheduler_InitTimer(void)
+static void
+Scheduler_InitTimer(void)
 {
     
     /* Stop and reset the SysTick. */
@@ -53,8 +55,8 @@ static void Scheduler_InitTimer(void)
 }
 
 
-void Scheduler_InitTick(void)
+void
+Scheduler_InitTick(void)
 {
     Scheduler_InitTimer();
-    printf("Timer started!\n");
 }

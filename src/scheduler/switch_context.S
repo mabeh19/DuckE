@@ -76,13 +76,11 @@ isr_systick:
         push    {r0-r7}
         push    {lr}
 
-        @ movs    r0, #1
+        bl      Scheduler_UpdateTicks
+
         ldr     r1, =syst_CSR
         ldr     r1, [r1]
         ldr     r1, [r1]
-
-        @bl      Scheduler_ArmTimer
-        //bl      print
 
         pop     {r0}
         mov     lr, r0
