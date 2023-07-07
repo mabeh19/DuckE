@@ -14,10 +14,12 @@ pico_sdk_init()
 
 
 add_executable(PiPico 
-                  src/main.c
+                  src/test.c
                   src/scheduler/scheduler.c
                   src/scheduler/switch_context.S 
-                  src/scheduler/tick.c)
+                  src/scheduler/tick.c
+                  src/scheduler/event.c
+                  )
 
 set(PICO_TIME_DEFAULT_ALARM_POOL_DISABLED 1)
 #set_target_properties(PiPico PROPERTIES COMPILE_FLAGS "-save-temps") 

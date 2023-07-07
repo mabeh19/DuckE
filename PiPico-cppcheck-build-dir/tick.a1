@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<analyzerinfo hash="16829793033758195862">
+<analyzerinfo hash="186568284355446702">
   <FileInfo check="ctu">
 <function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="t" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
   </FileInfo>

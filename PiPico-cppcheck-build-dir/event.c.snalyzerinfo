@@ -1,0 +1,8 @@
+Event_ConstructSubscriber global:[extMalloc] call:[extMalloc,sizeof,va_arg,va_end,va_start,void]
+Event_AddSubscriber
+Event_Initialize global:[extFree,extMalloc]
+Event_Create global:[extMalloc] call:[extMalloc,return,sizeof]
+Event_Consume global:[extFree] call:[extFree]
+Event_Listen call:[Event_AddSubscriber,Event_ConstructSubscriber] noreturn:[Event_AddSubscriber]
+Event_Wait call:[Event_AddSubscriber,Event_ConstructSubscriber,Scheduler_GetCurrentTask,Scheduler_Sleep] noreturn:[Scheduler_Sleep]
+Event_Broadcast call:[Scheduler_WakeTask,handler]

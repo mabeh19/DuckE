@@ -1,8 +1,9 @@
 Scheduler_Initialize global:[__internal_stackPtr__,__internal_stack__,__task_table__,extFree,extMalloc,extRealloc] call:[Scheduler_CreateTask,extMalloc] noreturn:[Scheduler_CreateTask]
 Scheduler_Start call:[Scheduler_FindHighestPriorityTaskAvailable,Scheduler_InitTick,Scheduler_StartFirstTask,asm,printf]
-Scheduler_CreateTask global:[__task_table__,extFree,extMalloc] call:[extFree,extMalloc,memcpy,memset,printf,return,sizeof,strncpy]
-Scheduler_Sleep global:[__task_table__] call:[Scheduler_ContextSwitch,Scheduler_MoveTaskToBlockedList] noreturn:[Scheduler_ContextSwitch]
+Scheduler_CreateTask global:[__task_table__,extFree,extMalloc] call:[extFree,extMalloc,memcpy,memset,printf,return,sizeof,strncpy,va_arg,va_end,va_start] noreturn:[memcpy]
+Scheduler_Sleep global:[__task_table__] call:[Scheduler_ContextSwitch,Scheduler_MoveTaskToBlockedList]
 Scheduler_DeleteTask global:[__task_table__] call:[Scheduler_FindHighestPriorityTaskAvailable,Scheduler_RemoveTask,Scheduler_SwitchTask,asm] noreturn:[Scheduler_RemoveTask,Scheduler_SwitchTask,asm]
+Scheduler_GetCurrentTask global:[__task_table__]
 Scheduler_IdleTask
 Scheduler_FindHighestPriorityTaskAvailable global:[__task_table__]
 Scheduler_StartFirstTask call:[Scheduler_SwitchTask,asm] noreturn:[Scheduler_SwitchTask]
@@ -13,4 +14,5 @@ Scheduler_MoveTaskToReadyList global:[__task_table__] call:[Scheduler_MoveTaskTo
 Scheduler_MoveTaskToOtherList
 Scheduler_TaskToListEntry call:[offsetof,return]
 Scheduler_FreeTask global:[extFree] call:[extFree] noreturn:[extFree]
-Scheduler_RemoveTask global:[__task_table__] call:[Scheduler_FreeTask,Scheduler_MoveTaskToOtherList,Scheduler_TaskToListEntry]
+Scheduler_RemoveTask global:[__task_table__] call:[Scheduler_FreeTask,Scheduler_MoveTaskToOtherList,Scheduler_TaskToListEntry,sizeof]
+Scheduler_WakeTask call:[Scheduler_TaskToListEntry]
