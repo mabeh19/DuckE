@@ -1,5 +1,5 @@
 # Introduction
-DuckE (pronounced Ducky) is a RTOS for embedded systems which focuses on safety. 
+DuckE (pronounced Ducky) is an RTOS for embedded systems which focuses on safety. 
 Static memory allocation is the default, but users can opt in for dynamic memory allocation using application defined functions. All modules can be initialized with application defined dynamic memory allocation functions.
 
 ## DuckE features
@@ -15,3 +15,4 @@ The following features are planned:
 1. EventQueue - queue for events which can be retrieved
 2. Mutex/Semaphore - resource guards, will be implemented in a similar way as events
 3. FFile - integration with [FFile filesystem](https://github.com/mabeh19/FFile)
+4. Timing analysis - the goal is to allow for static timing analysis of tasks, which would be available for configurations using very strict requirements for tasks.
