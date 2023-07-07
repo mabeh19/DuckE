@@ -14,7 +14,7 @@
 #include "scheduler.h"
 
 
-enum SubType {
+enum ListenerType {
     Task, 
     AsyncHandler
 };
@@ -33,16 +33,16 @@ union EventSub {
  * Tagged union subscriber type
  * either task or handler (func call)
  */
-struct EventSubscriber_t {
-    enum SubType type;
+struct EventListener_t {
+    enum ListenerType type;
     union EventSub sub;
-    struct EventSubscriber_t *next;
+    struct EventListener_t *next;
 };
 
 
 struct Event_t {
     const char* name;
-    struct EventSubscriber_t *subscribers;
+    struct EventListener_t *listeners;
 };
 
 
@@ -51,12 +51,12 @@ static void (*extFree)(void*);
 
 
 
-static struct EventSubscriber_t* 
-Event_ConstructSubscriber(enum SubType type, ...)
+static struct EventListener_t* 
+Event_ConstructListener(enum ListenerType type, ...)
 {
     va_list va;
     va_start(va, type);
-    struct EventSubscriber_t *sub = (struct EventSubscriber_t*)extMalloc(sizeof(struct EventSubscriber_t));
+    struct EventListener_t *sub = (struct EventListener_t*)extMalloc(sizeof(struct EventListener_t));
 
     switch (type)
     {
@@ -80,16 +80,16 @@ Event_ConstructSubscriber(enum SubType type, ...)
 
 
 static void
-Event_AddSubscriber(struct Event_t *ev, struct EventSubscriber_t *newSub)
+Event_AddSubscriber(struct Event_t *ev, struct EventListener_t *newSub)
 { 
-    if (!ev->subscribers) {
-        ev->subscribers = newSub;
+    if (!ev->listeners) {
+        ev->listeners = newSub;
 
         return;
     }
     
-    struct EventSubscriber_t *sub = NULL;
-    for (sub = ev->subscribers; sub->next != NULL; sub = sub->next) {
+    struct EventListener_t *sub = NULL;
+    for (sub = ev->listeners; sub->next != NULL; sub = sub->next) {
         /* do nothing */
     }
     
@@ -115,7 +115,7 @@ Event_Create(const char* name)
     }
 
     event->name = name;
-    event->subscribers = NULL;
+    event->listeners = NULL;
 
     return (Event*)event;
 }
@@ -124,10 +124,10 @@ Event_Create(const char* name)
 void 
 Event_Consume(Event* event)
 {
-    struct EventSubscriber_t *sub = ((struct Event_t*)event)->subscribers;
+    struct EventListener_t *sub = ((struct Event_t*)event)->listeners;
 
     while (sub) {
-        struct EventSubscriber_t *next = sub->next;
+        struct EventListener_t *next = sub->next;
         sub->next = NULL;
         extFree(sub);
         sub = next;
@@ -140,7 +140,7 @@ Event_Listen(Event* event, EventHandler handler)
 {
     struct Event_t* ev = (struct Event_t*)event;
 
-    struct EventSubscriber_t* newSub = Event_ConstructSubscriber(AsyncHandler, handler);
+    struct EventListener_t* newSub = Event_ConstructListener(AsyncHandler, handler);
 
     Event_AddSubscriber(ev, newSub);
 }
@@ -154,7 +154,7 @@ Event_Wait(Event* event, void** ctx, uint32_t maxTicksToWait)
 {
     TaskHandle task = Scheduler_GetCurrentTask();
     struct Event_t *ev = (struct Event_t*)event;
-    struct EventSubscriber_t *newSub = Event_ConstructSubscriber(Task, task, ctx);
+    struct EventListener_t *newSub = Event_ConstructListener(Task, task, ctx);
 
     Event_AddSubscriber(ev, newSub);
 
@@ -165,7 +165,7 @@ Event_Wait(Event* event, void** ctx, uint32_t maxTicksToWait)
 void 
 Event_Broadcast(const Event* event, void* ctx)
 {
-    struct EventSubscriber_t *sub = ((struct Event_t*)event)->subscribers;
+    struct EventListener_t *sub = ((struct Event_t*)event)->listeners;
     
     while (sub) {
         switch (sub->type)
