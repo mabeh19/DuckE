@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<results version="2">
-    <cppcheck version="2.10"/>
-    <errors>
-        <error id="constStatement" severity="warning" msg="Unused variable value &amp;#039;removeFrom&amp;#039;" verbose="Unused variable value &amp;#039;removeFrom&amp;#039;" cwe="398" file0="src/scheduler/scheduler.c" sinceDate="dd-MM-yyyy">
-            <location file="src\scheduler\scheduler.c" line="380"/>
-        </error>
-    </errors>
-</results>

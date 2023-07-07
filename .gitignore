@@ -4,3 +4,6 @@
 
 /build/
 
+*.cppcheck
+
+*-build-dir

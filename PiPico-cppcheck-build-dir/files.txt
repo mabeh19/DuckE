@@ -1,4 +1,0 @@
-main.a1::C:/Users/Mathias/Documents/C/PiPico/src/main.c
-scheduler.a1::C:/Users/Mathias/Documents/C/PiPico/src/scheduler/scheduler.c
-tick.a1::C:/Users/Mathias/Documents/C/PiPico/src/scheduler/tick.c
-event.a1::C:/Users/Mathias/Documents/C/PiPico/src/scheduler/event.c
