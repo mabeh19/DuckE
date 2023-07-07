@@ -14,4 +14,4 @@ As development is still in the early stages, target support is VERY limited; cur
 The following features are planned:
 1. EventQueue - queue for events which can be retrieved
 2. Mutex/Semaphore - resource guards, will be implemented in a similar way as events
-3. FFile - integration with [FFile filesystem](https://github.com/mabeh19/FFile
+3. FFile - integration with [FFile filesystem](https://github.com/mabeh19/FFile)
