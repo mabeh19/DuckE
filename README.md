@@ -1,14 +1,14 @@
 # Introduction
-DuckE (pronounced Ducky) is an RTOS for embedded systems which focuses on safety. 
+Diamant is an RTOS for embedded systems which focuses on safety. 
 Static memory allocation is the default, but users can opt in for dynamic memory allocation using application defined functions. All modules can be initialized with application defined dynamic memory allocation functions.
 
-## DuckE features
+## Diamant features
 1. Scheduler - currently only supports preemptive scheduling. 
 2. Events - flexible event system which supports both async function callbacks as well as blocking tasks.
 
 
 
-# DuckE Roadmap
+# Diamant Roadmap
 As development is still in the early stages, target support is VERY limited; currently the only target supported is the Raspberry Pi Pico W.
 
 The following features are planned:
