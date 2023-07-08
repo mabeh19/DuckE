@@ -74,6 +74,7 @@ Event_ConstructListener(enum ListenerType type, ...)
     va_end(va);
 
     sub->next = NULL;
+    sub->type = type;
 
     return sub;
 }
