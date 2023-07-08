@@ -46,6 +46,7 @@ TaskHandle Scheduler_CreateTask(const char* name, u32 stackSize, u8 priority, Sc
 void Scheduler_DeleteTask(TaskHandle handle);
 bool Scheduler_Sleep(u32 ticks);
 TaskHandle Scheduler_GetCurrentTask(void);
+u8 Scheduler_TaskGetPriority(TaskHandle handle);
 
 #endif /* __SCHEDULER_H__ */
 

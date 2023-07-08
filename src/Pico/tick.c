@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "scheduler.h"
+#include "ducke_scheduler.h"
 #include "hardware/exception.h"
 #include "hardware/clocks.h"
 

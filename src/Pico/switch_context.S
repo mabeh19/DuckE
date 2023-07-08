@@ -44,7 +44,7 @@ Scheduler_SwitchTask:
         // Restore status registers 
         pop     {r0-r1}
         msr     apsr, r0 
-        @msr     primask, r1 
+        //msr     primask, r1 
         msr     control, r1
        
         // Restore r8-r12

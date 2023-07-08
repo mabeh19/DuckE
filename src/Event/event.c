@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "event.h"
-#include "scheduler.h"
+#include "../Scheduler/scheduler.h"
 
 
 enum ListenerType {
@@ -51,7 +51,7 @@ static void (*extFree)(void*);
 
 
 
-static struct EventListener_t* 
+static struct EventListener_t*
 Event_ConstructListener(enum ListenerType type, ...)
 {
     va_list va;
@@ -80,10 +80,10 @@ Event_ConstructListener(enum ListenerType type, ...)
 
 
 static void
-Event_AddSubscriber(struct Event_t *ev, struct EventListener_t *newSub)
+Event_AddListener(struct Event_t *ev, struct EventListener_t *newListener)
 { 
     if (!ev->listeners) {
-        ev->listeners = newSub;
+        ev->listeners = newListener;
 
         return;
     }
@@ -93,11 +93,11 @@ Event_AddSubscriber(struct Event_t *ev, struct EventListener_t *newSub)
         /* do nothing */
     }
     
-    sub->next = newSub;
+    sub->next = newListener;
 }
 
 
-void 
+void
 Event_Initialize(void* (*mallocFunc)(size_t), void (*freeFunc)(void*))
 {
     extMalloc = mallocFunc;
@@ -105,7 +105,7 @@ Event_Initialize(void* (*mallocFunc)(size_t), void (*freeFunc)(void*))
 }
 
 
-Event* 
+Event*
 Event_Create(const char* name)
 {
     struct Event_t *event = (struct Event_t*)extMalloc(sizeof(struct Event_t));
@@ -121,7 +121,7 @@ Event_Create(const char* name)
 }
 
 
-void 
+void
 Event_Consume(Event* event)
 {
     struct EventListener_t *sub = ((struct Event_t*)event)->listeners;
@@ -135,34 +135,34 @@ Event_Consume(Event* event)
 }
 
 
-void 
-Event_Listen(Event* event, EventHandler handler)
+void
+Event_Listen(const Event* event, EventHandler handler)
 {
     struct Event_t* ev = (struct Event_t*)event;
 
-    struct EventListener_t* newSub = Event_ConstructListener(AsyncHandler, handler);
+    struct EventListener_t* newListener = Event_ConstructListener(AsyncHandler, handler);
 
-    Event_AddSubscriber(ev, newSub);
+    Event_AddListener(ev, newListener);
 }
 
 void
 Scheduler_WakeTask(TaskHandle task);
 
 
-bool 
+bool
 Event_Wait(Event* event, void** ctx, uint32_t maxTicksToWait)
 {
     TaskHandle task = Scheduler_GetCurrentTask();
     struct Event_t *ev = (struct Event_t*)event;
-    struct EventListener_t *newSub = Event_ConstructListener(Task, task, ctx);
+    struct EventListener_t *newListener = Event_ConstructListener(Task, task, ctx);
 
-    Event_AddSubscriber(ev, newSub);
+    Event_AddListener(ev, newListener);
 
     return Scheduler_Sleep(maxTicksToWait);
 }
 
 
-void 
+void
 Event_Broadcast(const Event* event, void* ctx)
 {
     struct EventListener_t *sub = ((struct Event_t*)event)->listeners;
@@ -171,11 +171,13 @@ Event_Broadcast(const Event* event, void* ctx)
         switch (sub->type)
         {
         case Task:
-            *sub->sub.ctx = ctx;
+            if (sub->sub.ctx) {
+                *sub->sub.ctx = ctx;
+            }
             Scheduler_WakeTask(sub->sub.task);
             break;
         case AsyncHandler:
-            sub->sub.handler(ctx);
+            sub->sub.handler(event, ctx);
             break;
         default:
             break;

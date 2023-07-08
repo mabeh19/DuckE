@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include "scheduler.h"
-#include "event.h"
+#include "../Event/event.h"
 
 
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
@@ -96,6 +96,7 @@ static Scheduler_TaskTableEntry* Scheduler_FindHighestPriorityTaskAvailable(void
 static void Scheduler_MoveTaskToOtherList(Scheduler_ListEntry* entry, Scheduler_ListEntry** removeFrom, Scheduler_ListEntry** addTo);
 static void Scheduler_MoveTaskToBlockedList(Scheduler_ListEntry* entry);
 static void Scheduler_MoveTaskToReadyList(Scheduler_ListEntry* entry);
+static Scheduler_ListEntry* Scheduler_TaskToListEntry(Scheduler_Task* task);
 
 static Scheduler_TaskTable __task_table__;
 static volatile void* __attribute__((used)) __internal_stack__;      // `used` attribute prevents linker error
@@ -276,6 +277,11 @@ TaskHandle Scheduler_GetCurrentTask(void)
     return &Scheduler_CURRENT_TASK()->taskEntry.task;
 }
 
+
+u8 Scheduler_TaskGetPriority(TaskHandle handle)
+{
+    return ((Scheduler_Task*)handle)->priority;
+}
 
 
 static void

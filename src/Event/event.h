@@ -19,7 +19,7 @@ extern "C" {
 #include <stdbool.h>
 
 typedef struct Event Event;
-typedef void (*EventHandler)(void* ctx);
+typedef void (*EventHandler)(const Event* event, void* ctx);
 
 
 /*
@@ -38,7 +38,7 @@ Event* Event_Create(const char* name);
  * Add async handler to event,
  * this is usable outside of scheduler
  */
-void Event_Listen(Event* event, EventHandler handler);
+void Event_Listen(const Event* event, EventHandler handler);
 
 
 /*
