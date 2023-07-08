@@ -11,7 +11,7 @@
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
 #include "scheduler/scheduler.h"
-#include "scheduler/event.h"
+#include "event/event.h"
 
 typedef enum {
     Low_Priority = 1, 

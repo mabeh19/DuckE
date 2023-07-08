@@ -8,8 +8,8 @@
 
 
 
-#ifndef INC_EVENT_H
-#define INC_EVENT_H
+#ifndef INC_DIAMANT_EVENT_H
+#define INC_DIAMANT_EVENT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,6 +17,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef struct Event Event;
 typedef void (*EventHandler)(const Event* event, void* ctx);

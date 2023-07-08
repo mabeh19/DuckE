@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include "event.h"
-#include "../Scheduler/scheduler.h"
+#include "../scheduler/scheduler.h"
 
 
 enum ListenerType {

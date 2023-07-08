@@ -16,9 +16,10 @@ pico_sdk_init()
 add_executable(PiPico 
                   src/test.c
                   src/scheduler/scheduler.c
-                  src/scheduler/switch_context.S 
-                  src/scheduler/tick.c
-                  src/scheduler/event.c
+                  src/pico/switch_context.S 
+                  src/pico/tick.c
+                  src/event/event.c
+                  src/semaphore/semph.c
                   )
 
 set(PICO_TIME_DEFAULT_ALARM_POOL_DISABLED 1)

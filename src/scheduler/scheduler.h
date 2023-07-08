@@ -9,8 +9,8 @@
 
 
 
-#ifndef INC_SCHEDULER_H
-#define INC_SCHEDULER_H
+#ifndef INC_DIAMANT_SCHEDULER_H
+#define INC_DIAMANT_SCHEDULER_H
 
 
 #include <stdbool.h>

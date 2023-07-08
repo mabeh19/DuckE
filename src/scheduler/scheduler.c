@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include "scheduler.h"
-#include "../Event/event.h"
+#include "../event/event.h"
 
 
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
