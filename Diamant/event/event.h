@@ -23,23 +23,30 @@ typedef struct Event Event;
 typedef void (*EventHandler)(const Event* event, void* ctx);
 
 
-/*
- * Initialize Event module with given malloc and free
- */
-void Event_Initialize(void* (*mallocFunc)(size_t), void (*freeFunc)(void*));
+typedef enum EventType {
+    EventType_AwakeAll,
+    EventType_AwakeOne
+} EventType;
 
 
+
 /*
- * Create new event. Should only be called after Event_Initialize
+ * Create new event. Should only be called after Event_Initialize.
+ * Event is of type `AwakeAll`.
  */
 Event* Event_Create(const char* name);
 
 
 /*
+ *  Create new typed event.
+ */
+Event* Event_CreateTyped(const char* name, EventType type);
+
+/*
  * Add async handler to event,
  * this is usable outside of scheduler
  */
-void Event_Listen(const Event* event, EventHandler handler);
+void Event_Listen(const Event* event, uint8_t priority, EventHandler handler);
 
 
 /*

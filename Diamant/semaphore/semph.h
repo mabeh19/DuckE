@@ -21,7 +21,6 @@ typedef void* Semaphore;
 extern "C" {
 #endif
 
-void Semaphore_Initialize(void* (*mallocFunc)(size_t), void (*freeFunc)(void*));
 Semaphore Semaphore_Create(uint32_t startValue, uint32_t maxValue);
 Semaphore Semaphore_CreateBinary(void);
 bool Semaphore_Take(Semaphore semph, uint32_t ticksToWait);

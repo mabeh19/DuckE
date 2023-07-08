@@ -17,25 +17,9 @@ struct Semph_t {
 };
 
 
-static void* (*extMalloc)(size_t);
-static void (*extFree)(void*);
+extern void *extMalloc(size_t);
+extern void extFree(void*);
 
-
-static void Semaphore_GiveEventHandler(const Event *event, void* ctx)
-{
-    struct Semph_t *sem = (struct Semph_t*)ctx;
-    if (sem->current < sem->max) {
-        sem->current++;
-    }
-}
-
-
-void 
-Semaphore_Initialize(void* (*mallocFunc)(size_t), void (*freeFunc)(void*))
-{
-    extMalloc = mallocFunc;
-    extFree = freeFunc;
-}
 
 
 Semaphore
@@ -43,11 +27,9 @@ Semaphore_Create(uint32_t startValue, uint32_t maxValue)
 {
     struct Semph_t *semph = (struct Semph_t*)extMalloc(sizeof(struct Semph_t));
 
-    semph->giveEvent = Event_Create("semph");
+    semph->giveEvent = Event_CreateTyped("semph", EventType_AwakeOne);
     semph->max = maxValue;
     semph->current = startValue;
-
-    Event_Listen(semph->giveEvent, Semaphore_GiveEventHandler);
 
     return (Semaphore)semph;
 }
@@ -81,6 +63,10 @@ void
 Semaphore_Give(Semaphore semph)
 {
     struct Semph_t *sem = (struct Semph_t*)semph;
+
+    if (sem->current < sem->max) {
+        sem->current++;
+    }
 
     Event_Broadcast(sem->giveEvent, sem);
 }
