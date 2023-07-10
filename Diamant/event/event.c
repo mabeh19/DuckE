@@ -54,9 +54,10 @@ extern void *extMalloc(size_t);
 extern void extFree(void*);
 
 
-static void Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx);
+static bool Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx);
 static uint8_t Event_ListenerGetPriority(struct EventListener_t *listener);
 static void Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener);
+
 
 static struct EventListener_t*
 Event_ConstructListener(enum ListenerType type, ...)
@@ -195,6 +196,7 @@ Event_Listen(const Event* event, uint8_t priority, EventHandler handler)
     Event_AddListener(ev, newListener);
 }
 
+
 void
 Scheduler_WakeTask(TaskHandle task);
 
@@ -235,18 +237,18 @@ Event_Broadcast(const Event* event, void* ctx)
         }
         break;
     case EventType_AwakeOne:
-        Event_BroadcastToListener(event, sub, ctx);
+        while (Event_BroadcastToListener(event, sub, ctx));    // continue broadcasing until either empty, or a task is woken
         break;
     default:
         break;
     }
-    
 }
 
 
-static void
+static bool
 Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx)
 {
+    bool handlerCalled = false;
     switch (listener->type)
     {
     case Task:
@@ -257,10 +259,13 @@ Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, 
         break;
     case AsyncHandler:
         listener->sub.handler(event, ctx);
+        handlerCalled = true;
         break;
     default:
         break;
     }
+
+    return handlerCalled;
 }
 
 static uint8_t Event_ListenerGetPriority(struct EventListener_t *listener)
