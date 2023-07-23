@@ -20,13 +20,41 @@ extern "C" {
 #include <stddef.h>
 
 typedef struct Event Event;
-typedef void (*EventHandler)(const Event* event, void* ctx);
+typedef void (*EventHandler)(const Event *event, void *ctx);
 
 
-typedef enum EventType {
-    EventType_AwakeAll,
-    EventType_AwakeOne
+typedef enum {
+    EventType_AwakeOne,
+    EventType_AwakeAll
 } EventType;
+
+
+enum DummyEnum {
+    dummy1,
+    dummy2
+};
+
+typedef struct EventListener {
+    enum DummyEnum dummy1;
+    union {
+        struct {
+            void *dummy2;
+            uint8_t dummy3;
+        };
+        struct {
+            void *dummy4;
+            void **dummy5;
+        };
+    };
+    void *dummy6;
+} EventListener;
+
+
+typedef struct Event {
+    void *dummy1;
+    enum DummyEnum dummy2;
+    void *dummy3;
+} Event;
 
 
 
@@ -34,39 +62,39 @@ typedef enum EventType {
  * Create new event. Should only be called after Event_Initialize.
  * Event is of type `AwakeAll`.
  */
-Event* Event_Create(const char* name);
+void Event_Create(Event *event, const char *name);
 
 
 /*
  *  Create new typed event.
  */
-Event* Event_CreateTyped(const char* name, EventType type);
+void Event_CreateTyped(Event *event, const char *name, EventType type);
 
 /*
  * Add async handler to event,
  * this is usable outside of scheduler
  */
-void Event_Listen(const Event* event, uint8_t priority, EventHandler handler);
+void Event_Listen(const Event *event, EventListener *listener, uint8_t priority, EventHandler handler);
 
 
 /*
  * Sleep task until event occurs,
  * returns true if awoken early
  */
-bool Event_Wait(Event* event, void** ctx, uint32_t maxTicksToWait);
+bool Event_Wait(Event *event, EventListener *listener, void **ctx, uint32_t maxTicksToWait);
 
 
 /*
  * Broadcast event to listeners
  */
-void Event_Broadcast(const Event* event, void* ctx);
+void Event_Broadcast(const Event *event, void *ctx);
 
 
 
 /*
  * Empties list of listeners
  */
-void Event_Consume(Event* event);
+void Event_Consume(Event *event);
 
 #ifdef __cplusplus
 }

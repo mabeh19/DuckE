@@ -50,21 +50,17 @@ struct Event_t {
 };
 
 
-extern void *extMalloc(size_t);
-extern void extFree(void*);
-
-
 static bool Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx);
 static uint8_t Event_ListenerGetPriority(struct EventListener_t *listener);
 static void Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener);
 
 
 static struct EventListener_t*
-Event_ConstructListener(enum ListenerType type, ...)
+Event_ConstructListener(struct EventListener_t *listener, enum ListenerType type, ...)
 {
     va_list va;
     va_start(va, type);
-    struct EventListener_t *sub = (struct EventListener_t*)extMalloc(sizeof(struct EventListener_t));
+    struct EventListener_t *sub = (struct EventListener_t*)listener;
 
     switch (type)
     {
@@ -129,8 +125,6 @@ Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
             } else {
                 *l = (*l)->next;
             }
-            extFree(listener);
-
             break;
         }
 
@@ -139,36 +133,32 @@ Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
 }
 
 
-Event*
-Event_Create(const char* name)
+void
+Event_Create(Event *event, const char *name)
 {
-    struct Event_t *event = (struct Event_t*)extMalloc(sizeof(struct Event_t));
-
-    if (!event) {
-        return NULL;
+    if (!event || !name) {
+        return;
     }
 
-    event->name = name;
-    event->listeners = NULL;
-    event->type = EventType_AwakeAll;
+    struct Event_t *ev = (struct Event_t*)event;
 
-    return (Event*)event;
+    ev->name = name;
+    ev->listeners = NULL;
+    ev->type = EventType_AwakeAll;
 }
 
 
-Event* Event_CreateTyped(const char* name, EventType type)
+void Event_CreateTyped(Event *event, const char *name, EventType type)
 {
-    struct Event_t *event = (struct Event_t*)extMalloc(sizeof(struct Event_t));
-
     if (!event) {
-        return NULL;
+        return;
     }
 
-    event->name = name;
-    event->listeners = NULL;
-    event->type = EventType_AwakeOne;
+    struct Event_t *ev = (struct Event_t*)event;
 
-    return (Event*)event;
+    ev->name = name;
+    ev->listeners = NULL;
+    ev->type = EventType_AwakeOne;
 }
 
 
@@ -180,18 +170,17 @@ Event_Consume(Event* event)
     while (sub) {
         struct EventListener_t *next = sub->next;
         sub->next = NULL;
-        extFree(sub);
         sub = next;
     }
 }
 
 
 void
-Event_Listen(const Event* event, uint8_t priority, EventHandler handler)
+Event_Listen(const Event* event, EventListener *listener, uint8_t priority, EventHandler handler)
 {
     struct Event_t* ev = (struct Event_t*)event;
 
-    struct EventListener_t* newListener = Event_ConstructListener(AsyncHandler, handler, priority);
+    struct EventListener_t* newListener = Event_ConstructListener((struct EventListener_t*)listener, AsyncHandler, handler, priority);
 
     Event_AddListener(ev, newListener);
 }
@@ -202,11 +191,11 @@ Scheduler_WakeTask(TaskHandle task);
 
 
 bool
-Event_Wait(Event* event, void** ctx, uint32_t maxTicksToWait)
+Event_Wait(Event* event, EventListener *listener, void** ctx, uint32_t maxTicksToWait)
 {
     TaskHandle task = Scheduler_GetCurrentTask();
     struct Event_t *ev = (struct Event_t*)event;
-    struct EventListener_t *newListener = Event_ConstructListener(Task, task, ctx);
+    struct EventListener_t *newListener = Event_ConstructListener((struct EventListener_t*)listener, Task, task, ctx);
 
     Event_AddListener(ev, newListener);
 

@@ -15,17 +15,27 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#include "../event/event.h"
 
-typedef struct Semaphore Semaphore;
+
+typedef EventListener SemaphoreWaiter;
+
+typedef struct {
+    uint32_t dummy1;
+    uint32_t dummy2;
+    Event dummy3;
+} Semaphore;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-Semaphore* Semaphore_Create(uint32_t maxValue, uint32_t startValue);
-Semaphore* Semaphore_CreateBinary(void);
-bool Semaphore_Take(Semaphore* semph, uint32_t ticksToWait);
+
+void Semaphore_Create(Semaphore *semaphore, uint32_t maxValue, uint32_t startValue);
+void Semaphore_CreateBinary(Semaphore *semaphore);
+bool Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait);
 void Semaphore_Give(Semaphore* semph);
+
 
 #ifdef __cplusplus
 }

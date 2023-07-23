@@ -52,6 +52,10 @@ extern void Scheduler_SwitchTaskNoSp(void);
 extern void Scheduler_InitTick(void);
 
 
+extern void* Diamant_Malloc(size_t);
+extern void Diamant_Free(void*);
+
+
 typedef struct {
     char name[20];
     void* entryPoint;
@@ -84,11 +88,6 @@ typedef struct {
 extern void blink(int rate);
 
 
-static Scheduler_Malloc extMalloc;
-static Scheduler_Free extFree;
-static Scheduler_Realloc extRealloc;
-
-
 static Scheduler_ListEntry* Scheduler_CURRENT_TASK(void);
 void Scheduler_UpdateTicks(void);
 void Scheduler_ContextSwitch(void);
@@ -109,14 +108,8 @@ static volatile void* __attribute__((used)) __internal_stackPtr__;
 
 
 void
-Scheduler_Initialize(   const Scheduler_Malloc _malloc, 
-                        const Scheduler_Realloc _realloc, 
-                        const Scheduler_Free _free)
+Scheduler_Initialize(void)
 {
-    extMalloc = _malloc;
-    extFree = _free;
-    extRealloc = _realloc;
-
     __task_table__.numEntries = 0U;
     __task_table__.readyTasks = NULL;
     __task_table__.blockedTasks = NULL;
@@ -136,7 +129,7 @@ Scheduler_Initialize(   const Scheduler_Malloc _malloc,
     for (uint32_t i = 0U; i < DIAMANT_NUM_CORES; i++) {
         char taskName[20U] = {0U};
         sprintf(taskName, "Idle Task %d", i);
-#ifdef SCHEDULER_VARG_TASK
+#if DIAMANT_SCHEDULER_VARG_TASK == 1U
         Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, 1U, NULL);
 #else
         Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, NULL);
@@ -164,15 +157,15 @@ Scheduler_CreateTask(   const char *name,
                         const uint32_t stackSize, 
                         const uint8_t priority, 
                         const Scheduler_TaskFunc task,
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
                         const uint8_t numArgs,
                         ...)
 #else
                         void *data)
 #endif 
 {
-    uint8_t *stack = extMalloc(stackSize);
-    Scheduler_Task *newListEntry = extMalloc(sizeof(Scheduler_Task));
+    uint8_t *stack = Diamant_Malloc(stackSize);
+    Scheduler_Task *newListEntry = Diamant_Malloc(sizeof(Scheduler_Task));
 
     if (newListEntry == NULL) {
         goto clean_up;
@@ -182,7 +175,7 @@ Scheduler_CreateTask(   const char *name,
         goto clean_up;
     }
 
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
     return Scheduler_CreateTaskStatic(name, stackSize, priority, task, stack, newListEntry, numArgs, ...);
 #else 
     return Scheduler_CreateTaskStatic(name, stackSize, priority, task, stack, newListEntry, data);
@@ -191,11 +184,11 @@ Scheduler_CreateTask(   const char *name,
 
 clean_up:
     if (newListEntry) {
-        extFree(newListEntry);
+        Diamant_Free(newListEntry);
     }
 
     if (stack) {
-        extFree(stack);
+        Diamant_Free(stack);
     }
 
     return NULL;
@@ -209,7 +202,7 @@ Scheduler_CreateTaskStatic( const char *name,
                             const Scheduler_TaskFunc task, 
                             uint8_t stackBuffer[stackSize],
                             Scheduler_Task *taskBuffer,
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
                         const uint8_t numArgs,
                         ...)
 #else
@@ -240,7 +233,7 @@ Scheduler_CreateTaskStatic( const char *name,
 
     memcpy((*nextTaskEntry)->taskEntry.stackPtr, &newTask.entryPoint, sizeof(newTask.entryPoint));
 
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
     va_list va;
     va_start(va, numArgs);
     for (uint32_t i = 0U; i < numArgs; i++) {
@@ -483,8 +476,8 @@ Scheduler_TaskToListEntry(const Scheduler_Task_t* task)
 static void
 Scheduler_FreeTask(Scheduler_ListEntry* task)
 {
-    extFree(task->taskEntry.task.stack);
-    extFree(task);
+    Diamant_Free(task->taskEntry.task.stack);
+    Diamant_Free(task);
 }
 
 

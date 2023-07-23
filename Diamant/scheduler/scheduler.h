@@ -21,14 +21,11 @@
 #define ENABLE_INTERRUPTS()   do { __asm(" cpsie   i"); } while (0)
 #define DISABLE_INTERRUPTS()  do { __asm(" cpsid   i"); } while (0)
 
-#ifdef SCHEDULER_VARG_TASK
+#if DIAMANT_SCHEDULER_VARG_TASK == 1U
 typedef void* Scheduler_TaskFunc;
 #else
 typedef void (*Scheduler_TaskFunc)(void* data);
 #endif
-typedef void* (*Scheduler_Malloc)(size_t size);
-typedef void (*Scheduler_Free)(void* ptr);
-typedef void* (*Scheduler_Realloc)(void* ptr, size_t size);
 typedef void* TaskHandle;
 
 typedef struct {
@@ -45,10 +42,10 @@ typedef struct {
     void* prev;
 } Scheduler_Task;
 
-void Scheduler_Initialize(Scheduler_Malloc _malloc, Scheduler_Realloc _realloc, Scheduler_Free _free);
+void Scheduler_Initialize(void);
 void Scheduler_Start(void);
 
-#ifdef SCHEDULER_VARG_TASK
+#if DIAMANT_SCHEDULER_VARG_TASK == 1U
 TaskHandle Scheduler_CreateTask(const char* name, const uint32_t stackSize, const uint8_t priority, const Scheduler_TaskFunc task, const uint8_t numArgs, ...);
 #else
 TaskHandle Scheduler_CreateTask(const char* name, const uint32_t stackSize, const uint8_t priority, const Scheduler_TaskFunc task, void* data);
@@ -59,7 +56,7 @@ TaskHandle Scheduler_CreateTaskStatic(  const char *name,
                                         const Scheduler_TaskFunc task, 
                                         uint8_t stackBuffer[stackSize],
                                         Scheduler_Task *taskBuffer,
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
                                         const uint8_t numArgs,
                                         ...);
 #else
@@ -72,7 +69,7 @@ TaskHandle Scheduler_GetCurrentTask(void);
 uint8_t Scheduler_TaskGetPriority(const TaskHandle handle);
 
 
-#if SCHEDULER_VARG_TASK == 1
+#if DIAMANT_SCHEDULER_VARG_TASK == 1
 /* Uses K&R syntax to allow varargs */
 #define DIAMANT_TASK(taskName, stackSize) \
     static uint8_t func##StackBuffer[stackSize]; \

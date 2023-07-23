@@ -13,37 +13,34 @@
 struct Semph_t {
     volatile uint32_t current;
     uint32_t max;
-    Event *giveEvent;
+    Event giveEvent;
 };
 
 
-extern void *extMalloc(size_t);
-extern void extFree(void*);
-
-
-
-Semaphore*
-Semaphore_Create(uint32_t maxValue, uint32_t startValue)
+void
+Semaphore_Create(Semaphore *semaphore, uint32_t maxValue, uint32_t startValue)
 {
-    struct Semph_t *semph = (struct Semph_t*)extMalloc(sizeof(struct Semph_t));
+    if (!semaphore) {
+        return;
+    }
 
-    semph->giveEvent = Event_CreateTyped("semph", EventType_AwakeOne);
+    struct Semph_t *semph = (struct Semph_t*)semaphore;
+
+    Event_CreateTyped(&semph->giveEvent, "semph", EventType_AwakeOne);
     semph->max = maxValue;
     semph->current = startValue;
-
-    return (Semaphore*)semph;
 }
 
 
-Semaphore*
-Semaphore_CreateBinary(void)
+void
+Semaphore_CreateBinary(Semaphore *semaphore)
 {
-    return Semaphore_Create(1U, 1U);
+    Semaphore_Create(semaphore, 1U, 1U);
 }
 
 
 bool
-Semaphore_Take(Semaphore* semph, uint32_t ticksToWait)
+Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
 {
     bool taken = false;
     struct Semph_t *sem = (struct Semph_t*)semph;
@@ -52,7 +49,7 @@ Semaphore_Take(Semaphore* semph, uint32_t ticksToWait)
         sem->current--;
         taken = true;
     } else {
-        taken = Event_Wait(sem->giveEvent, NULL, ticksToWait);
+        taken = Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait);
     }
 
     return taken;
@@ -68,7 +65,7 @@ Semaphore_Give(Semaphore* semph)
         sem->current++;
     }
 
-    Event_Broadcast(sem->giveEvent, sem);
+    Event_Broadcast(&sem->giveEvent, sem);
 }
 
 
