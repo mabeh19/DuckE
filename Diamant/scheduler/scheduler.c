@@ -12,8 +12,10 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdarg.h>
+#include "../Diamant_Config.h"
 #include "scheduler.h"
 #include "../event/event.h"
+#include "../port/multicore.h"
 
 
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
@@ -21,6 +23,7 @@
 
 #define Scheduler_SwitchToInternalStack() __asm( \
         " ldr r0, =__internal_stackPtr__\n" \
+        " ldr r0, [r0]\n" \
         " mov sp, r0\n" \
     );
 
@@ -39,30 +42,29 @@
         "push   {r0-r1}\n" \
     )
 
-    //"mrs    r1, primask\n"
 
 #define Scheduler_EnableInterrupts() __asm(" cpsie i")
 #define Scheduler_DisableInterrupts() __asm(" cpsid i")
 
-#define Scheduler_CURRENT_TASK() (__task_table__.currentTask)
-
 
 extern void Scheduler_SwitchTask(void* newStack);
+extern void Scheduler_SwitchTaskNoSp(void);
 extern void Scheduler_InitTick(void);
 
 
 typedef struct {
     char name[20];
     void* entryPoint;
-    u8 priority;
+    uint32_t priority;
     void* stack;
-} Scheduler_Task;
+} Scheduler_Task_t;
 
 typedef struct {
     void* stackPtr;
-    Scheduler_Task task;
-    u32 ticksRemaining;
+    Scheduler_Task_t task;
+    uint32_t ticksRemaining;
     bool earlyWake;
+    bool isRunning;
 } Scheduler_TaskTableEntry;
 
 typedef struct Scheduler_ListEntry {
@@ -72,10 +74,10 @@ typedef struct Scheduler_ListEntry {
 } Scheduler_ListEntry;
 
 typedef struct {
-    u32 numEntries;
+    uint32_t numEntries;
     Scheduler_ListEntry* readyTasks;
     Scheduler_ListEntry* blockedTasks;
-    Scheduler_ListEntry* currentTask;
+    Scheduler_ListEntry* currentTask[DIAMANT_NUM_CORES];
 } Scheduler_TaskTable;
 
 
@@ -87,45 +89,59 @@ static Scheduler_Free extFree;
 static Scheduler_Realloc extRealloc;
 
 
+static Scheduler_ListEntry* Scheduler_CURRENT_TASK(void);
 void Scheduler_UpdateTicks(void);
 void Scheduler_ContextSwitch(void);
-static void Scheduler_StartFirstTask(Scheduler_TaskTableEntry* task);
+static void Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task);
 static void Scheduler_IdleTask(void* data);
-static void Scheduler_RemoveTask(Scheduler_Task* task);
-static Scheduler_TaskTableEntry* Scheduler_FindHighestPriorityTaskAvailable(void);
+static void Scheduler_RemoveTask(Scheduler_Task_t* task);
+static Scheduler_TaskTableEntry* Scheduler_FindHighestPriorityTaskAvailable(uint32_t core);
 static void Scheduler_MoveTaskToOtherList(Scheduler_ListEntry* entry, Scheduler_ListEntry** removeFrom, Scheduler_ListEntry** addTo);
 static void Scheduler_MoveTaskToBlockedList(Scheduler_ListEntry* entry);
 static void Scheduler_MoveTaskToReadyList(Scheduler_ListEntry* entry);
-static Scheduler_ListEntry* Scheduler_TaskToListEntry(Scheduler_Task* task);
+static Scheduler_ListEntry* Scheduler_TaskToListEntry(const Scheduler_Task_t* task);
+static inline bool Scheduler_TaskIsRunning(Scheduler_TaskTableEntry* tableEntry);
+
 
 static Scheduler_TaskTable __task_table__;
-static volatile void* __attribute__((used)) __internal_stack__;      // `used` attribute prevents linker error
+static volatile uint8_t __attribute__((used)) __internal_stack__[DIAMANT_INTERNAL_STACK_SIZE];      // `used` attribute prevents linker error
 static volatile void* __attribute__((used)) __internal_stackPtr__;
 
 
 void
-Scheduler_Initialize(   Scheduler_Malloc _malloc, 
-                        Scheduler_Realloc _realloc, 
-                        Scheduler_Free _free)
+Scheduler_Initialize(   const Scheduler_Malloc _malloc, 
+                        const Scheduler_Realloc _realloc, 
+                        const Scheduler_Free _free)
 {
-const u32 internalStackSize = 4096;
     extMalloc = _malloc;
     extFree = _free;
     extRealloc = _realloc;
 
-    __task_table__.numEntries = 0;
+    __task_table__.numEntries = 0U;
     __task_table__.readyTasks = NULL;
     __task_table__.blockedTasks = NULL;
-    __task_table__.currentTask = NULL;
+    memset(__task_table__.currentTask, 0x00, sizeof(__task_table__.currentTask));
 
-    __internal_stack__ = extMalloc(internalStackSize);
-    __internal_stackPtr__ = __internal_stack__ + internalStackSize - 4;
 
+    if (sizeof(Scheduler_Task) != sizeof(Scheduler_ListEntry)) {
+        printf("Task struct size assertion failed! %d != %d\n", sizeof(Scheduler_Task), sizeof(Scheduler_ListEntry));
+
+        for (;;) {
+
+        }
+    }
+    
+    __internal_stackPtr__ = __internal_stack__ + DIAMANT_INTERNAL_STACK_SIZE - 4U;
+
+    for (uint32_t i = 0U; i < DIAMANT_NUM_CORES; i++) {
+        char taskName[20U] = {0U};
+        sprintf(taskName, "Idle Task %d", i);
 #ifdef SCHEDULER_VARG_TASK
-    Scheduler_CreateTask("Idle Task", 512, 0, Scheduler_IdleTask, 1, NULL);
+        Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, 1U, NULL);
 #else
-    Scheduler_CreateTask("Idle Task", 512, 0, Scheduler_IdleTask, NULL);
+        Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, NULL);
 #endif
+    }
 }
 
 
@@ -133,8 +149,9 @@ void
 Scheduler_Start(void)
 {
     printf("Running first task...\n");
-    Scheduler_DisableInterrupts();    
-    __auto_type newTask = Scheduler_FindHighestPriorityTaskAvailable();
+    Scheduler_DisableInterrupts();
+
+    __auto_type newTask = Scheduler_FindHighestPriorityTaskAvailable(0U);
     Scheduler_InitTick();
     
     Scheduler_StartFirstTask(newTask);
@@ -144,29 +161,70 @@ Scheduler_Start(void)
 
 TaskHandle
 Scheduler_CreateTask(   const char *name, 
-                        u32 stackSize, 
-                        u8 priority, 
-                        Scheduler_TaskFunc task,
-#ifdef SCHEDULER_VARG_TASK
-                        u8 numArgs,
+                        const uint32_t stackSize, 
+                        const uint8_t priority, 
+                        const Scheduler_TaskFunc task,
+#if SCHEDULER_VARG_TASK == 1
+                        const uint8_t numArgs,
+                        ...)
+#else
+                        void *data)
+#endif 
+{
+    uint8_t *stack = extMalloc(stackSize);
+    Scheduler_Task *newListEntry = extMalloc(sizeof(Scheduler_Task));
+
+    if (newListEntry == NULL) {
+        goto clean_up;
+    }
+
+    if (stack == NULL) {
+        goto clean_up;
+    }
+
+#if SCHEDULER_VARG_TASK == 1
+    return Scheduler_CreateTaskStatic(name, stackSize, priority, task, stack, newListEntry, numArgs, ...);
+#else 
+    return Scheduler_CreateTaskStatic(name, stackSize, priority, task, stack, newListEntry, data);
+#endif
+
+
+clean_up:
+    if (newListEntry) {
+        extFree(newListEntry);
+    }
+
+    if (stack) {
+        extFree(stack);
+    }
+
+    return NULL;
+}
+
+
+TaskHandle 
+Scheduler_CreateTaskStatic( const char *name, 
+                            const uint32_t stackSize, 
+                            const uint8_t priority, 
+                            const Scheduler_TaskFunc task, 
+                            uint8_t stackBuffer[stackSize],
+                            Scheduler_Task *taskBuffer,
+#if SCHEDULER_VARG_TASK == 1
+                        const uint8_t numArgs,
                         ...)
 #else
                         void *data)
 #endif 
 {
     Scheduler_ListEntry** nextTaskEntry = NULL;
-    Scheduler_Task newTask;
+    Scheduler_Task_t newTask;
 
-    strncpy(newTask.name, name, sizeof(newTask.name));
+    memcpy(newTask.name, name, sizeof(newTask.name));
     newTask.entryPoint = task;
-    newTask.stack = extMalloc(stackSize);
+    newTask.stack = stackBuffer;
     newTask.priority = priority;
 
-    if ( newTask.stack == NULL ) {
-        goto taskAllocError;
-    }
-
-    memset(newTask.stack, 0x00, stackSize);
+    memset(newTask.stack, 0x00U, stackSize);
 
     nextTaskEntry = &__task_table__.readyTasks;
 
@@ -174,53 +232,40 @@ Scheduler_CreateTask(   const char *name,
         nextTaskEntry = &(*nextTaskEntry)->next;
     }
 
-    *nextTaskEntry = extMalloc(sizeof(Scheduler_ListEntry));
+    *nextTaskEntry = (Scheduler_ListEntry*)taskBuffer;
     
-    if (*nextTaskEntry) {
-        (*nextTaskEntry)->taskEntry.task = newTask;
-        __task_table__.numEntries++;
-        (*nextTaskEntry)->taskEntry.stackPtr = newTask.stack + stackSize - 4; // set stack pointer to end of allocated area
+    (*nextTaskEntry)->taskEntry.task = newTask;
+    __task_table__.numEntries++;
+    (*nextTaskEntry)->taskEntry.stackPtr = newTask.stack + stackSize - 4U; // set stack pointer to end of allocated area
 
-        memcpy((*nextTaskEntry)->taskEntry.stackPtr, &newTask.entryPoint, sizeof(newTask.entryPoint));
+    memcpy((*nextTaskEntry)->taskEntry.stackPtr, &newTask.entryPoint, sizeof(newTask.entryPoint));
 
-#ifdef SCHEDULER_VARG_TASK
-        va_list va;
-        va_start(va, numArgs);
-        for (u32 i = 0; i < numArgs; i++) {
-            void* arg = va_arg(va, void*);
+#if SCHEDULER_VARG_TASK == 1
+    va_list va;
+    va_start(va, numArgs);
+    for (uint32_t i = 0U; i < numArgs; i++) {
+        void* arg = va_arg(va, void*);
 
-            memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * (8 - i)), arg, sizeof(void*));          
-        }
-        va_end(va);
-#else
-        memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * 8), data, sizeof(data));
-#endif
-        (*nextTaskEntry)->taskEntry.stackPtr -= 15 * sizeof(uint32_t);
-        (*nextTaskEntry)->taskEntry.ticksRemaining = 0;
-        (*nextTaskEntry)->next = NULL;
-    } else {
-        goto listEntryAllocError;
+        memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * (8U - i)), &arg, sizeof(void*));          
     }
+    va_end(va);
+#else
+    memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * 8U), &data, sizeof(data));
+#endif
+
+    (*nextTaskEntry)->taskEntry.stackPtr -= 15U * sizeof(uint32_t);
+    (*nextTaskEntry)->taskEntry.ticksRemaining = 0U;
+    (*nextTaskEntry)->next = NULL;
+    (*nextTaskEntry)->prev = NULL;
+    (*nextTaskEntry)->taskEntry.isRunning = false;
+    (*nextTaskEntry)->taskEntry.earlyWake = false;
 
     return (TaskHandle)&(*nextTaskEntry)->taskEntry.task;
-
-tableEntryAllocError:
-    extFree(nextTaskEntry);
-
-listEntryAllocError:
-    extFree(newTask.stack);
-
-taskAllocError:
-
-
-    printf("Failed to allocate %s\n", name);
-
-    return NULL;
 }
 
 
 bool 
-Scheduler_Sleep(u32 ticks)
+Scheduler_Sleep(uint32_t ticks)
 {
     Scheduler_ListEntry* currentTask = Scheduler_CURRENT_TASK();
     currentTask->taskEntry.ticksRemaining = ticks;
@@ -245,7 +290,7 @@ Scheduler_DeleteTask(TaskHandle handle)
          *  Move to internal stack before removing this task.
          *  We don't have to worry about backing up regs.
          */
-        Scheduler_Task* task = &Scheduler_CURRENT_TASK()->taskEntry.task;
+        Scheduler_Task_t* task = &Scheduler_CURRENT_TASK()->taskEntry.task;
         __asm(" mov     r2, r0");
 
         Scheduler_SwitchToInternalStack();
@@ -254,7 +299,8 @@ Scheduler_DeleteTask(TaskHandle handle)
 
         Scheduler_RemoveTask(task);
 
-        Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable();
+        uint32_t thisCore = MultiCore_GetCoreNumber();
+        Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable(thisCore);
 
         Scheduler_EnableInterrupts();
 
@@ -264,7 +310,7 @@ Scheduler_DeleteTask(TaskHandle handle)
         /*
          *  Delete other task
          */
-        Scheduler_Task* task = (Scheduler_Task*)handle;
+        Scheduler_Task_t* task = (Scheduler_Task_t*)handle;
         Scheduler_RemoveTask(task);
     }
     Scheduler_EnableInterrupts();
@@ -272,15 +318,17 @@ Scheduler_DeleteTask(TaskHandle handle)
 
 
 
-TaskHandle Scheduler_GetCurrentTask(void)
+TaskHandle
+Scheduler_GetCurrentTask(void)
 {
     return &Scheduler_CURRENT_TASK()->taskEntry.task;
 }
 
 
-u8 Scheduler_TaskGetPriority(TaskHandle handle)
+uint8_t
+Scheduler_TaskGetPriority(const TaskHandle handle)
 {
-    return ((Scheduler_Task*)handle)->priority;
+    return ((Scheduler_Task_t*)handle)->priority;
 }
 
 
@@ -296,26 +344,28 @@ extern void Scheduler_SaveStackPointer(void** stackPtr);
 
 
 static Scheduler_TaskTableEntry* 
-Scheduler_FindHighestPriorityTaskAvailable(void)
+Scheduler_FindHighestPriorityTaskAvailable(uint32_t core)
 {
 bool switchTask = false;
-Scheduler_TaskTableEntry* currentTask = &Scheduler_CURRENT_TASK()->taskEntry;
-u8 newTaskPriority = 0;
+Scheduler_TaskTableEntry* currentTask = &__task_table__.currentTask[core]->taskEntry;
+uint8_t newTaskPriority = 0U;
 Scheduler_TaskTableEntry* highestPriorityTask = currentTask;
 
     for (Scheduler_ListEntry* entry = __task_table__.readyTasks; entry != NULL; entry = entry->next) {
 
         if ( entry->taskEntry.ticksRemaining == 0U && 
-            (entry->taskEntry.task.priority + 1) > newTaskPriority ) {
+            (entry->taskEntry.task.priority + 1U) > newTaskPriority && 
+             !Scheduler_TaskIsRunning(&entry->taskEntry)) {
             
-            newTaskPriority = entry->taskEntry.task.priority + 1;
-            __task_table__.currentTask = entry;
+            newTaskPriority = entry->taskEntry.task.priority + 1U;
+            __task_table__.currentTask[core] = entry;
             switchTask = true;
         }
     }
 
     if ( switchTask ) {
-        highestPriorityTask = &Scheduler_CURRENT_TASK()->taskEntry;
+        highestPriorityTask = &__task_table__.currentTask[core]->taskEntry;
+        highestPriorityTask->isRunning = true;
     }
 
     return highestPriorityTask;
@@ -323,7 +373,7 @@ Scheduler_TaskTableEntry* highestPriorityTask = currentTask;
 
 
 static void
-Scheduler_StartFirstTask(Scheduler_TaskTableEntry* task)
+Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task)
 {
     // __asm(  " push {r0}\n "
     //         " ldr r0, =__internal_stackPtr__\n"
@@ -331,6 +381,14 @@ Scheduler_StartFirstTask(Scheduler_TaskTableEntry* task)
     //         " pop  {r0}");
     
     Scheduler_EnableInterrupts();
+
+#if DIAMANT_NUM_CORES > 1
+    for (uint32_t core = 1U; core < DIAMANT_NUM_CORES; core++) {
+        Scheduler_TaskTableEntry *entry = Scheduler_FindHighestPriorityTaskAvailable(core);
+        
+        MultiCore_RunTaskOnSecondaryCore(core, Scheduler_SwitchTaskNoSp, entry->stackPtr);
+    }
+#endif
 
     Scheduler_SwitchTask(task->stackPtr);
 }
@@ -347,7 +405,9 @@ Scheduler_ContextSwitch(void)
     Scheduler_SaveStackPointer(&Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
     Scheduler_SwitchToInternalStack();
 
-    volatile Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable();
+    Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
+
+    volatile Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
 
     Scheduler_EnableInterrupts();
 
@@ -390,7 +450,7 @@ Scheduler_MoveTaskToOtherList(  Scheduler_ListEntry* entry,
 {
     Scheduler_ListEntry* prevEntry = NULL;
 
-    for (removeFrom; *removeFrom != NULL; removeFrom = &(*removeFrom)->next) {
+    for (; *removeFrom != NULL; removeFrom = &(*removeFrom)->next) {
 
         if (*removeFrom != entry) {
             prevEntry = *removeFrom;
@@ -413,7 +473,7 @@ Scheduler_MoveTaskToOtherList(  Scheduler_ListEntry* entry,
 
 
 static Scheduler_ListEntry*
-Scheduler_TaskToListEntry(Scheduler_Task* task)
+Scheduler_TaskToListEntry(const Scheduler_Task_t* task)
 {
     Scheduler_TaskTableEntry* tableEntry = GetParentPointer(task, Scheduler_TaskTableEntry, task);
     return GetParentPointer(tableEntry, Scheduler_ListEntry, taskEntry);
@@ -429,7 +489,7 @@ Scheduler_FreeTask(Scheduler_ListEntry* task)
 
 
 static void
-Scheduler_RemoveTask(Scheduler_Task* task)
+Scheduler_RemoveTask(Scheduler_Task_t* task)
 {
 Scheduler_ListEntry** listsToCheck[] = {
     &__task_table__.blockedTasks,
@@ -439,7 +499,7 @@ Scheduler_ListEntry** listsToCheck[] = {
     Scheduler_ListEntry* deleteListPtr = NULL;
     Scheduler_ListEntry* taskListEntry = Scheduler_TaskToListEntry(task);
 
-    for (uint32_t i = 0U; i < (sizeof(listsToCheck) / sizeof(listsToCheck[0])); i++) {
+    for (uint32_t i = 0U; i < (sizeof(listsToCheck) / sizeof(listsToCheck[0U])); i++) {
         Scheduler_ListEntry** list = listsToCheck[i];
         Scheduler_MoveTaskToOtherList(taskListEntry, list, &deleteListPtr);
 
@@ -461,3 +521,15 @@ Scheduler_WakeTask(TaskHandle task)
 }
 
 
+static Scheduler_ListEntry* 
+Scheduler_CURRENT_TASK(void)
+{
+    return __task_table__.currentTask[MultiCore_GetCoreNumber()];
+}
+
+
+static inline bool
+Scheduler_TaskIsRunning(Scheduler_TaskTableEntry* tableEntry)
+{
+    return tableEntry->isRunning;
+}

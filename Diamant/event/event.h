@@ -8,8 +8,8 @@
 
 
 
-#ifndef INC_DIAMANT_EVENT_H
-#define INC_DIAMANT_EVENT_H
+#ifndef DIAMANT_EVENT_H
+#define DIAMANT_EVENT_H
 
 #ifdef __cplusplus
 extern "C" {

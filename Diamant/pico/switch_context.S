@@ -13,6 +13,7 @@
         .global Scheduler_SaveCoreRegisters
         .global Scheduler_SwitchTask
         .global Scheduler_SaveStackPointer
+        .global Scheduler_SwitchTaskNoSp
         .global isr_systick 
 
         
@@ -41,6 +42,10 @@
 Scheduler_SwitchTask:
         mov     sp, r0
 
+        .thumb_func
+        .code 16
+        .align 2
+Scheduler_SwitchTaskNoSp:
         // Restore status registers 
         pop     {r0-r1}
         msr     apsr, r0 

@@ -129,7 +129,7 @@ Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
             } else {
                 *l = (*l)->next;
             }
-            extFree(*l);
+            extFree(listener);
 
             break;
         }

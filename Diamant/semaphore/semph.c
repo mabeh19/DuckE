@@ -22,8 +22,8 @@ extern void extFree(void*);
 
 
 
-Semaphore
-Semaphore_Create(uint32_t startValue, uint32_t maxValue)
+Semaphore*
+Semaphore_Create(uint32_t maxValue, uint32_t startValue)
 {
     struct Semph_t *semph = (struct Semph_t*)extMalloc(sizeof(struct Semph_t));
 
@@ -31,11 +31,11 @@ Semaphore_Create(uint32_t startValue, uint32_t maxValue)
     semph->max = maxValue;
     semph->current = startValue;
 
-    return (Semaphore)semph;
+    return (Semaphore*)semph;
 }
 
 
-Semaphore
+Semaphore*
 Semaphore_CreateBinary(void)
 {
     return Semaphore_Create(1U, 1U);
@@ -43,7 +43,7 @@ Semaphore_CreateBinary(void)
 
 
 bool
-Semaphore_Take(Semaphore semph, uint32_t ticksToWait)
+Semaphore_Take(Semaphore* semph, uint32_t ticksToWait)
 {
     bool taken = false;
     struct Semph_t *sem = (struct Semph_t*)semph;
@@ -60,7 +60,7 @@ Semaphore_Take(Semaphore semph, uint32_t ticksToWait)
 
 
 void
-Semaphore_Give(Semaphore semph)
+Semaphore_Give(Semaphore* semph)
 {
     struct Semph_t *sem = (struct Semph_t*)semph;
 
