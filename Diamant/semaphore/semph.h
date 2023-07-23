@@ -34,7 +34,7 @@ extern "C" {
 void Semaphore_Create(Semaphore *semaphore, uint32_t maxValue, uint32_t startValue);
 void Semaphore_CreateBinary(Semaphore *semaphore);
 bool Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait);
-void Semaphore_Give(Semaphore* semph);
+bool Semaphore_Give(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait);
 
 
 #ifdef __cplusplus

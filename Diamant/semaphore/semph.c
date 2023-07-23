@@ -14,6 +14,7 @@ struct Semph_t {
     volatile uint32_t current;
     uint32_t max;
     Event giveEvent;
+    Event takeEvent;
 };
 
 
@@ -26,7 +27,8 @@ Semaphore_Create(Semaphore *semaphore, uint32_t maxValue, uint32_t startValue)
 
     struct Semph_t *semph = (struct Semph_t*)semaphore;
 
-    Event_CreateTyped(&semph->giveEvent, "semph", EventType_AwakeOne);
+    Event_CreateTyped(&semph->giveEvent, "semphGive", EventType_AwakeOne);
+    Event_CreateTyped(&semph->takeEvent, "semphTake", EventType_AwakeOne);
     semph->max = maxValue;
     semph->current = startValue;
 }
@@ -48,6 +50,7 @@ Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
     if (sem->current) {
         sem->current--;
         taken = true;
+        Event_Broadcast(&sem->takeEvent, NULL);
     } else {
         taken = Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait);
     }
@@ -56,16 +59,21 @@ Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
 }
 
 
-void
-Semaphore_Give(Semaphore* semph)
+bool
+Semaphore_Give(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
 {
     struct Semph_t *sem = (struct Semph_t*)semph;
 
     if (sem->current < sem->max) {
         sem->current++;
+    } else {
+        if (!Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait)) {
+            return false;
+        }
     }
 
     Event_Broadcast(&sem->giveEvent, sem);
-}
 
+    return true;
+}
 
