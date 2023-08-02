@@ -69,6 +69,10 @@ TaskHandle Scheduler_GetCurrentTask(void);
 uint8_t Scheduler_TaskGetPriority(const TaskHandle handle);
 
 
+void Scheduler_EnterCriticalSection(void);
+void Scheduler_ExitCriticalSection(void);
+
+
 #if DIAMANT_SCHEDULER_VARG_TASK == 1
 /* Uses K&R syntax to allow varargs */
 #define DIAMANT_TASK(taskName, stackSize) \

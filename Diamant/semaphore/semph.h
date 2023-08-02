@@ -23,7 +23,7 @@ typedef EventListener SemaphoreWaiter;
 typedef struct {
     uint32_t dummy1;
     uint32_t dummy2;
-    Event dummy3;
+    Event dummy3[2];
 } Semaphore;
 
 #ifdef __cplusplus

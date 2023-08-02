@@ -50,6 +50,7 @@
 extern void Scheduler_SwitchTask(void* newStack);
 extern void Scheduler_SwitchTaskNoSp(void);
 extern void Scheduler_InitTick(void);
+extern void Scheduler_SetEntryRegisters(void *stackPtr, void *data);
 
 
 extern void* Diamant_Malloc(size_t);
@@ -243,7 +244,8 @@ Scheduler_CreateTaskStatic( const char *name,
     }
     va_end(va);
 #else
-    memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * 8U), &data, sizeof(data));
+    Scheduler_SetEntryRegisters((*nextTaskEntry)->taskEntry.stackPtr, data);
+    //memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * 8U), &data, sizeof(data));
 #endif
 
     (*nextTaskEntry)->taskEntry.stackPtr -= 15U * sizeof(uint32_t);
@@ -526,3 +528,25 @@ Scheduler_TaskIsRunning(Scheduler_TaskTableEntry* tableEntry)
 {
     return tableEntry->isRunning;
 }
+
+
+static uint32_t criticalityDepth = 0U;
+
+void
+Scheduler_EnterCriticalSection(void)
+{
+    Scheduler_DisableInterrupts();
+    criticalityDepth++;
+}
+
+
+void
+Scheduler_ExitCriticalSection(void)
+{
+    criticalityDepth--;
+
+    if (criticalityDepth == 0U) {
+        Scheduler_EnableInterrupts();
+    }
+}
+

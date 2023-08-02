@@ -8,6 +8,7 @@
 
 #include "semph.h"
 #include "../event/event.h"
+#include "../scheduler/scheduler.h"
 
 
 struct Semph_t {
@@ -48,11 +49,16 @@ Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
     struct Semph_t *sem = (struct Semph_t*)semph;
     
     if (sem->current) {
+        Scheduler_EnterCriticalSection();
         sem->current--;
         taken = true;
-        Event_Broadcast(&sem->takeEvent, NULL);
+        Event_Broadcast(&sem->takeEvent, sem);
+        Scheduler_ExitCriticalSection();
     } else {
         taken = Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait);
+        if (taken) {
+            sem->current--;
+        }
     }
 
     return taken;
@@ -65,10 +71,14 @@ Semaphore_Give(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
     struct Semph_t *sem = (struct Semph_t*)semph;
 
     if (sem->current < sem->max) {
+        Scheduler_EnterCriticalSection();
         sem->current++;
+        Scheduler_ExitCriticalSection();
     } else {
-        if (!Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait)) {
+        if (!Event_Wait(&sem->takeEvent, waiter, NULL, ticksToWait)) {
             return false;
+        } else {
+            sem->current++;
         }
     }
 

@@ -129,6 +129,8 @@ Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
         }
 
         prev = *l;
+
+        l = &(*l)->next;
     }
 }
 

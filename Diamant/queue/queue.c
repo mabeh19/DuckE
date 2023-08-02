@@ -1,12 +1,13 @@
 
 #include <string.h>
 
+#include "../scheduler/scheduler.h"
 #include "../semaphore/semph.h"
 #include "queue.h"
 
 
 
-typedef struct {
+typedef struct Queue_t {
     uint8_t *buffer;
     uint32_t queueBack;
     uint32_t queueFront;
@@ -57,16 +58,20 @@ bool Queue_PushBack(Queue *queue, void *item, uint32_t maxTicksToWait)
     if (!Semaphore_Take(&q->currentNumItems, &waiter, maxTicksToWait)) {
         return false;
     }
-    
+
+    Scheduler_EnterCriticalSection();
+
+    uint32_t ind = q->queueBack * q->itemSize;
+
+    memcpy(&q->buffer[ind], item, q->itemSize);
+
     q->queueBack++;
     
     if (q->queueBack >= q->maxNumItems) {
         q->queueBack = 0U;
     }
 
-    uint32_t ind = q->queueBack * q->itemSize;
-
-    memcpy(&q->buffer[ind], item, q->itemSize);
+    Scheduler_ExitCriticalSection();
 
     return true;
 }
@@ -85,6 +90,8 @@ bool Queue_PushFront(Queue *queue, void *item, uint32_t maxTicksToWait)
         return false;
     }
 
+    Scheduler_EnterCriticalSection();
+
     q->queueFront--;
 
     if (q->queueFront >= q->maxNumItems) {
@@ -94,6 +101,8 @@ bool Queue_PushFront(Queue *queue, void *item, uint32_t maxTicksToWait)
     uint32_t ind = q->queueFront * q->itemSize;
 
     memcpy(&q->buffer[ind], item, q->itemSize);
+
+    Scheduler_ExitCriticalSection();
 
     return true;
 }
@@ -112,15 +121,19 @@ bool Queue_PopFront(Queue *queue, uint32_t maxTicksToWait, void *item)
         return false;
     }
 
+    Scheduler_EnterCriticalSection();
+
+    uint32_t ind = q->queueFront * q->itemSize;
+
+    memcpy(item, &q->buffer[ind], q->itemSize);
+
     q->queueFront++;
 
     if (q->queueFront >= q->maxNumItems) {
         q->queueFront = 0U;
     }
 
-    uint32_t ind = q->queueFront * q->itemSize;
-
-    memcpy(item, &q->buffer[ind], q->itemSize);
+    Scheduler_ExitCriticalSection();
 
     return true;
 }
@@ -140,15 +153,19 @@ bool Queue_PopBack(Queue *queue, uint32_t maxTicksToWait, void *item)
         return false;
     }
 
+    Scheduler_EnterCriticalSection();
+
     q->queueBack--;
 
     if (q->queueBack >= q->maxNumItems) {
         q->queueBack = q->maxNumItems - 1;
     }
 
-    uint32_t ind = q->queueFront * q->itemSize;
+    uint32_t ind = q->queueBack * q->itemSize;
 
     memcpy(item, &q->buffer[ind], q->itemSize);
+
+    Scheduler_ExitCriticalSection();
 
     return true;
 }

@@ -13,15 +13,20 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "../semaphore/semph.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
-
 typedef struct {
-
+    uint8_t *buffer;
+    uint32_t queueBack;
+    uint32_t queueFront;
+    size_t itemSize;
+    uint32_t maxNumItems;
+    Semaphore currentNumItems;
 } Queue;
 
 
