@@ -52,7 +52,7 @@ struct Event_t {
 
 static bool Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx);
 static uint8_t Event_ListenerGetPriority(struct EventListener_t *listener);
-static void Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener);
+static void Event_RemoveListener(struct Event_t* event, const struct EventListener_t *listener);
 
 
 static struct EventListener_t*
@@ -98,29 +98,27 @@ Event_AddListener(struct Event_t *ev, struct EventListener_t *newListener)
     if (!ev->listeners || Event_ListenerGetPriority(ev->listeners) < prio) {
         newListener->next = ev->listeners;
         ev->listeners = newListener;
+    }
+    else {
+        struct EventListener_t *sub = NULL;
+        for (sub = ev->listeners; Event_ListenerGetPriority(sub) > prio && sub->next != NULL; sub = sub->next) {
+            /* do nothing */
+        }
 
-        return;
+        sub->next = newListener;
     }
-    
-    
-    struct EventListener_t *sub = NULL;
-    for (sub = ev->listeners; Event_ListenerGetPriority(sub) > prio && sub->next != NULL; sub = sub->next) {
-        /* do nothing */
-    }
-    
-    sub->next = newListener;
 }
 
 
 static void
-Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
+Event_RemoveListener(struct Event_t* event, const struct EventListener_t *listener)
 {
     struct EventListener_t **l = &event->listeners;
     struct EventListener_t *prev = NULL;
 
     while (*l) {
         if (*l == listener) {
-            if (prev) {
+            if (prev != NULL) {
                 prev->next = (*l)->next;
             } else {
                 *l = (*l)->next;
@@ -138,29 +136,31 @@ Event_RemoveListener(struct Event_t* event, struct EventListener_t *listener)
 void
 Event_Create(Event *event, const char *name)
 {
-    if (!event || !name) {
-        return;
+    if (event != NULL && name != NULL) {
+
+        struct Event_t *ev = (struct Event_t*)event;
+
+        ev->name = name;
+        ev->listeners = NULL;
+        ev->type = EventType_AwakeAll;
     }
-
-    struct Event_t *ev = (struct Event_t*)event;
-
-    ev->name = name;
-    ev->listeners = NULL;
-    ev->type = EventType_AwakeAll;
 }
 
 
 void Event_CreateTyped(Event *event, const char *name, EventType type)
 {
-    if (!event) {
-        return;
+    if (event != NULL) {
+        struct Event_t *ev = (struct Event_t*)event;
+
+        if (name == NULL) {
+            ev->name = "UNKNOWN EVENT";
+        } else {
+            ev->name = name;
+        }
+        ev->listeners = NULL;
+        ev->type = EventType_AwakeOne;
+       
     }
-
-    struct Event_t *ev = (struct Event_t*)event;
-
-    ev->name = name;
-    ev->listeners = NULL;
-    ev->type = EventType_AwakeOne;
 }
 
 
@@ -169,7 +169,7 @@ Event_Consume(Event* event)
 {
     struct EventListener_t *sub = ((struct Event_t*)event)->listeners;
 
-    while (sub) {
+    while (sub != NULL) {
         struct EventListener_t *next = sub->next;
         sub->next = NULL;
         sub = next;
@@ -215,23 +215,22 @@ Event_Broadcast(const Event* event, void* ctx)
     struct Event_t *ev = (struct Event_t*)event;
     struct EventListener_t *sub = ev->listeners;
     
-    if (!sub) {
-        return;
-    }
+    if (sub != NULL) {
 
-    switch (ev->type)
-    {
-    case EventType_AwakeAll:
-        while (sub) {
-            Event_BroadcastToListener(event, sub, ctx);
-            sub = sub->next;
+        switch (ev->type)
+        {
+        case EventType_AwakeAll:
+            while (sub != NULL) {
+                Event_BroadcastToListener(event, sub, ctx);
+                sub = sub->next;
+            }
+            break;
+        case EventType_AwakeOne:
+            while (Event_BroadcastToListener(event, sub, ctx));    // continue broadcasing until either empty, or a task is woken
+            break;
+        default:
+            break;
         }
-        break;
-    case EventType_AwakeOne:
-        while (Event_BroadcastToListener(event, sub, ctx));    // continue broadcasing until either empty, or a task is woken
-        break;
-    default:
-        break;
     }
 }
 
@@ -243,7 +242,7 @@ Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, 
     switch (listener->type)
     {
     case Task:
-        if (listener->sub.ctx) {
+        if (listener->sub.ctx != NULL) {
             *listener->sub.ctx = ctx;
         }
         Scheduler_WakeTask(listener->sub.task);
