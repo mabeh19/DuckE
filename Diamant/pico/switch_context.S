@@ -111,4 +111,3 @@ isr_systick:
 
         .sect ".data"
 syst_CSR:       .word 0xe000e010
-debugMsg:       .asciz "tick\n"

@@ -45,3 +45,4 @@ bool Queue_PopBack(Queue *queue, uint32_t maxTicksToWait, void *item);
 
 
 #endif /* DIAMANT_QUEUE_H */
+

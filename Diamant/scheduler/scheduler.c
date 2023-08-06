@@ -15,36 +15,11 @@
 #include "../Diamant_Config.h"
 #include "scheduler.h"
 #include "../port/multicore.h"
+#include "../port/port.h"
 
 
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
 
-
-/* Move to target impl */
-#define Scheduler_SwitchToInternalStack() __asm( \
-        " ldr r0, =internal_stackPtr\n" \
-        " ldr r0, [r0]\n" \
-        " mov sp, r0\n" \
-    );
-
-/* Move to target impl */
-#define Scheduler_SaveCoreRegisters() __asm( \
-        "push   {lr}\n"\
-        "push   {r0-r7}\n" \
-        "mov    r0, r8\n" \
-        "mov    r1, r9\n" \
-        "mov    r2, r10\n" \
-        "mov    r3, r11\n" \
-        "mov    r4, r12\n" \
-        "push   {r0-r4}\n" \
-        "mrs    r0, apsr\n" \
-        "mrs    r1, control\n" \
-        "push   {r0-r1}\n" \
-    )
-
-/* Move to target impl */
-#define Scheduler_EnableInterrupts() __asm(" cpsie i")
-#define Scheduler_DisableInterrupts() __asm(" cpsid i")
 
 
 extern void Scheduler_SwitchTask(void* newStack);
