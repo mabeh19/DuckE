@@ -90,5 +90,12 @@ void Scheduler_ExitCriticalSection(void);
 #define DIAMANT_REGISTER_TASK(taskName, priority, ...) \
     Scheduler_CreateTaskStatic(#taskName, sizeof(taskName##StackBuffer), priority, &taskName, taskName##StackBuffer, &taskName##Task __VA_OPT__(, __VA_ARGS__));
 
+
+
+
+
+void Scheduler_RegisterUTests(void);
+
+
 #endif /* __SCHEDULER_H__ */
 

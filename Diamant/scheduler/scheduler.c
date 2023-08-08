@@ -18,6 +18,10 @@
 #include "../port/port.h"
 
 
+#include "../../CUtils/test/uTest/uTest.h"
+#include "../../CUtils/test/Test_Bench/Test_Bench.h"
+
+
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
 
 
@@ -425,31 +429,14 @@ Scheduler_MoveTaskToOtherList(  Scheduler_ListEntry* entry,
         *removeFrom = entry->next;
     }
 
+    if (entry->next != NULL) {
+        entry->next->prev = entry->prev;    
+    }
+
     entry->next = *addTo;
+    (*addTo)->prev = entry;
     entry->prev = NULL;
     *addTo = entry;
-
-#if 0
-    for (; *removeFrom != NULL; removeFrom = &(*removeFrom)->next) {
-
-        if (*removeFrom != entry) {
-            prevEntry = *removeFrom;
-            continue;
-        }
-
-        if (prevEntry) {
-            prevEntry->next = entry->next;
-        }
-        else {
-            *removeFrom = (*removeFrom)->next;
-        }
-
-        entry->next = *addTo;
-        *addTo = entry;
-
-        break;
-    }
-#endif
 }
 
 
@@ -534,4 +521,79 @@ Scheduler_ExitCriticalSection(void)
         Scheduler_EnableInterrupts();
     }
 }
+
+
+
+static void Scheduler_TestMoveTaskToOtherList(void);
+
+void Scheduler_RegisterUTests(void)
+{
+    uTest_RegisterTest(&Scheduler_TestMoveTaskToOtherList);
+}
+
+
+
+static void Scheduler_TestMoveTaskToOtherList(void)
+{
+#define LINK(n, p)  n.next = &p; p.prev = &n;
+
+    Scheduler_TaskTable tbl;
+    Scheduler_ListEntry e1;
+    Scheduler_ListEntry e2;
+    Scheduler_ListEntry e3;
+    Scheduler_ListEntry e4;
+    Scheduler_ListEntry e5;
+
+    tbl.readyTasks = &e1;
+    tbl.blockedTasks = NULL;
+    e1.prev = NULL;
+    e5.next = NULL;
+    LINK(e1, e2);
+    LINK(e2, e3);
+    LINK(e3, e4);
+    LINK(e4, e5);
+
+    Scheduler_MoveTaskToOtherList(&e2, &tbl.readyTasks, &tbl.blockedTasks);
+    uTest_Assert(tbl.blockedTasks == &e2);
+    uTest_Assert(e2.next == NULL);
+    uTest_Assert(e2.prev == NULL);
+    uTest_Assert(e1.prev == NULL);
+    uTest_Assert(e1.next == &e3);
+    uTest_Assert(e3.prev == &e1);
+
+    Scheduler_MoveTaskToOtherList(&e3, &tbl.readyTasks, &tbl.blockedTasks);
+    uTest_Assert(tbl.blockedTasks == &e3);
+    uTest_Assert(e2.next == NULL);
+    uTest_Assert(e2.prev == &e3);
+    uTest_Assert(e1.prev == NULL);
+    uTest_Assert(e1.next == &e4);
+    uTest_Assert(e3.prev == NULL);
+    uTest_Assert(e3.next == &e2);
+
+    Scheduler_MoveTaskToOtherList(&e1, &tbl.readyTasks, &tbl.blockedTasks);
+    uTest_Assert(tbl.blockedTasks == &e1);
+    uTest_Assert(tbl.readyTasks == &e4);
+    uTest_Assert(e2.next == NULL);
+    uTest_Assert(e2.prev == &e3);
+    uTest_Assert(e1.prev == NULL);
+    uTest_Assert(e1.next == &e3);
+    uTest_Assert(e3.prev == &e1);
+    uTest_Assert(e3.next == &e2);
+    uTest_Assert(e4.next == &e5);
+
+
+    Scheduler_MoveTaskToOtherList(&e5, &tbl.readyTasks, &tbl.blockedTasks);
+    uTest_Assert(tbl.blockedTasks == &e5);
+    uTest_Assert(tbl.readyTasks == &e4);
+    uTest_Assert(e2.next == NULL);
+    uTest_Assert(e2.prev == &e3);
+    uTest_Assert(e1.prev == &e5);
+    uTest_Assert(e1.next == &e3);
+    uTest_Assert(e3.prev == &e1);
+    uTest_Assert(e3.next == &e2);
+    uTest_Assert(e4.next == NULL);
+    uTest_Assert(e5.next == &e1);
+    uTest_Assert(e5.prev == NULL);
+}
+
 

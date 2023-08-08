@@ -13,14 +13,12 @@
 
 
 
-/* Move to target impl */
 #define Scheduler_SwitchToInternalStack() __asm( \
         " ldr r0, =internal_stackPtr\n" \
         " ldr r0, [r0]\n" \
         " mov sp, r0\n" \
     );
 
-/* Move to target impl */
 #define Scheduler_SaveCoreRegisters() __asm( \
         "push   {lr}\n"\
         "push   {r0-r7}\n" \
@@ -35,7 +33,6 @@
         "push   {r0-r1}\n" \
     )
 
-/* Move to target impl */
 #define Scheduler_EnableInterrupts() __asm(" cpsie i")
 #define Scheduler_DisableInterrupts() __asm(" cpsid i")
 

@@ -1,0 +1,3 @@
+[submodule "CUtils"]
+	path = CUtils
+	url = https://github.com/mabeh19/CUtils

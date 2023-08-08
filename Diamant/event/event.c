@@ -178,7 +178,7 @@ Event_Consume(Event* event)
 
 
 void
-Event_Listen(const Event* event, EventListener *listener, uint8_t priority, EventHandler handler)
+Event_Listen(Event* event, EventListener *listener, uint8_t priority, EventHandler handler)
 {
     struct Event_t* ev = (struct Event_t*)event;
 

@@ -74,7 +74,7 @@ void Event_CreateTyped(Event *event, const char *name, EventType type);
  * Add async handler to event,
  * this is usable outside of scheduler
  */
-void Event_Listen(const Event *event, EventListener *listener, uint8_t priority, EventHandler handler);
+void Event_Listen(Event *event, EventListener *listener, uint8_t priority, EventHandler handler);
 
 
 /*
