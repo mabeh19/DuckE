@@ -1,0 +1,3 @@
+[submodule "src/Diamant"]
+	path = src/Diamant
+	url = https://github.com/mabeh19/Diamant

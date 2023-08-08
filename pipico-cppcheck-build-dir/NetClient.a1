@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="17016902092346434311">
+  <FileInfo check="Class">
+<class name="Packet" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/NetClient.h" line="8" col="1" hash="7863207869225348569"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functioncall functionName="NetClient"/>
+    <functioncall functionName="uint8_t"/>
+  </FileInfo>
+</analyzerinfo>

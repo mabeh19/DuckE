@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="6358068117271004242">
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Cyw43Client&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Cyw43Client&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Cyw43Driver\Cyw43Client.h" line="17" column="5"/>
+            <symbol>Cyw43Client</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Event &lt; NetClient &amp; &gt;&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Event &lt; NetClient &amp; &gt;&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="13" column="5"/>
+            <symbol>Event &lt; NetClient &amp; &gt;</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Event &lt; Packet &gt;&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Event &lt; Packet &gt;&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="13" column="5"/>
+            <symbol>Event &lt; Packet &gt;</symbol>
+        </error>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" verbose="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" cwe="570" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="98" column="26" info="Condition &apos;(int64_t)delayed&lt;0&apos; is always false"/>
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="97" column="22" info="delayed is assigned &apos;base+us&apos; here."/>
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="97" column="29" info="Assignment &apos;delayed=base+us&apos;, assigned value is greater than -1"/>
+        </error>
+        <error id="knownConditionTrueFalse" severity="style" msg="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" verbose="Condition &apos;(int64_t)delayed&lt;0&apos; is always false" cwe="570" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="117" column="26" info="Condition &apos;(int64_t)delayed&lt;0&apos; is always false"/>
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="116" column="22" info="delayed is assigned &apos;base+ms*1000ull&apos; here."/>
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\common\pico_time\include\pico\time.h" line="116" column="29" info="Assignment &apos;delayed=base+ms*1000ull&apos;, assigned value is greater than -1"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\pico_platform\include\pico\platform.h" line="347" column="13"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\pico_platform\include\pico\platform.h" line="447" column="14"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_base\include\hardware\address_mapped.h" line="122" column="19"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_base\include\hardware\address_mapped.h" line="132" column="19"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_base\include\hardware\address_mapped.h" line="142" column="19"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_timer\include\hardware\timer.h" line="66" column="12"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_timer\include\hardware\timer.h" line="117" column="19"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_timer\include\hardware\timer.h" line="118" column="33"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_irq\include\hardware\irq.h" line="287" column="8"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="224" column="13"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="243" column="13"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="464" column="40"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="675" column="31"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="684" column="12"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="697" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="706" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="715" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="730" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="739" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="773" column="15"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="788" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="797" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="812" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="821" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_gpio\include\hardware\gpio.h" line="845" column="15"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_uart\include\hardware\uart.h" line="101" column="5"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_uart\include\hardware\uart.h" line="102" column="20"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_uart\include\hardware\uart.h" line="108" column="23"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\main.cc" line="59" column="29"/>
+        </error>
+        <error id="constVariable" severity="style" msg="Variable &apos;l&apos; can be declared as reference to const" verbose="Variable &apos;l&apos; can be declared as reference to const" cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="29" column="20" info="Variable &apos;l&apos; can be declared as reference to const"/>
+            <symbol>l</symbol>
+        </error>
+        <error id="constParameter" severity="style" msg="Parameter &apos;uart&apos; can be declared as pointer to const" verbose="Parameter &apos;uart&apos; can be declared as pointer to const" cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_uart\include\hardware\uart.h" line="100" column="48" info="Parameter &apos;uart&apos; can be declared as pointer to const"/>
+            <symbol>uart</symbol>
+        </error>
+        <error id="unreadVariable" severity="style" msg="Variable &apos;errorCode&apos; is assigned a value that is never used." verbose="Variable &apos;errorCode&apos; is assigned a value that is never used." cwe="563" file0="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\main.cc" line="30" column="15"/>
+            <symbol>errorCode</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="t" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="63" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="63" col="25" call-argexpr="t" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="102" col="25" call-argexpr="&amp;t2" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="102" col="25" call-argexpr="t2" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="121" col="25" call-argexpr="&amp;t2" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="121" col="25" call-argexpr="t2" call-argvaluetype="4" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:206:6" call-funcname="gpio_set_pulls" call-argnr="3" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="214" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:206:6" call-funcname="gpio_set_pulls" call-argnr="2" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="233" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:206:6" call-funcname="gpio_set_pulls" call-argnr="2" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="252" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h:206:6" call-funcname="gpio_set_pulls" call-argnr="3" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h" line="252" col="19" call-argexpr="false" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="222" col="24" call-argexpr="0&lt;&lt;3u" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="227" col="24" call-argexpr="0&lt;&lt;0u" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" call-funcname="hw_write_masked" call-argnr="2" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="249" col="20" call-argexpr="((unsigned int)!!enabled)&lt;&lt;4u" call-argvaluetype="0" call-argvalue="0" warning="true">
+  <path file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\hardware_uart\include\hardware\uart.h" line="250" col="21" info="Assuming that condition &apos;!enabled&apos; is not redundant"/>
+</function-call><function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:37:12" call-funcname="Scheduler_CreateTask" call-argnr="5" file="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc" line="35" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:39:6" call-funcname="Scheduler_DeleteTask" call-argnr="1" file="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc" line="51" col="29" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:141:28" call-funcname="hw_xor_bits" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h" line="158" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_base/include/hardware/address_mapped.h:157:28" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="522" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="522" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" my-argnr="4"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="549" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="549" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" my-argnr="4"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:477:12" call-funcname="alarm_pool_add_alarm_at" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="586" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:585:26" my-argnr="3"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:521:26" call-funcname="alarm_pool_add_alarm_in_us" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="612" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:611:26" my-argnr="3"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:548:26" call-funcname="alarm_pool_add_alarm_in_ms" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="638" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:637:26" my-argnr="3"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="4"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="725" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:724:20" my-argnr="5"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="747" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:746:20" my-argnr="3"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="747" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:746:20" my-argnr="4"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="4" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="768" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:767:20" my-argnr="3"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:704:6" call-funcname="alarm_pool_add_repeating_timer_us" call-argnr="5" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="768" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h:767:20" my-argnr="4"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="112" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="172" col="22" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:171:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="191" col="22" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:187:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="217" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:212:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="239" col="15" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:238:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="249" col="22" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:248:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="265" col="14" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:264:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="274" col="12" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:273:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="286" col="14" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:284:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:264:20" call-funcname="uart_is_writable" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="300" col="17" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:298:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:284:20" call-funcname="uart_is_readable" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="317" col="17" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:315:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:298:20" call-funcname="uart_write_blocking" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="335" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:334:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="349" col="32" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:346:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:334:20" call-funcname="uart_putc_raw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="369" col="13" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:315:20" call-funcname="uart_read_blocking" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="390" col="5" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:388:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:111:26" call-funcname="uart_get_hw" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="402" col="22" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:400:20" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:100:20" call-funcname="uart_get_index" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="445" col="28" my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:441:20" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Class">
+<class name="absolute_time_t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="33" col="9" hash="6344205420850687690"/>
+<class name="datetime_t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="93" col="9" hash="9963576480805154645"/>
+<class name="rng_128" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/pico_rand/include/pico/rand.h" line="147" col="9" hash="11447117609319595036"/>
+<class name="pbuf" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/pbuf.h" line="186" col="1" hash="13811263049996569599"/>
+<class name="pbuf_rom" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/pbuf.h" line="232" col="1" hash="5852656070381696519"/>
+<class name="ip4_addr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip4_addr.h" line="51" col="1" hash="279279503739024847"/>
+<class name="memp" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/priv/memp_priv.h" line="69" col="1" hash="3539230752148796682"/>
+<class name="memp_desc" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/priv/memp_priv.h" line="108" col="1" hash="6654746839720822648"/>
+<class name="stats_proto" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="64" col="1" hash="416851822346114795"/>
+<class name="stats_igmp" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="80" col="1" hash="1191057484031184022"/>
+<class name="stats_mem" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="98" col="1" hash="4123883245994281139"/>
+<class name="stats_syselem" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="110" col="1" hash="7271558302475039160"/>
+<class name="stats_sys" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="117" col="1" hash="3219480288379308838"/>
+<class name="stats_mib2" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="124" col="1" hash="1919933732628875878"/>
+<class name="stats_mib2_netif_ctrs" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="186" col="1" hash="2924697975963786127"/>
+<class name="stats_" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="232" col="1" hash="8989711871989455561"/>
+<class name="netif" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/netif.h" line="269" col="1" hash="2947455436341446279"/>
+<class name="ip4_addr_packed" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/ip4.h" line="53" col="1" hash="15821194596022283398"/>
+<class name="ip_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/ip4.h" line="73" col="1" hash="3223380762310382048"/>
+<class name="ip_pcb" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip.h" line="91" col="1" hash="7751642197490342426"/>
+<class name="ip_globals" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip.h" line="107" col="1" hash="981025304929169868"/>
+<class name="icmp_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/icmp.h" line="65" col="1" hash="18223453729337825235"/>
+<class name="icmp_echo_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/icmp.h" line="89" col="1" hash="6046203808389936430"/>
+<class name="tcp_ext_arg_callbacks" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="185" col="1" hash="16985691364124486087"/>
+<class name="tcp_pcb_listen" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="223" col="1" hash="4840365332821397493"/>
+<class name="tcp_pcb" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="242" col="1" hash="8518934540671729169"/>
+<class name="Packet" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/NetClient.h" line="8" col="1" hash="7863207869225348569"/>
+<class name="Cyw43Client::TransferContext" file="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.h" line="11" col="5" hash="11992775665198717126"/>
+<class name="timer_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/timer.h" line="23" col="9" hash="11080932621722563266"/>
+<class name="repeating_timer" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_time/include/pico/time.h" line="678" col="1" hash="5229403184248770116"/>
+<class name="interp_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/interp.h" line="23" col="9" hash="4866309537202833503"/>
+<class name="sio_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/sio.h" line="24" col="9" hash="2817996142989895902"/>
+<class name="padsbank0_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/padsbank0.h" line="23" col="9" hash="871812063013618877"/>
+<class name="iobank0_status_ctrl_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/iobank0.h" line="23" col="9" hash="9359540286588970269"/>
+<class name="io_irq_ctrl_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/iobank0.h" line="46" col="9" hash="16896458074718211562"/>
+<class name="iobank0_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/iobank0.h" line="163" col="9" hash="9605766372672568532"/>
+<class name="uart_hw_t" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/uart.h" line="23" col="9" hash="7818661332321782678"/>
+<class name="Event &lt; NetClient &amp; &gt;" file="C:/Users/Mathias/Documents/C++/PiPico/src/Event/Event.h" line="10" col="1" hash="3646441803602415253"/>
+<class name="Event &lt; Packet &gt;" file="C:/Users/Mathias/Documents/C++/PiPico/src/Event/Event.h" line="10" col="1" hash="4830583707619710193"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="64" col="5" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="2" my-argname="s" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="366" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h:363:20" my-argnr="2" my-argname="s" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/hardware_uart/include/hardware/uart.h" line="366" col="13" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc:26:6" my-argnr="1" my-argname="command" file="C:/Users/Mathias/Documents/C++/PiPico/src/main.cc" line="75" col="12" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="main" lineNumber="28"/>
+    <functiondecl functionName="WifiTask" lineNumber="42"/>
+    <functiondecl functionName="trim_command" lineNumber="73"/>
+    <functioncall functionName="ConnectEventCallback"/>
+    <functioncall functionName="Cyw43Client"/>
+    <functioncall functionName="Cyw43Driver"/>
+    <functioncall functionName="MEMP_MAX"/>
+    <functioncall functionName="NetDriver"/>
+    <functioncall functionName="Packet"/>
+    <functioncall functionName="RxDoneEventCallback"/>
+    <functioncall functionName="Scheduler_CreateTask"/>
+    <functioncall functionName="Scheduler_DeleteTask"/>
+    <functioncall functionName="Scheduler_Initialize"/>
+    <functioncall functionName="Scheduler_Start"/>
+    <functioncall functionName="Server"/>
+    <functioncall functionName="Task_Priority_High"/>
+    <functioncall functionName="WifiTask"/>
+    <functioncall functionName="__CONCAT"/>
+    <functioncall functionName="alarm_pool_add_alarm_at"/>
+    <functioncall functionName="alarm_pool_add_alarm_in_ms"/>
+    <functioncall functionName="alarm_pool_add_alarm_in_us"/>
+    <functioncall functionName="alarm_pool_add_repeating_timer_us"/>
+    <functioncall functionName="alarm_pool_cancel_alarm"/>
+    <functioncall functionName="alarm_pool_get_default"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="back"/>
+    <functioncall functionName="check_gpio_param"/>
+    <functioncall functionName="check_sys_clock_khz"/>
+    <functioncall functionName="clear"/>
+    <functioncall functionName="close_client_connection"/>
+    <functioncall functionName="command"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="data"/>
+    <functioncall functionName="delayed_by_ms"/>
+    <functioncall functionName="delayed_by_us"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="free"/>
+    <functioncall functionName="function"/>
+    <functioncall functionName="get_absolute_time"/>
+    <functioncall functionName="get_core_num"/>
+    <functioncall functionName="get_packet"/>
+    <functioncall functionName="gpio_add_raw_irq_handler_masked"/>
+    <functioncall functionName="gpio_add_raw_irq_handler_with_order_priority_masked"/>
+    <functioncall functionName="gpio_clr_mask"/>
+    <functioncall functionName="gpio_in"/>
+    <functioncall functionName="gpio_is_dir_out"/>
+    <functioncall functionName="gpio_remove_raw_irq_handler_masked"/>
+    <functioncall functionName="gpio_set_dir_in_masked"/>
+    <functioncall functionName="gpio_set_dir_out_masked"/>
+    <functioncall functionName="gpio_set_mask"/>
+    <functioncall functionName="gpio_set_pulls"/>
+    <functioncall functionName="hw_clear_bits"/>
+    <functioncall functionName="hw_set_bits"/>
+    <functioncall functionName="hw_write_masked"/>
+    <functioncall functionName="hw_xor_bits"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="malloc"/>
+    <functioncall functionName="net_client"/>
+    <functioncall functionName="override"/>
+    <functioncall functionName="panic"/>
+    <functioncall functionName="pop_back"/>
+    <functioncall functionName="proc0_irq_ctrl"/>
+    <functioncall functionName="proc1_irq_ctrl"/>
+    <functioncall functionName="push_back"/>
+    <functioncall functionName="realloc"/>
+    <functioncall functionName="set_sys_clock_pll"/>
+    <functioncall functionName="stdio_init_all"/>
+    <functioncall functionName="tight_loop_contents"/>
+    <functioncall functionName="time_us_64"/>
+    <functioncall functionName="timerawh"/>
+    <functioncall functionName="timerawl"/>
+    <functioncall functionName="to_us_since_boot"/>
+    <functioncall functionName="trim_command"/>
+    <functioncall functionName="true"/>
+    <functioncall functionName="uart"/>
+    <functioncall functionName="uart_get_hw"/>
+    <functioncall functionName="uart_get_index"/>
+    <functioncall functionName="uart_is_readable"/>
+    <functioncall functionName="uart_is_writable"/>
+    <functioncall functionName="uart_putc"/>
+    <functioncall functionName="uart_putc_raw"/>
+    <functioncall functionName="uart_read_blocking"/>
+    <functioncall functionName="uart_tx_wait_blocking"/>
+    <functioncall functionName="uart_write_blocking"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="unique_ptr"/>
+    <functioncall functionName="update_us_since_boot"/>
+    <functioncall functionName="us_to_ms"/>
+  </FileInfo>
+</analyzerinfo>

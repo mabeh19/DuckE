@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.10"/>
+    <errors>
+        <error id="constStatement" severity="warning" msg="Unused variable value &amp;#039;removeFrom&amp;#039;" verbose="Unused variable value &amp;#039;removeFrom&amp;#039;" cwe="398" file0="src/scheduler/scheduler.c" sinceDate="dd-MM-yyyy">
+            <location file="src\scheduler\scheduler.c" line="362"/>
+        </error>
+        <error id="pointerSize" severity="warning" msg="Size of pointer &amp;#039;data&amp;#039; used instead of size of its data." verbose="Size of pointer &amp;#039;data&amp;#039; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &amp;#039;sizeof(*data)&amp;#039;." cwe="467" file0="src/scheduler/scheduler.c" sinceDate="dd-MM-yyyy">
+            <location file="src\scheduler\scheduler.c" line="180"/>
+        </error>
+    </errors>
+</results>

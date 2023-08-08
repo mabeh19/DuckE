@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="5065480881716687739">
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Cyw43Client&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Cyw43Client&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Cyw43Driver\Cyw43Client.h" line="17" column="5"/>
+            <symbol>Cyw43Client</symbol>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\pico_platform\include\pico\platform.h" line="347" column="13"/>
+        </error>
+        <error id="cstyleCast" severity="style" msg="C-style pointer casting" verbose="C-style pointer casting detected. C++ offers four different kinds of casts as replacements: static_cast, const_cast, dynamic_cast and reinterpret_cast. A C-style cast could evaluate to any of those automatically, thus it is considered safer if the programmer explicitly states which kind of cast is expected. See also: https://www.securecoding.cert.org/confluence/display/cplusplus/EXP05-CPP.+Do+not+use+C-style+casts." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.cc">
+            <location file="C:\Users\Mathias\Documents\pico-sdk\src\rp2_common\pico_platform\include\pico\platform.h" line="447" column="14"/>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="&amp;t" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" call-funcname="update_us_since_boot" call-argnr="1" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="76" col="25" call-argexpr="t" call-argvaluetype="4" call-argvalue="0"/>  </FileInfo>
+  <FileInfo check="Class">
+<class name="absolute_time_t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="33" col="9" hash="6344205420850687690"/>
+<class name="datetime_t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="93" col="9" hash="9963576480805154645"/>
+<class name="rng_128" file="C:/Users/Mathias/Documents/pico-sdk/src/rp2_common/pico_rand/include/pico/rand.h" line="147" col="9" hash="11447117609319595036"/>
+<class name="pbuf" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/pbuf.h" line="186" col="1" hash="13811263049996569599"/>
+<class name="pbuf_rom" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/pbuf.h" line="232" col="1" hash="5852656070381696519"/>
+<class name="ip4_addr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip4_addr.h" line="51" col="1" hash="279279503739024847"/>
+<class name="memp" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/priv/memp_priv.h" line="69" col="1" hash="3539230752148796682"/>
+<class name="memp_desc" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/priv/memp_priv.h" line="108" col="1" hash="6654746839720822648"/>
+<class name="stats_proto" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="64" col="1" hash="416851822346114795"/>
+<class name="stats_igmp" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="80" col="1" hash="1191057484031184022"/>
+<class name="stats_mem" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="98" col="1" hash="4123883245994281139"/>
+<class name="stats_syselem" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="110" col="1" hash="7271558302475039160"/>
+<class name="stats_sys" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="117" col="1" hash="3219480288379308838"/>
+<class name="stats_mib2" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="124" col="1" hash="1919933732628875878"/>
+<class name="stats_mib2_netif_ctrs" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="186" col="1" hash="2924697975963786127"/>
+<class name="stats_" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/stats.h" line="232" col="1" hash="8989711871989455561"/>
+<class name="netif" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/netif.h" line="269" col="1" hash="2947455436341446279"/>
+<class name="ip4_addr_packed" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/ip4.h" line="53" col="1" hash="15821194596022283398"/>
+<class name="ip_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/ip4.h" line="73" col="1" hash="3223380762310382048"/>
+<class name="ip_pcb" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip.h" line="91" col="1" hash="7751642197490342426"/>
+<class name="ip_globals" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/ip.h" line="107" col="1" hash="981025304929169868"/>
+<class name="icmp_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/icmp.h" line="65" col="1" hash="18223453729337825235"/>
+<class name="icmp_echo_hdr" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/prot/icmp.h" line="89" col="1" hash="6046203808389936430"/>
+<class name="tcp_ext_arg_callbacks" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="185" col="1" hash="16985691364124486087"/>
+<class name="tcp_pcb_listen" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="223" col="1" hash="4840365332821397493"/>
+<class name="tcp_pcb" file="C:/Users/Mathias/Documents/pico-sdk/lib/lwip/src/include/lwip/tcp.h" line="242" col="1" hash="8518934540671729169"/>
+<class name="Packet" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/NetClient.h" line="8" col="1" hash="7863207869225348569"/>
+<class name="Cyw43Client" file="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.h" line="9" col="1" hash="3192423161266297556"/>
+<class name="Cyw43Client::TransferContext" file="C:/Users/Mathias/Documents/C++/PiPico/src/Cyw43Driver/Cyw43Client.h" line="11" col="5" hash="11992775665198717126"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h:59:20" my-argnr="1" my-argname="t" file="C:/Users/Mathias/Documents/pico-sdk/src/common/pico_base/include/pico/types.h" line="64" col="5" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="get_tcp_pcb" lineNumber="20"/>
+    <functiondecl functionName="read" lineNumber="26"/>
+    <functiondecl functionName="write" lineNumber="34"/>
+    <functiondecl functionName="get_tx_context" lineNumber="42"/>
+    <functiondecl functionName="get_rx_context" lineNumber="48"/>
+    <functioncall functionName="Cyw43Client"/>
+    <functioncall functionName="MEMP_MAX"/>
+    <functioncall functionName="assert"/>
+    <functioncall functionName="get"/>
+    <functioncall functionName="override"/>
+    <functioncall functionName="tcp_write"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="update_us_since_boot"/>
+  </FileInfo>
+</analyzerinfo>

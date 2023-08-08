@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="4832935704668377842">
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Event &lt; NetClient &amp; &gt;&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Event &lt; NetClient &amp; &gt;&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="13" column="5"/>
+            <symbol>Event &lt; NetClient &amp; &gt;</symbol>
+        </error>
+        <error id="noExplicitConstructor" severity="style" msg="Class &apos;Event &lt; Packet &gt;&apos; has a constructor with 1 argument that is not explicit." verbose="Class &apos;Event &lt; Packet &gt;&apos; has a constructor with 1 argument that is not explicit. Such constructors should in general be explicit for type safety reasons. Using the explicit keyword in the constructor means some mistakes when using the class can be avoided." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="13" column="5"/>
+            <symbol>Event &lt; Packet &gt;</symbol>
+        </error>
+        <error id="constVariable" severity="style" msg="Variable &apos;l&apos; can be declared as reference to const" verbose="Variable &apos;l&apos; can be declared as reference to const" cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\Event\Event.h" line="29" column="20" info="Variable &apos;l&apos; can be declared as reference to const"/>
+            <symbol>l</symbol>
+        </error>
+  <FileInfo check="Class">
+<class name="Packet" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/NetClient.h" line="8" col="1" hash="7863207869225348569"/>
+<class name="Server" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.h" line="13" col="1" hash="8570994756602506726"/>
+<class name="Event &lt; NetClient &amp; &gt;" file="C:/Users/Mathias/Documents/C++/PiPico/src/Event/Event.h" line="10" col="1" hash="3646441803602415253"/>
+<class name="Event &lt; Packet &gt;" file="C:/Users/Mathias/Documents/C++/PiPico/src/Event/Event.h" line="10" col="1" hash="4830583707619710193"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc:9:13" my-argnr="3" my-argname="server" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc" line="105" col="5" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.h:31:10" my-argnr="1" my-argname="_netDriver" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc" line="43" col="39" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc:8:13" my-argnr="3" my-argname="client" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc" line="96" col="5" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc:9:13" my-argnr="3" my-argname="server" file="C:/Users/Mathias/Documents/C++/PiPico/src/NetClient/Server.cc" line="105" col="5" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="set_netdriver" lineNumber="41"/>
+    <functiondecl functionName="connect" lineNumber="47"/>
+    <functiondecl functionName="close_client_connection" lineNumber="63"/>
+    <functiondecl functionName="get_packet" lineNumber="69"/>
+    <functiondecl functionName="new_packet_available" lineNumber="85"/>
+    <functiondecl functionName="connect_event_handler" lineNumber="91"/>
+    <functiondecl functionName="rx_done_event_handler" lineNumber="100"/>
+    <functioncall functionName="NetDriver"/>
+    <functioncall functionName="Packet"/>
+    <functioncall functionName="Server"/>
+    <functioncall functionName="_1"/>
+    <functioncall functionName="_2"/>
+    <functioncall functionName="assign"/>
+    <functioncall functionName="bind"/>
+    <functioncall functionName="bind_to_client_connect_event"/>
+    <functioncall functionName="bind_to_client_rx_done_event"/>
+    <functioncall functionName="clear"/>
+    <functioncall functionName="connect"/>
+    <functioncall functionName="connect_event_handler"/>
+    <functioncall functionName="disconnect_client"/>
+    <functioncall functionName="empty"/>
+    <functioncall functionName="front"/>
+    <functioncall functionName="function"/>
+    <functioncall functionName="get"/>
+    <functioncall functionName="has_value"/>
+    <functioncall functionName="l"/>
+    <functioncall functionName="new_packet_available"/>
+    <functioncall functionName="nullopt"/>
+    <functioncall functionName="pop"/>
+    <functioncall functionName="push"/>
+    <functioncall functionName="push_back"/>
+    <functioncall functionName="read"/>
+    <functioncall functionName="rx_done_event_handler"/>
+    <functioncall functionName="shared_ptr"/>
+    <functioncall functionName="uint8_t"/>
+    <functioncall functionName="unique_ptr"/>
+    <functioncall functionName="value"/>
+  </FileInfo>
+</analyzerinfo>

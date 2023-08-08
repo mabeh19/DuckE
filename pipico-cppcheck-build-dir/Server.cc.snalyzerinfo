@@ -1,0 +1,22 @@
+Server
+Server
+Server
+Server
+Server
+set_netdriver
+connect call:[bind,bind_to_client_connect_event,bind_to_client_rx_done_event,connect,has_value,value]
+close_client_connection call:[disconnect_client,get] noreturn:[disconnect_client]
+get_packet call:[assign,empty,front,get,pop]
+new_packet_available call:[push] noreturn:[push]
+connect_event_handler call:[read] noreturn:[read]
+rx_done_event_handler call:[new_packet_available] noreturn:[new_packet_available]
+Event < NetClient & >
+Event < NetClient & >
+add_listener call:[push_back] noreturn:[push_back]
+broadcast call:[l] noreturn:[l]
+consume call:[clear] noreturn:[clear]
+Event < Packet >
+Event < Packet >
+add_listener call:[push_back] noreturn:[push_back]
+broadcast call:[l] noreturn:[l]
+consume call:[clear] noreturn:[clear]

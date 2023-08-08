@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<analyzerinfo hash="1842262106624681079">
+        <error id="unusedLabelConfiguration" severity="style" msg="Label &apos;tableEntryAllocError&apos; is not used. There is #if in function body so the label might be used in code that is removed by the preprocessor." verbose="Label &apos;tableEntryAllocError&apos; is not used. There is #if in function body so the label might be used in code that is removed by the preprocessor." cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="191" column="1"/>
+            <symbol>tableEntryAllocError</symbol>
+        </error>
+        <error id="constStatement" severity="warning" msg="Unused variable value &apos;removeFrom&apos;" verbose="Unused variable value &apos;removeFrom&apos;" cwe="398" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="362" column="10"/>
+        </error>
+        <error id="pointerSize" severity="warning" msg="Size of pointer &apos;data&apos; used instead of size of its data." verbose="Size of pointer &apos;data&apos; used instead of size of its data. This is likely to lead to a buffer overflow. You probably intend to write &apos;sizeof(*data)&apos;." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="180" column="79"/>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;__internal_stack__&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;__internal_stack__&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="110" column="48"/>
+            <symbol>__internal_stack__</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;__internal_stack__+internalStackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;__internal_stack__+internalStackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="110" column="68"/>
+            <symbol>__internal_stack__+internalStackSize</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;newTask.stack&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;newTask.stack&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="166" column="62"/>
+            <symbol>newTask.stack</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;newTask.stack+stackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;newTask.stack+stackSize&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="166" column="74"/>
+            <symbol>newTask.stack+stackSize</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;(*nextTaskEntry)-&gt;taskEntry.stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;(*nextTaskEntry)-&gt;taskEntry.stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="180" column="53"/>
+            <symbol>(*nextTaskEntry)-&gt;taskEntry.stackPtr</symbol>
+        </error>
+        <error id="arithOperationsOnVoidPointer" severity="portability" msg="&apos;(*nextTaskEntry)-&gt;taskEntry.stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined." verbose="&apos;(*nextTaskEntry)-&gt;taskEntry.stackPtr&apos; is of type &apos;void *&apos;. When using void pointers in calculations, the behaviour is undefined. Arithmetic operations on &apos;void *&apos; is a GNU C extension, which defines the &apos;sizeof(void)&apos; to be 1." cwe="467" file0="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c">
+            <location file="C:\Users\Mathias\Documents\C++\PiPico\src\scheduler\scheduler.c" line="182" column="46"/>
+            <symbol>(*nextTaskEntry)-&gt;taskEntry.stackPtr</symbol>
+        </error>
+  <FileInfo check="ctu">
+<function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:37:12" call-funcname="Scheduler_CreateTask" call-argnr="3" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="112" col="25" call-argexpr="0" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:37:12" call-funcname="Scheduler_CreateTask" call-argnr="5" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="112" col="25" call-argexpr="NULL" call-argvaluetype="0" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:85:13" call-funcname="Scheduler_MoveTaskToOtherList" call-argnr="3" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="413" col="38" call-argexpr="&amp;deleteListPtr" call-argvaluetype="7" call-argvalue="0"/><function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:85:13" call-funcname="Scheduler_MoveTaskToOtherList" call-argnr="1" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="344" col="5" my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:86:13" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:85:13" call-funcname="Scheduler_MoveTaskToOtherList" call-argnr="1" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="351" col="5" my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:87:13" my-argnr="1"/>
+<function-call call-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:385:1" call-funcname="Scheduler_TaskToListEntry" call-argnr="1" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="409" col="42" my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:83:13" my-argnr="1"/>
+  </FileInfo>
+  <FileInfo check="Null pointer">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:37:12" my-argnr="1" my-argname="name" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="144" col="27" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:81:13" my-argnr="1" my-argname="task" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="304" col="26" value="0"/>
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c:393:1" my-argnr="1" my-argname="task" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="395" col="13" value="0"/>
+  </FileInfo>
+  <FileInfo check="Uninitialized variables">
+    <unsafe-usage my-id="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.h:37:12" my-argnr="1" my-argname="name" file="C:/Users/Mathias/Documents/C++/PiPico/src/scheduler/scheduler.c" line="144" col="27" value="0"/>
+  </FileInfo>
+  <FileInfo check="CheckUnusedFunctions">
+    <functiondecl functionName="Scheduler_Initialize" lineNumber="95"/>
+    <functiondecl functionName="Scheduler_Start" lineNumber="117"/>
+    <functiondecl functionName="Scheduler_CreateTask" lineNumber="130"/>
+    <functiondecl functionName="Scheduler_Sleep" lineNumber="207"/>
+    <functiondecl functionName="Scheduler_DeleteTask" lineNumber="217"/>
+    <functiondecl functionName="Scheduler_IdleTask" lineNumber="253"/>
+    <functiondecl functionName="Scheduler_FindHighestPriorityTaskAvailable" lineNumber="264"/>
+    <functiondecl functionName="Scheduler_StartFirstTask" lineNumber="295"/>
+    <functiondecl functionName="Scheduler_ContextSwitch" lineNumber="312"/>
+    <functiondecl functionName="Scheduler_UpdateTicks" lineNumber="328"/>
+    <functiondecl functionName="Scheduler_MoveTaskToBlockedList" lineNumber="342"/>
+    <functiondecl functionName="Scheduler_MoveTaskToReadyList" lineNumber="349"/>
+    <functiondecl functionName="Scheduler_MoveTaskToOtherList" lineNumber="356"/>
+    <functiondecl functionName="Scheduler_TaskToListEntry" lineNumber="385"/>
+    <functiondecl functionName="Scheduler_FreeTask" lineNumber="393"/>
+    <functiondecl functionName="Scheduler_RemoveTask" lineNumber="401"/>
+    <functioncall functionName="NULL"/>
+    <functioncall functionName="Scheduler_ContextSwitch"/>
+    <functioncall functionName="Scheduler_CreateTask"/>
+    <functioncall functionName="Scheduler_FindHighestPriorityTaskAvailable"/>
+    <functioncall functionName="Scheduler_FreeTask"/>
+    <functioncall functionName="Scheduler_IdleTask"/>
+    <functioncall functionName="Scheduler_InitTick"/>
+    <functioncall functionName="Scheduler_MoveTaskToBlockedList"/>
+    <functioncall functionName="Scheduler_MoveTaskToOtherList"/>
+    <functioncall functionName="Scheduler_MoveTaskToReadyList"/>
+    <functioncall functionName="Scheduler_RemoveTask"/>
+    <functioncall functionName="Scheduler_SaveStackPointer"/>
+    <functioncall functionName="Scheduler_StartFirstTask"/>
+    <functioncall functionName="Scheduler_SwitchTask"/>
+    <functioncall functionName="Scheduler_TaskToListEntry"/>
+    <functioncall functionName="extFree"/>
+    <functioncall functionName="extMalloc"/>
+    <functioncall functionName="false"/>
+    <functioncall functionName="listEntryAllocError"/>
+    <functioncall functionName="memcpy"/>
+    <functioncall functionName="memset"/>
+    <functioncall functionName="offsetof"/>
+    <functioncall functionName="printf"/>
+    <functioncall functionName="strncpy"/>
+    <functioncall functionName="tableEntryAllocError"/>
+    <functioncall functionName="taskAllocError"/>
+    <functioncall functionName="taskEntry"/>
+    <functioncall functionName="true"/>
+  </FileInfo>
+</analyzerinfo>

@@ -1,0 +1,3 @@
+C:/Users/Mathias/Documents/C++/PiPico/build/pioasm/CMakeFiles/pioasm.dir
+C:/Users/Mathias/Documents/C++/PiPico/build/pioasm/CMakeFiles/edit_cache.dir
+C:/Users/Mathias/Documents/C++/PiPico/build/pioasm/CMakeFiles/rebuild_cache.dir
