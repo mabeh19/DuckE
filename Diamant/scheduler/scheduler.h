@@ -18,6 +18,10 @@
 
 #include "../Diamant_Config.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define ENABLE_INTERRUPTS()   do { __asm(" cpsie   i"); } while (0)
 #define DISABLE_INTERRUPTS()  do { __asm(" cpsid   i"); } while (0)
 
@@ -54,7 +58,7 @@ TaskHandle Scheduler_CreateTaskStatic(  const char *name,
                                         const uint32_t stackSize, 
                                         const uint8_t priority, 
                                         const Scheduler_TaskFunc task, 
-                                        uint8_t stackBuffer[stackSize],
+                                        uint8_t* stackBuffer,
                                         Scheduler_Task *taskBuffer,
 #if DIAMANT_SCHEDULER_VARG_TASK == 1
                                         const uint8_t numArgs,
@@ -96,6 +100,10 @@ void Scheduler_ExitCriticalSection(void);
 
 void Scheduler_RegisterUTests(void);
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SCHEDULER_H__ */
 

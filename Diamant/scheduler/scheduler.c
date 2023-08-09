@@ -224,7 +224,6 @@ Scheduler_CreateTaskStatic( const char *name,
 
     (*nextTaskEntry)->taskEntry.stackPtr -= 15U * sizeof(uint32_t);
     (*nextTaskEntry)->taskEntry.ticksRemaining = 0U;
-    (*nextTaskEntry)->next = NULL;
     (*nextTaskEntry)->prev = NULL;
     (*nextTaskEntry)->taskEntry.isRunning = false;
     (*nextTaskEntry)->taskEntry.earlyWake = false;
@@ -393,13 +392,14 @@ Scheduler_ContextSwitch(void)
 void
 Scheduler_UpdateTicks(void)
 {
-    for (Scheduler_ListEntry* entry = task_table.blockedTasks; entry != NULL; entry = entry->next) {
-
+    for (Scheduler_ListEntry* entry = task_table.blockedTasks; entry != NULL;) {
+        Scheduler_ListEntry* next = entry->next;
         if ( entry->taskEntry.ticksRemaining > 0U ) {
             entry->taskEntry.ticksRemaining--;
         } else {
             Scheduler_MoveTaskToReadyList(entry);
         }
+        entry = next;
     }
 }
 

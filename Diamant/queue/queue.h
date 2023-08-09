@@ -33,8 +33,8 @@ typedef struct {
 
 void Queue_Create(Queue *queue, void *buffer, uint32_t maxNumitems, size_t itemSize);
 void Queue_Delete(Queue *queue);
-bool Queue_PushBack(Queue *queue, void *item, uint32_t maxTicksToWait);
-bool Queue_PushFront(Queue *queue, void *item, uint32_t maxTicksToWait);
+bool Queue_PushBack(Queue *queue, const void *item, uint32_t maxTicksToWait);
+bool Queue_PushFront(Queue *queue, const void *item, uint32_t maxTicksToWait);
 bool Queue_PopFront(Queue *queue, uint32_t maxTicksToWait, void *item);
 bool Queue_PopBack(Queue *queue, uint32_t maxTicksToWait, void *item);
 

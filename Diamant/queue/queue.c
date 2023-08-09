@@ -46,7 +46,7 @@ void Queue_Delete(Queue *queue)
 }
 
 
-bool Queue_PushBack(Queue *queue, void *item, uint32_t maxTicksToWait)
+bool Queue_PushBack(Queue *queue, const void *item, uint32_t maxTicksToWait)
 {
     if (queue == NULL || item == NULL) {
         return false;
@@ -77,7 +77,7 @@ bool Queue_PushBack(Queue *queue, void *item, uint32_t maxTicksToWait)
 }
 
 
-bool Queue_PushFront(Queue *queue, void *item, uint32_t maxTicksToWait)
+bool Queue_PushFront(Queue *queue, const void *item, uint32_t maxTicksToWait)
 {
     if (queue == NULL || item == NULL) {
         return false;
