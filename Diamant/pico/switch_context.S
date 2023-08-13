@@ -99,9 +99,9 @@ isr_systick:
 
         bl      Scheduler_UpdateTicks
 
-        ldr     r1, =syst_CSR
-        ldr     r1, [r1]
-        ldr     r1, [r1]
+        @ldr     r1, =syst_CSR
+        @ldr     r1, [r1]
+        @ldr     r1, [r1]
 
         pop     {r0}
         mov     lr, r0

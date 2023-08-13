@@ -49,6 +49,7 @@ typedef struct {
     uint32_t ticksRemaining;
     bool earlyWake;
     bool isRunning;
+    bool isDynamicallyAllocated;
 } Scheduler_TaskTableEntry;
 
 typedef struct Scheduler_ListEntry {
@@ -155,6 +156,8 @@ Scheduler_CreateTask(   const char *name,
     if (stack == NULL) {
         goto clean_up;
     }
+
+    newListEntry->isDynamicallyAllocated = true;
 
 #if DIAMANT_SCHEDULER_VARG_TASK == 1
     return Scheduler_CreateTaskStatic(name, stackSize, priority, task, stack, newListEntry, numArgs, ...);
@@ -451,8 +454,10 @@ Scheduler_TaskToListEntry(const Scheduler_Task_t* task)
 static void
 Scheduler_FreeTask(Scheduler_ListEntry* task)
 {
-    Diamant_Free(task->taskEntry.task.stack);
-    Diamant_Free(task);
+    if (task->taskEntry.isDynamicallyAllocated) {
+        Diamant_Free(task->taskEntry.task.stack);
+        Diamant_Free(task);
+    }
 }
 
 

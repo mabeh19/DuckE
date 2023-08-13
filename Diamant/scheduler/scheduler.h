@@ -41,6 +41,7 @@ typedef struct {
     uint32_t ticksRemaining;
     bool earlyWake;
     bool isRunning;
+    bool isDynamicallyAllocated;
 
     void* next;
     void* prev;
