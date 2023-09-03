@@ -29,7 +29,7 @@
 extern void Scheduler_SwitchTask(void* newStack);
 extern void Scheduler_SwitchTaskNoSp(void);
 extern void Scheduler_InitTick(void);
-extern void Scheduler_SetEntryRegisters(void *stackPtr, void *data);
+extern void Scheduler_PushEntryRegisters(void *stackPtr, void *data);
 
 
 extern void* Diamant_Malloc(size_t);
@@ -106,7 +106,7 @@ Scheduler_Initialize(void)
         }
     }
     
-    internal_stackPtr = internal_stack + DIAMANT_INTERNAL_STACK_SIZE - 4U;
+    internal_stackPtr = internal_stack + DIAMANT_INTERNAL_STACK_SIZE - DIAMANT_PORT_REG_SIZE;
 
     for (uint32_t i = 0U; i < DIAMANT_NUM_CORES; i++) {
         char taskName[20U] = {0U};
@@ -204,11 +204,13 @@ Scheduler_CreateTaskStatic( const char *name,
     memset(newTask.stack, 0x00U, stackSize);
 
     nextTaskEntry = &task_table.readyTasks;
-    (*nextTaskEntry)->prev = (Scheduler_ListEntry*)taskBuffer;
+    if (*nextTaskEntry != NULL) {
+        (*nextTaskEntry)->prev = (Scheduler_ListEntry*)taskBuffer;
+    }
     ((Scheduler_ListEntry*)taskBuffer)->next = (*nextTaskEntry);
     *nextTaskEntry = (Scheduler_ListEntry*)taskBuffer; 
     (*nextTaskEntry)->taskEntry.task = newTask;
-    (*nextTaskEntry)->taskEntry.stackPtr = newTask.stack + stackSize - 4U; // set stack pointer to end of allocated area
+    (*nextTaskEntry)->taskEntry.stackPtr = newTask.stack + stackSize - DIAMANT_PORT_REG_SIZE; // set stack pointer to end of allocated area
 
     memcpy((*nextTaskEntry)->taskEntry.stackPtr, &newTask.entryPoint, sizeof(newTask.entryPoint));
 
@@ -218,14 +220,14 @@ Scheduler_CreateTaskStatic( const char *name,
     for (uint32_t i = 0U; i < numArgs; i++) {
         void* arg = va_arg(va, void*);
 
-        memcpy((*nextTaskEntry)->taskEntry.stackPtr - (sizeof(uint32_t) * (8U - i)), &arg, sizeof(void*));          
+        memcpy((*nextTaskEntry)->taskEntry.stackPtr - (DIAMANT_PORT_REG_SIZE * (8U - i)), &arg, sizeof(void*));  // currently this line is not portable
     }
     va_end(va);
 #else
-    Scheduler_SetEntryRegisters((*nextTaskEntry)->taskEntry.stackPtr, data);
+    Scheduler_PushEntryRegisters((*nextTaskEntry)->taskEntry.stackPtr, data);
 #endif
 
-    (*nextTaskEntry)->taskEntry.stackPtr -= 15U * sizeof(uint32_t);
+    (*nextTaskEntry)->taskEntry.stackPtr = (char*)(*nextTaskEntry)->taskEntry.stackPtr - DIAMANT_PORT_REG_SIZE * DIAMANT_PORT_NUM_REGS;
     (*nextTaskEntry)->taskEntry.ticksRemaining = 0U;
     (*nextTaskEntry)->prev = NULL;
     (*nextTaskEntry)->taskEntry.isRunning = false;
@@ -266,11 +268,9 @@ Scheduler_DeleteTask(TaskHandle handle)
          */
         Scheduler_Task_t* task = &Scheduler_CURRENT_TASK()->taskEntry.task;
 
-        /* TODO: move to target impl */
-        __asm(" mov     r2, r0");
+        Scheduler_BackupR0();
         Scheduler_SwitchToInternalStack();
-        __asm(" mov     r0, r2");
-        /*                           */
+        Scheduler_RestoreR0();
 
         Scheduler_RemoveTask(task);
 

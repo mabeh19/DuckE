@@ -12,7 +12,7 @@
 #define DIAMANT_PORT_H
 
 
-
+#if 0
 #define Scheduler_SwitchToInternalStack() __asm( \
         " ldr r0, =internal_stackPtr\n" \
         " ldr r0, [r0]\n" \
@@ -35,6 +35,44 @@
 
 #define Scheduler_EnableInterrupts() __asm(" cpsie i")
 #define Scheduler_DisableInterrupts() __asm(" cpsid i")
+
+#endif
+
+#define DIAMANT_PORT_NUM_REGS   (16U)
+#define DIAMANT_PORT_REG_SIZE   (8U)
+
+#define Scheduler_BackupR0()    __asm(" mov  %rcx, %rax\n")
+#define Scheduler_RestoreR0()   __asm(" mov  %rax, %rcx\n")
+
+#define Scheduler_SwitchToInternalStack() __asm( \
+        "mov %0, %%rsp"\
+        : \
+        : "m"(internal_stackPtr) \
+    );
+
+#define Scheduler_SaveCoreRegisters() __asm( \
+        "push   %rax\n"\
+        "push   %rbx\n" \
+        "push   %rcx\n" \
+        "push   %rdx\n" \
+        "push   %rsi\n" \
+        "push   %rdi\n" \
+        "push   %r8\n" \
+        "push   %r9\n" \
+        "push   %r10\n" \
+        "push   %r11\n" \
+        "push   %r12\n" \
+        "push   %r13\n" \
+        "push   %r14\n" \
+        "push   %r15\n" \
+        "pushfq\n" \
+    )
+
+#define Scheduler_EnableInterrupts() 
+#define Scheduler_DisableInterrupts() 
+
+
+
 
 #endif /* DIAMANT_PORT_H */
 
