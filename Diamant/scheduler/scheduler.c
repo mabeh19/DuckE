@@ -91,6 +91,9 @@ static volatile void* __attribute__((used)) internal_stackPtr;
 void
 Scheduler_Initialize(void)
 {
+static Scheduler_Task idleTasks[DIAMANT_NUM_CORES];
+static uint8_t idleTasksStack[DIAMANT_IDLE_STACK_SIZE];
+
     task_table.numEntries = 0U;
     task_table.readyTasks = NULL;
     task_table.blockedTasks = NULL;
@@ -114,7 +117,7 @@ Scheduler_Initialize(void)
 #if DIAMANT_SCHEDULER_VARG_TASK == 1U
         Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, 1U, NULL);
 #else
-        Scheduler_CreateTask(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, NULL);
+        Scheduler_CreateTaskStatic(taskName, DIAMANT_IDLE_STACK_SIZE, 0U, Scheduler_IdleTask, idleTasksStack, &idleTasks[i], NULL);
 #endif
     }
 }
