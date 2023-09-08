@@ -10,9 +10,10 @@
 
         global Scheduler_PushEntryRegisters
         global Scheduler_SwitchTask
-        global Scheduler_SwitchTaskNoSp
         global Scheduler_SaveStackPointer
+        global Target_CopyStackPointer
         global isr_systick 
+
 
 ; Scheduler_PushEntryRegisters
 ; rdi: void *stackPtr
@@ -25,8 +26,6 @@ Scheduler_PushEntryRegisters:
 ; rdi: void* newStackPtr
 Scheduler_SwitchTask:
         mov     rsp, rdi
-
-Scheduler_SwitchTaskNoSp:
         popfq
         pop     r15
         pop     r14
@@ -36,7 +35,7 @@ Scheduler_SwitchTaskNoSp:
         pop     r10
         pop     r9
         pop     r8
-        pop     rbp     ; maybe?
+        pop     rbp
         pop     rdi
         pop     rsi
         pop     rdx
@@ -49,12 +48,37 @@ Scheduler_SwitchTaskNoSp:
 ; Scheduler_SaveStackPointer
 ; rdi: void** stackPtrPtr
 Scheduler_SaveStackPointer:
-        mov     qword [rdi], rsp 
+        push    rax
+        mov     rax, rsp
+        add     rax, 16
+        mov     qword [rdi], rax
+        pop     rax
         ret
 
         extern Scheduler_UpdateTicks
         extern Scheduler_ContextSwitch
 
 isr_systick:
+        push    rax
+        push    rbx
+        push    rcx
+        push    rdx
+        push    rdi
+        push    rsi
         call    Scheduler_UpdateTicks
+        pop     rsi
+        pop     rdi
+        pop     rdx
+        pop     rcx
+        pop     rbx
+        pop     rax
         jmp     Scheduler_ContextSwitch
+
+
+Target_CopyStackPointer:
+        mov     rax, [rsp + 17 * 8]     ; grab RIP from signal stack
+        mov     rbx, [rsp + 16 * 8]     ; grab RSP from signal stack
+        sub     rbx, 8                  ; calculate the address to place RIP   
+        mov     [rbx], rax              ; manually place on task stack 
+        mov     [rsp + 16 * 8], rbx     ; update the stack pointer on the signal stack
+        ret

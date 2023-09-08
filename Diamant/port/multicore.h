@@ -14,7 +14,11 @@
 
 
 void MultiCore_RunTaskOnSecondaryCore(const uint32_t core, const void *task, void *stack);
-uint32_t MultiCore_GetCoreNumber(void);
+//uint32_t MultiCore_GetCoreNumber(void);
+
+
+#define MultiCore_GetCoreNumber()   (0U)
 
 
 #endif /* DIAMANT_MULTICORE_H */
+

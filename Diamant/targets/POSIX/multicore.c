@@ -9,8 +9,10 @@ void MultiCore_RunTaskOnSecondaryCore(const uint32_t core, const void *task, voi
     
 }
 
-
+#if 0
 uint32_t MultiCore_GetCoreNumber(void)
 {
     return 0;
 }
+#endif
+

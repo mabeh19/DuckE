@@ -313,14 +313,26 @@ Scheduler_TaskGetPriority(const TaskHandle handle)
 static void
 Scheduler_IdleTask(void* data)
 {
-    
+    asm volatile (
+        "mov    $0x11111111, %rax\n"
+        "mov    $0x22222222, %rbx\n"
+        "mov    $0x33333333, %rcx\n"
+        "mov    $0x44444444, %rdx\n"
+        "mov    $0x55555555, %rdi\n"
+        "mov    $0x66666666, %rsi\n"
+        "mov    $0x77777777, %r8\n"
+        "mov    $0x88888888, %r9\n"
+        "mov    $0x99999999, %r10\n"
+        "mov    $0xAAAAAAAA, %r11\n"
+        "mov    $0xBBBBBBBB, %r12\n"
+        "mov    $0xCCCCCCCC, %r13\n"
+        "mov    $0xDDDDDDDD, %r14\n"
+        "mov    $0xEEEEEEEE, %r15"
+    );
     for (;;) {
         /* spin forever until another task is ready */
     }
 }
-
-
-extern void Scheduler_SaveStackPointer(void** stackPtr);
 
 
 static Scheduler_TaskTableEntry* 
@@ -359,7 +371,7 @@ Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task)
     //         " ldr r0, =internal_stackPtr\n"
     //         " mov sp, r0\n"
     //         " pop  {r0}");
-    
+
     Scheduler_EnableInterrupts();
 
 #if DIAMANT_NUM_CORES > 1
@@ -374,24 +386,26 @@ Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task)
 }
 
 
-void Scheduler_ContextSwitch(void) __attribute__((naked));
+extern void Scheduler_SaveStackPointer(void** stackPtr);
+void Scheduler_ContextSwitch(void);
 
 
 void
 Scheduler_ContextSwitch(void)
 {
     Scheduler_DisableInterrupts();
+
     Scheduler_SaveCoreRegisters();
-    Scheduler_SaveStackPointer(&Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
+    Scheduler_SaveStackPointer(Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
+
     Scheduler_SwitchToInternalStack();
 
     Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
-
-    volatile Scheduler_TaskTableEntry* newTask = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
+    volatile Scheduler_TaskTableEntry* task = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
 
     Scheduler_EnableInterrupts();
 
-    Scheduler_SwitchTask(newTask->stackPtr);
+    Scheduler_SwitchTask(task->stackPtr);
 }
 
 
@@ -440,7 +454,9 @@ Scheduler_MoveTaskToOtherList(  Scheduler_ListEntry* entry,
     }
 
     entry->next = *addTo;
-    (*addTo)->prev = entry;
+    if (*addTo != NULL) {
+        (*addTo)->prev = entry;
+    }
     entry->prev = NULL;
     *addTo = entry;
 }

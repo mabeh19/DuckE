@@ -51,12 +51,13 @@
     );
 
 #define Scheduler_SaveCoreRegisters() __asm( \
-        "push   %rax\n"\
+        "push   %rax\n" \
         "push   %rbx\n" \
         "push   %rcx\n" \
         "push   %rdx\n" \
         "push   %rsi\n" \
         "push   %rdi\n" \
+        "push   %rbp\n" \
         "push   %r8\n" \
         "push   %r9\n" \
         "push   %r10\n" \
@@ -68,11 +69,35 @@
         "pushfq\n" \
     )
 
-#define Scheduler_EnableInterrupts() 
-#define Scheduler_DisableInterrupts() 
+#define Scheduler_EnableInterrupts() //do { sigset_t set; sigemptyset(&set); sigaddset(&set, SIGALRM); sigprocmask(SIG_BLOCK, &set, NULL); } while (0)
+#define Scheduler_DisableInterrupts() //do { sigset_t set; sigemptyset(&set); sigaddset(&set, SIGALRM); sigprocmask(SIG_UNBLOCK, &set, NULL); } while (0)
 
+#if 0
+    asm volatile (
+        "call   Scheduler_CURRENT_TASK\n"
+        "add    %0, %%rax\n"
+        "movb   $0, (8 + 5)(%%rax)\n"
+        : 
+        : "i" (sizeof(Scheduler_Task_t))
+    );
 
+    asm volatile (
+        "mov    %0, %%rdi\n"
+        "call   Scheduler_FindHighestPriorityTaskAvailable\n"
+        "mov    %%rax, %%rdi\n"
+        "call   Scheduler_SwitchTask\n"
+        :
+        : "i" (MultiCore_GetCoreNumber())
+    );
+#endif
 
+#if 0
+    asm volatile (
+        "call   Scheduler_CURRENT_TASK\n"
+        "mov    %rax, %rdi\n"
+        "call   Scheduler_SaveStackPointer\n"
+    );
+#endif
 
 #endif /* DIAMANT_PORT_H */
 
