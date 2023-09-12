@@ -23,7 +23,7 @@
 
 
 #define GetParentPointer(ptr, type, memberName) (type*)((char*)ptr - offsetof(type, memberName))
-
+#define Scheduler_CURRENT_TASK()    task_table.currentTask[MultiCore_GetCoreNumber()]
 
 
 extern void Scheduler_SwitchTask(void* newStack);
@@ -69,7 +69,7 @@ typedef struct {
 extern void blink(int rate);
 
 
-static Scheduler_ListEntry* Scheduler_CURRENT_TASK(void);
+//static Scheduler_ListEntry* Scheduler_CURRENT_TASK(void);
 void Scheduler_UpdateTicks(void);
 void Scheduler_ContextSwitch(void);
 static void Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task);
@@ -387,7 +387,7 @@ Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task)
 
 
 extern void Scheduler_SaveStackPointer(void** stackPtr);
-void Scheduler_ContextSwitch(void);
+void Scheduler_ContextSwitch(void) __attribute__((naked));
 
 
 void
@@ -396,16 +396,46 @@ Scheduler_ContextSwitch(void)
     Scheduler_DisableInterrupts();
 
     Scheduler_SaveCoreRegisters();
-    Scheduler_SaveStackPointer(Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
+    asm volatile (
+        "mov    %0, %%rdi\n"
+        "call   Scheduler_SaveStackPointer"
+        : 
+        : "r" (Scheduler_CURRENT_TASK()->taskEntry.stackPtr)
+        : "rdi"
+    );
+    //Scheduler_SaveStackPointer(Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
 
     Scheduler_SwitchToInternalStack();
 
-    Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
-    volatile Scheduler_TaskTableEntry* task = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
+
+    //Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
+    
+
+    asm volatile (
+        "mov    $0, %0\n"
+        "mov    %1, %%rdi\n"
+        "push   %%rsi\n"
+        "push   %%rdx\n"
+        "push   %%rcx\n"
+        "call   Scheduler_FindHighestPriorityTaskAvailable\n"
+        "pop    %%rcx\n"
+        "pop    %%rdx\n"
+        "pop    %%rsi\n"
+        "mov    (%%rax), %%rdi\n"
+        : "=r" (Scheduler_CURRENT_TASK()->taskEntry.isRunning)
+        : "i" (MultiCore_GetCoreNumber())
+        : "rdi"
+    );
+    //volatile Scheduler_TaskTableEntry* task = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
+
 
     Scheduler_EnableInterrupts();
 
-    Scheduler_SwitchTask(task->stackPtr);
+    asm volatile (
+        "jmp    Scheduler_SwitchTask"
+    );
+
+    //Scheduler_SwitchTask(task->stackPtr);
 }
 
 
@@ -511,12 +541,13 @@ Scheduler_WakeTask(TaskHandle task)
     entry->taskEntry.earlyWake = true;
 }
 
-
+#if 0
 static Scheduler_ListEntry* 
 Scheduler_CURRENT_TASK(void)
 {
     return task_table.currentTask[MultiCore_GetCoreNumber()];
 }
+#endif
 
 
 static inline bool

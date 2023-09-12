@@ -57,8 +57,8 @@ Scheduler_AlarmHandler(int sig)
         "pop    %rax\n"
         "pop    %rcx\n"
     );
-    asm volatile ("pop    %rsp\n");
-    asm volatile ("jmp isr_systick");
+    asm volatile ("pop  %rsp\n");
+    asm volatile ("jmp  isr_systick");
     //isr_systick();
 }
 

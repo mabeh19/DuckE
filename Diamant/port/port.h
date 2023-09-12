@@ -45,7 +45,8 @@
 #define Scheduler_RestoreR0()   __asm(" mov  %rax, %rcx\n")
 
 #define Scheduler_SwitchToInternalStack() __asm( \
-        "mov %0, %%rsp"\
+        "mov %0, %%rsp\n" \
+        "mov %%rsp, %%rbp\n" \
         : \
         : "m"(internal_stackPtr) \
     );
