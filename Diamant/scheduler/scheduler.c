@@ -245,9 +245,12 @@ bool
 Scheduler_Sleep(uint32_t ticks)
 {
     Scheduler_ListEntry* currentTask = Scheduler_CURRENT_TASK();
-    currentTask->taskEntry.ticksRemaining = ticks;
-    Scheduler_MoveTaskToBlockedList(currentTask);
-    Scheduler_ContextSwitch();
+
+    if (ticks > 0U) {
+        currentTask->taskEntry.ticksRemaining = ticks;
+        Scheduler_MoveTaskToBlockedList(currentTask);
+        Scheduler_ContextSwitch();
+    }
 
     bool earlyWake = currentTask->taskEntry.earlyWake;
 
