@@ -78,7 +78,12 @@ Cyw43Client& Cyw43Driver::get_client()
 
 void Cyw43Driver::set_client(struct tcp_pcb* cpcb)
 {
-    client = std::unique_ptr<Cyw43Client>(new Cyw43Client(cpcb));
+    if (cpcb) {
+        client = std::unique_ptr<Cyw43Client>(new Cyw43Client(cpcb));
+    }
+    else {
+        client.reset();
+    }
 }
 
 
@@ -116,16 +121,16 @@ void Cyw43Driver::raise_connect_event()
 }
 
 
-void Cyw43Driver::connect(const char* ssid, const char* password, std::uint32_t timeout)
+bool Cyw43Driver::connect(const char* ssid, const char* password, std::uint32_t timeout)
 {
     if (state != ConnectionState::connecting) {
-        return;
+        return false;
     }
 
     int errorCode = 0;
     if ((errorCode = cyw43_arch_wifi_connect_timeout_ms(ssid, password, CYW43_AUTH_WPA2_AES_PSK, timeout)) != 0) {
         std::cout << "Error starting scan for WiFi connection: " << errorCode << std::endl;
-        return;
+        return false;
     }
 
     
@@ -136,13 +141,13 @@ void Cyw43Driver::connect(const char* ssid, const char* password, std::uint32_t 
     auto pcb = tcp_new_ip_type(IPADDR_TYPE_ANY);
     if (!pcb) {
         std::cout << "Failed to create pcb" << std::endl;
-        return;
+        return false;
     }
 
     err_t err = tcp_bind(pcb, NULL, TCP_PORT);
     if (err) {
         std::cout << "Failed to bind to port %u" << TCP_PORT << std::endl;
-        return;
+        return false;
     }
 
     auto serverPcb = tcp_listen_with_backlog(pcb, 1);
@@ -158,6 +163,8 @@ void Cyw43Driver::connect(const char* ssid, const char* password, std::uint32_t 
 
     this->serverPcb = serverPcb;
     state = ConnectionState::connected;
+
+    return true;
 }
 
 

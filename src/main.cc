@@ -11,6 +11,10 @@
 
 #include "NetClient/Server.h"
 #include "Commandline/Commandline.h"
+#include "Queue/DiamantQueue.h"
+#include "Queue/StdQueue.h"
+
+
 
 #ifndef WIFI_NAME
 #define WIFI_NAME "Stofa91078"
@@ -31,16 +35,14 @@ enum Task_Priority {
 };
 
 
-
-DIAMANT_TASK(WifiTask,      8192U);
-DIAMANT_TASK(CommandParser, 8192U);
+DIAMANT_TASK(WifiTask,      16384U);
+DIAMANT_TASK(CommandParser, 16384U);
 
 
 void trim_command(std::string& command);
 
 int main(void)
 {
-
     stdio_init_all();
 
     Scheduler_Initialize();
@@ -48,11 +50,14 @@ int main(void)
     Queue cq;
     const char* cqBuff[NUM_COMMANDS];
     Queue_Create(&cq, cqBuff, NUM_COMMANDS, sizeof(const char*));
-    DIAMANT_REGISTER_TASK(WifiTask, Task_Priority_Normal, &cq);
-    DIAMANT_REGISTER_TASK(CommandParser, Task_Priority_High, &cq);
 
+    /* Create tasks */
+    DIAMANT_REGISTER_TASK(WifiTask,         Task_Priority_Normal,   &cq);
+    DIAMANT_REGISTER_TASK(CommandParser,    Task_Priority_High,     &cq);
+
+
+    /* Run scheduler */
     Scheduler_Start();
-
 
     return 0;
 }
@@ -62,34 +67,34 @@ int main(void)
 void WifiTask(void* ctx)
 {
     auto commandQueue = (Queue*)ctx;
-    
-    Server net_client(new Cyw43Driver());
-    
-    if (!net_client.connect(WIFI_NAME, WIFI_PASSWORD)) {
-        std::cout << "Unable to connect to network\n";
+    //auto q = new StdQueue<Packet>();
+    auto q = new DiamantQueue<Packet, 10, 0U>();
+    Server server(new Cyw43Driver(), q);
 
-        net_client.~Server();   // Destroy net_client manually
-        Scheduler_DeleteTask(NULL);
-    }
+    while (!server.connect(WIFI_NAME, WIFI_PASSWORD)) {
+        std::cout << "Unable to connect to network\n";
+        std::cout << "Waiting a minute before retrying..." << std::endl;
+        Scheduler_Sleep(60 * 1000);
+    } 
 
     std::cout << "Server started and running!\n";
     
     for (;;) {
-        auto packet = net_client.get_packet();
-
-        std::string command((char*)packet.data());
+        auto command = server.get_packet();
 
         trim_command(command);
 
+        if (!command.size()) {
+            continue;
+        }
+
         char* cmd = new char[command.size()];
-
         strcpy(cmd, command.c_str());
-
         Queue_PushBack(commandQueue, &cmd, 10000U);
 
         if (command == "exit") {
             std::cout << "Closing connection to client" << std::endl;
-            net_client.close_client_connection();        
+            server.close_client_connection();        
         }
     }
 }
@@ -113,6 +118,9 @@ const uint32_t ONE_MINUTE = 60 * 1000;
         char* command;
         if (Queue_PopFront(commandQueue, ONE_MINUTE, &command)) {
             std::cout << "Received command: " << command << std::endl;
+            auto token = parser.parse(command);
+
+            std::cout << token << std::endl;
         }
         delete[] command;
     }

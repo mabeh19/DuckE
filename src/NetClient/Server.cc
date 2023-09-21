@@ -3,18 +3,22 @@
 #include <iostream>
 #include "Server.h"
 
-#define BUF_SIZE (2048U)
+#define BUF_SIZE (256U)
 
 static void connect_event_handler(const templates::Event<NetClient&>* event, void* arg, NetClient& client);
 static void rx_done_event_handler(const templates::Event<Packet>* event, Packet packet, Server* server);
 
-Server::Server() : netDriver(nullopt), packetQueue{}
+Server::Server() : 
+    netDriver(nullopt), 
+    packetQueue{}
 {
 
 }
 
 
-Server::Server(NetDriver* _nc) : netDriver(unique_ptr<NetDriver>(_nc)), packetQueue{}
+Server::Server(NetDriver* _nc, templates::Queue<Packet>* _q) : 
+    netDriver(unique_ptr<NetDriver>(_nc)), 
+    packetQueue(unique_ptr<templates::Queue<Packet>>(_q))
 {
 
 }
@@ -51,9 +55,8 @@ bool Server::connect(const char* ssid, const char* password)
         netDriver.value()->bind_to_client_connect_event(this, connect_event_handler);
         auto doneHandler = bind(rx_done_event_handler, _1, _2, this);
         netDriver.value()->bind_to_client_rx_done_event(this, doneHandler);
-        netDriver.value()->connect(ssid, password, 10'000);
-
-        return true;
+        
+        return netDriver.value()->connect(ssid, password, 30'000);
     }
     
     return false;
@@ -66,17 +69,11 @@ void Server::close_client_connection()
 }
 
 
-vector<uint8_t> Server::get_packet()
+std::string Server::get_packet()
 {
-    while(packetQueue.empty()) {
-        // Wait for a new packet to arrive
-    }
-    
-    auto newPacket = packetQueue.front();
-    packetQueue.pop();
+    auto newPacket = packetQueue.get()->PopFront();
 
-    vector<uint8_t> packet;
-    packet.assign(newPacket.data.get(), newPacket.data.get() + newPacket.length);
+    std::string packet((char*)newPacket.data.get());
 
     return packet;
 }
@@ -84,7 +81,7 @@ vector<uint8_t> Server::get_packet()
 
 void Server::new_packet_available(Packet packet)
 {
-    packetQueue.push(packet);
+    packetQueue.get()->PushBack(&packet);
 }
 
 

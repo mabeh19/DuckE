@@ -86,7 +86,8 @@
         "diamant_config.h": "c",
         "port.h": "c",
         "utest.h": "c",
-        "test_bench.h": "c"
+        "test_bench.h": "c",
+        "sstream": "cpp"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }

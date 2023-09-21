@@ -4,9 +4,9 @@
 
 #include <memory>
 #include <optional>
-#include <queue>
 using namespace std;
 #include "../NetDriver/NetDriver.h"
+#include "../Queue/Queue.h"
 
 
 
@@ -14,7 +14,7 @@ class Server {
     
 public:
     Server();
-    explicit Server(NetDriver*);
+    explicit Server(NetDriver*, templates::Queue<Packet>*);
     Server(const Server&);    // copy constructor
     Server(Server&&);         // move constructor
     ~Server();
@@ -24,7 +24,7 @@ public:
     void close_client_connection();
 
     // Waits blocking for a new packet
-    std::vector<uint8_t> get_packet();
+    std::string get_packet();
     void new_packet_available(Packet packet);
 
     
@@ -33,5 +33,5 @@ public:
 private:
 
     optional<unique_ptr<NetDriver>> netDriver;
-    queue<Packet> packetQueue;
+    unique_ptr<templates::Queue<Packet>> packetQueue;
 };

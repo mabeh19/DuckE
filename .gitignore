@@ -1,0 +1,10 @@
+*.o
+*.d 
+*.a
+.cache
+
+/*build*/
+
+*.cppcheck
+
+*-build-dir

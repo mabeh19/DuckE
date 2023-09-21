@@ -22,7 +22,7 @@ public:
     Cyw43Driver();
     ~Cyw43Driver();
 
-    virtual void connect(const char* ssid, const char* password, std::uint32_t timeout = 0) override;
+    virtual bool connect(const char* ssid, const char* password, std::uint32_t timeout = 0) override;
     virtual void disconnect_client() override;
     virtual void bind_to_client_connect_event(void* ctx, ConnectEventCallback) override;
     virtual void bind_to_client_rx_done_event(void* ctx, RxDoneEventCallback) override;
