@@ -1,6 +1,6 @@
 
 
-#include "../../port/multicore.h"
+#include "multicore.h"
 #include "../../scheduler/scheduler.h"
 
 

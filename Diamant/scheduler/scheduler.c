@@ -14,8 +14,7 @@
 #include <stdarg.h>
 #include "../Diamant_Config.h"
 #include "scheduler.h"
-#include "../port/multicore.h"
-#include "../port/port.h"
+#include "../targets/target.h"
 
 
 #include "../../CUtils/test/uTest/uTest.h"
@@ -109,7 +108,7 @@ static uint8_t idleTasksStack[DIAMANT_IDLE_STACK_SIZE];
         }
     }
     
-    internal_stackPtr = internal_stack + DIAMANT_INTERNAL_STACK_SIZE - DIAMANT_PORT_REG_SIZE;
+    internal_stackPtr = internal_stack + DIAMANT_INTERNAL_STACK_SIZE; 
 
     for (uint32_t i = 0U; i < DIAMANT_NUM_CORES; i++) {
         char taskName[20U] = {0U};
@@ -199,7 +198,7 @@ Scheduler_CreateTaskStatic( const char *name,
     Scheduler_ListEntry** nextTaskEntry = NULL;
     Scheduler_Task_t newTask;
 
-    memcpy(newTask.name, name, sizeof(newTask.name));
+    strncpy(newTask.name, name, sizeof(newTask.name));
     newTask.entryPoint = task;
     newTask.stack = stackBuffer;
     newTask.priority = priority;
@@ -347,7 +346,7 @@ Scheduler_TaskTableEntry* highestPriorityTask = currentTask;
 
         if ( entry->taskEntry.ticksRemaining == 0U && 
             (entry->taskEntry.task.priority + 1U) > newTaskPriority && 
-             !Scheduler_TaskIsRunning(&entry->taskEntry)) {
+             !Scheduler_TaskIsRunning(&entry->taskEntry) ) {
             
             newTaskPriority = entry->taskEntry.task.priority + 1U;
             task_table.currentTask[core] = entry;
@@ -387,55 +386,24 @@ Scheduler_StartFirstTask(const Scheduler_TaskTableEntry* task)
 
 
 extern void Scheduler_SaveStackPointer(void** stackPtr);
-void Scheduler_ContextSwitch(void) __attribute__((naked));
+void Scheduler_ContextSwitch(void);
 
 
 void
 Scheduler_ContextSwitch(void)
 {
-    Scheduler_DisableInterrupts();
-
     Scheduler_SaveCoreRegisters();
-    asm volatile (
-        "mov    %0, %%rdi\n"
-        "call   Scheduler_SaveStackPointer"
-        : 
-        : "r" (Scheduler_CURRENT_TASK()->taskEntry.stackPtr)
-        : "rdi"
-    );
-    //Scheduler_SaveStackPointer(Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
-
+    Scheduler_SaveStackPointer(&Scheduler_CURRENT_TASK()->taskEntry.stackPtr);
+    
     Scheduler_SwitchToInternalStack();
 
+    Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
 
-    //Scheduler_CURRENT_TASK()->taskEntry.isRunning = false;
-    
-
-    asm volatile (
-        "mov    $0, %0\n"
-        "mov    %1, %%rdi\n"
-        "push   %%rsi\n"
-        "push   %%rdx\n"
-        "push   %%rcx\n"
-        "call   Scheduler_FindHighestPriorityTaskAvailable\n"
-        "pop    %%rcx\n"
-        "pop    %%rdx\n"
-        "pop    %%rsi\n"
-        "mov    (%%rax), %%rdi\n"
-        : "=r" (Scheduler_CURRENT_TASK()->taskEntry.isRunning)
-        : "i" (MultiCore_GetCoreNumber())
-        : "rdi"
-    );
-    //volatile Scheduler_TaskTableEntry* task = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
-
+    volatile Scheduler_TaskTableEntry* task = Scheduler_FindHighestPriorityTaskAvailable(MultiCore_GetCoreNumber());
 
     Scheduler_EnableInterrupts();
 
-    asm volatile (
-        "jmp    Scheduler_SwitchTask"
-    );
-
-    //Scheduler_SwitchTask(task->stackPtr);
+    Scheduler_SwitchTask(task->stackPtr);
 }
 
 
@@ -446,7 +414,8 @@ Scheduler_UpdateTicks(void)
         Scheduler_ListEntry* next = entry->next;
         if ( entry->taskEntry.ticksRemaining > 0U ) {
             entry->taskEntry.ticksRemaining--;
-        } else {
+        } 
+        else {
             Scheduler_MoveTaskToReadyList(entry);
         }
         entry = next;
@@ -475,7 +444,8 @@ Scheduler_MoveTaskToOtherList(  Scheduler_ListEntry* entry,
 {
     if (entry->prev != NULL) {
         entry->prev->next = entry->next;
-    } else {
+    } 
+    else {
         *removeFrom = entry->next;
     }
 
@@ -562,7 +532,9 @@ static uint32_t criticality_depth = 0U;
 void
 Scheduler_EnterCriticalSection(void)
 {
-    Scheduler_DisableInterrupts();
+    if (criticality_depth == 0U) {
+        Scheduler_DisableInterrupts();
+    }
     criticality_depth++;
 }
 

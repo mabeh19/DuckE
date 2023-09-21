@@ -3,7 +3,7 @@
 #include "pico/multicore.h"
 #include "hardware/structs/scb.h"
 
-#include "../port/multicore.h"
+#include "multicore.h"
 #include "../scheduler/scheduler.h"
 
 

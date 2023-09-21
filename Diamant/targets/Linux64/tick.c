@@ -17,14 +17,6 @@
 #include "../../scheduler/scheduler.h"
 
 
-#define TIMER_TYPE  ITIMER_VIRTUAL
-
-#if TIMER_TYPE == ITIMER_VIRTUAL
-#define SIG_TYPE SIGVTALRM
-#elif TIMER_TYPE == ITIMER_REAL
-#define SIG_TYPE SIGALRM
-#endif
-
 extern void isr_systick(void);
 extern void Target_CopyStackPointer(void);
 static timer_t timer;
@@ -73,16 +65,19 @@ struct itimerspec its = {
     },
     .it_interval = {
         .tv_sec = 0,
-        .tv_nsec = 1e6
+        .tv_nsec = 0, //1e6
     }
 };
     sigset_t set;
+static int gate = 0;
 
-    timer_settime(timer, 0, &its, NULL);
+    if (!gate++) {
+        timer_settime(timer, 0, &its, NULL);
 
-    sigemptyset(&set);
-    sigaddset(&set, SIG_TYPE);
-    sigprocmask(SIG_UNBLOCK, &set, NULL);
+        sigemptyset(&set);
+        sigaddset(&set, SIGALRM);
+        sigprocmask(SIG_UNBLOCK, &set, NULL);
+    }
 }
 
 
