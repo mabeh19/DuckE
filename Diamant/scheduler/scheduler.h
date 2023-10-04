@@ -22,8 +22,6 @@
 extern "C" {
 #endif
 
-#define ENABLE_INTERRUPTS()   do { __asm(" cpsie   i"); } while (0)
-#define DISABLE_INTERRUPTS()  do { __asm(" cpsid   i"); } while (0)
 
 #if DIAMANT_SCHEDULER_VARG_TASK == 1U
 typedef void* Scheduler_TaskFunc;
@@ -45,9 +43,10 @@ typedef struct {
 
     void* next;
     void* prev;
+    void **owner;
 } Scheduler_Task;
 
-void Scheduler_Initialize(void);
+int32_t Scheduler_Initialize(void);
 void Scheduler_Start(void);
 
 #if DIAMANT_SCHEDULER_VARG_TASK == 1U
@@ -98,9 +97,9 @@ void Scheduler_ExitCriticalSection(void);
 
 
 
-
+#ifdef UTEST
 void Scheduler_RegisterUTests(void);
-
+#endif
 
 #ifdef __cplusplus
 }
