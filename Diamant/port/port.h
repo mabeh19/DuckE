@@ -13,28 +13,34 @@
 
 
 
-#define Scheduler_SwitchToInternalStack() __asm( \
-        " ldr r0, =internal_stackPtr\n" \
-        " ldr r0, [r0]\n" \
-        " mov sp, r0\n" \
+#define Target_SwitchToInternalStack() asm volatile ( \
+        " ldr r2, =internal_stackPtr\n" \
+        " ldr r2, [r2]\n" \
+        " mov sp, r2\n" \
+        ::: "r2" \
     );
 
-#define Scheduler_SaveCoreRegisters() __asm( \
-        "push   {lr}\n"\
-        "push   {r0-r7}\n" \
-        "mov    r0, r8\n" \
-        "mov    r1, r9\n" \
-        "mov    r2, r10\n" \
-        "mov    r3, r11\n" \
-        "mov    r4, r12\n" \
-        "push   {r0-r4}\n" \
-        "mrs    r0, apsr\n" \
-        "mrs    r1, control\n" \
-        "push   {r0-r1}\n" \
-    )
 
-#define Scheduler_EnableInterrupts() __asm(" cpsie i")
-#define Scheduler_DisableInterrupts() __asm(" cpsid i")
+#define Target_EnableInterrupts() __asm(" cpsie i")
+#define Target_DisableInterrupts() __asm(" cpsid i")
+
+
+#define Target_Yield() \
+    *(uint32_t*)0xe000ed04 = (1U << 28U); \
+    asm volatile (  \
+        "dsb\n"     \
+        "isb"       \
+    );
+
+
+void Target_SwitchTask(void* newStack);
+void Target_SwitchTaskNoSp(void);
+void Target_InitTick(void);
+void* Target_SetEntryRegisters(void *stackPtr, void *data, void *entrypoint);
+void Target_StartFirstTask(const void* task);
+
+
+
 
 #endif /* DIAMANT_PORT_H */
 

@@ -12,7 +12,7 @@ void MultiCore_RunTaskOnSecondaryCore(const uint32_t core, const void *task, voi
     if (core == 1U) { 
         void *taskPtr = (void*)((uint32_t)task | 1);    /* set thumb bit */
         multicore_reset_core1();
-        multicore_launch_core1_raw(taskPtr, stack, scb_hw->vtor);
+        multicore_launch_core1_raw(taskPtr, (char*)stack + 32, scb_hw->vtor);
     }
 }
 

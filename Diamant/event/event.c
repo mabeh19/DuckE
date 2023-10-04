@@ -50,6 +50,8 @@ struct Event_t {
 };
 
 
+extern bool Target_InInterruptContext(void);
+
 static bool Event_BroadcastToListener(const Event *event, struct EventListener_t *listener, void *ctx);
 static uint8_t Event_ListenerGetPriority(struct EventListener_t *listener);
 static void Event_RemoveListener(struct Event_t* event, const struct EventListener_t *listener);
@@ -195,15 +197,19 @@ Scheduler_WakeTask(TaskHandle task);
 bool
 Event_Wait(Event* event, EventListener *listener, void** ctx, uint32_t maxTicksToWait)
 {
-    TaskHandle task = Scheduler_GetCurrentTask();
-    struct Event_t *ev = (struct Event_t*)event;
-    struct EventListener_t *newListener = Event_ConstructListener((struct EventListener_t*)listener, Task, task, ctx);
+    bool success = false;
 
-    Event_AddListener(ev, newListener);
+    if (!Target_InInterruptContext()) {
+        TaskHandle task = Scheduler_GetCurrentTask();
+        struct Event_t *ev = (struct Event_t*)event;
+        struct EventListener_t *newListener = Event_ConstructListener((struct EventListener_t*)listener, Task, task, ctx);
 
-    bool success = Scheduler_Sleep(maxTicksToWait);
+        Event_AddListener(ev, newListener);
 
-    Event_RemoveListener(ev, newListener);
+        success = Scheduler_Sleep(maxTicksToWait);
+
+        Event_RemoveListener(ev, newListener);
+    }
 
     return success;
 }
