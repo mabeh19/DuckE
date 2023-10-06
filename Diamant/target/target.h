@@ -29,6 +29,8 @@ void Target_Yield(void);
 #if DIAMANT_NUM_CORES > 1U
 void MultiCore_RunTaskOnSecondaryCore(const uint32_t core, const void *task, void *stack);
 uint32_t MultiCore_GetCoreNumber(void);
+#else
+#define MultiCore_GetCoreNumber()	((uint32_t)0U)
 #endif
 
 
