@@ -10,8 +10,8 @@ Static memory allocation is the default, but users can opt in for dynamic memory
 
 
 # Diamant Roadmap
-As development is still in the early stages, target support is VERY limited; currently the only target supported is the RP2040.
+As development is still in the early stages, target support is VERY limited; currently the only target supported is the RP2040 and STM32.
 
 The following features are planned:
-1. FFile - integration with [FFile filesystem](https://github.com/mabeh19/FFile)
-2. Timing analysis - the goal is to allow for static timing analysis of tasks, which would be available for configurations using very strict requirements for tasks.
+1. Timing analysis - the goal is to allow for static timing analysis of tasks, which would be available for configurations using very strict requirements for tasks.
+2. Planned targets: Linux86_64, ESP32-C3 (not necessarily in that order).
