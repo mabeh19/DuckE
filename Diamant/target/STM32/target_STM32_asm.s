@@ -7,15 +7,15 @@
 @
 
         .syntax unified
-
-
+        .thumb
+        .cpu cortex-m4
+        .text
 @
-@ cortex-m0+ exceptions/interrupts stores the following
+@ cortex-m4 exceptions/interrupts stores the following
 @ on the stack
 @ r0-r3, r12, lr, pc, xPSR
 @
 @
-
 
 
         .global Target_SetEntryRegisters
@@ -27,6 +27,7 @@
         .global Target_StartFirstTask
         .global Target_EnableInterrupts
         .global Target_DisableInterrupts
+
         .global SysTick_Handler
         .global SVCall_Handler
         .global PendSV_Handler
@@ -37,32 +38,22 @@
 @ r0: void *stackPtr
 @ r1: void *ctx
 @ r2: void *entrypoint
-        .thumb_func
-        .code   16
-        .align  2
+        .type	Target_SetEntryRegisters, %function
 Target_SetEntryRegisters:
-        subs    r0, #28
+        sub     r0, #28
         str     r1, [r0]                @ argument
-        movs    r1, #0
+        mov     r1, #0
         str     r1, [r0, #20]           @ LR
         str     r2, [r0, #24]           @ PC
-        ldr     r1, =init_xpsr
-        ldr     r1, [r1]
+        mov	r1, #0x01000000
         str     r1, [r0, #28]           @ xPSR
         subs    r0, #32                 @ setup stack stack pointer for task start
         bx      lr
 
-        .align 4
-init_xpsr: .word        0x01000000
-
-
-
 @---------------------------------------------------
 @ Target_StartFirstTask
 @ r0: first task
-        .thumb_func
-        .code   16
-        .align  2
+        .type	Target_StartFirstTask, %function
 Target_StartFirstTask:
         ldr     r1, [r0]        @ get stack pointer
         adds    r1, #32
@@ -79,9 +70,7 @@ Target_StartFirstTask:
 
 
 @---------------------------------------------------
-        .thumb_func
-        .code 16
-        .align 2
+        .type   Target_SaveStackPointer, %function
 @ r0: void** stackPtrPtr
 Target_SaveStackPointer:
         mov     r1, sp
@@ -92,11 +81,7 @@ Target_SaveStackPointer:
 
 
 @---------------------------------------------------
-
-        .type SysTick_Handler,%function
-        .thumb_func
-        .code 16
-        .align 2
+        .type   SysTick_Handler, %function
 SysTick_Handler:
         mrs     r3, primask
         cpsid   i
@@ -104,6 +89,7 @@ SysTick_Handler:
         push    {r3, r4}
         push    {lr}
         
+        bl      HAL_IncTick
         bl      Scheduler_UpdateTicks
         cmp     r0, #0
         pop     {r0}
@@ -112,9 +98,8 @@ SysTick_Handler:
 
         @ Set PendSV interrupt
         ldr     r0, =ICSR_REG
-        movs    r1, 0x1
         ldr     r0, [r0]
-        lsls    r1, r1, #28
+        mov     r1, #0x10000000
         str     r1, [r0]
 
 systick.return:
@@ -130,9 +115,6 @@ ICSR_REG:   .word   0xe000ed04
 @ bool Target_InInterruptContext(void)
 @ return: true if in ISR or exception
         .type Target_InInterruptContext, %function
-        .thumb_func
-        .code 16
-        .align 2
 Target_InInterruptContext:
         movs    r1, #0x0F
         mrs     r0, xpsr
@@ -147,9 +129,6 @@ Target_InInterruptContext:
 @       PendSV_Handler
 @ switches task
         .type PendSV_Handler, %function
-        .thumb_func
-        .code 16
-        .align 2
 PendSV_Handler:
         cpsid   i
         @ Save stack pointer
@@ -172,6 +151,9 @@ PendSV_Handler:
         mov     r7, r11
         stmia   r0!, {r4-r7}
 
+        dsb
+        isb
+
         bl      Scheduler_ContextSwitch
         push    {r0}
         bl      Scheduler_GetCurrentTask
@@ -181,16 +163,12 @@ PendSV_Handler:
 
         @ fall through to SwitchTask
 
-        .thumb_func
-        .code 16
-        .align 2
+        .type   Target_SwitchTask, %function
 @ Target_SwitchTask()
 @ r0: void* newStackPtr
 Target_SwitchTask:
 
-        .thumb_func
-        .code 16
-        .align 2
+        .type   Target_SwitchTaskNoSp, %function
 Target_SwitchTaskNoSp:
         @ Restore registers
         adds    r0, r0, #16     @ move to high registers
@@ -206,14 +184,8 @@ Target_SwitchTaskNoSp:
 
 
         @ Return
-        ldr     r0, =EXC_RET
-        ldr     r0, [r0]
+        mvn     r0, #2          @ 0xFFFFFFFD
         bx      r0
-
-
-        .align 4
-EXC_RET: .word  0xfffffffd
-
 
 
 @---------------------------------------------------
@@ -225,11 +197,8 @@ EXC_RET: .word  0xfffffffd
 @       | void disable_ints(void)       |   1 |          
 @       |                               |     |          
 @---------------------------------------------------
-        .type SVCall_Handler, %function
-        .thumb_func
-        .code 16
-        .align 2
-SVCall_Handler:
+        .type SVC_Handler, %function
+SVC_Handler:
 @        sub     sp, #8
 @        str     r3, [sp]
 @        mov     r3, r12
@@ -251,18 +220,12 @@ func_table:
         .word   0 @ Target_DisableInterrupts
         
         .type Target_EnableInterrupts, %function
-        .thumb_func
-        .code   16
-        .align  2
 Target_EnableInterrupts:
         cpsie   i
         bx      lr
 
 
         .type Target_DisableInterrupts, %function
-        .thumb_func
-        .code   16
-        .align  2
 Target_DisableInterrupts:
         cpsid   i
         bx      lr

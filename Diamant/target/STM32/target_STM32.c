@@ -20,6 +20,7 @@
 #define STM32_SYSTICK_LOAD_REG             	(*((volatile uint32_t *)0xe000e014))
 #define STM32_SYSTICK_CURRENT_VALUE_REG    	(*((volatile uint32_t *)0xe000e018))
 #define STM32_SHPR3_REG                    	(*((volatile uint32_t *)0xe000ed20))
+#define STM32_PENDSV						(*((volatile uint32_t *)0xe000ed04))
 #define STM32_SYSTICK_CLK_BIT              	(1UL << 2UL)
 #define STM32_SYSTICK_INT_BIT              	(1UL << 1UL)
 #define STM32_SYSTICK_ENABLE_BIT           	(1UL << 0UL)
@@ -64,7 +65,7 @@ Target_InitTick(void)
 
 void Target_Yield(void)
 {
-    *(uint32_t*)0xe000ed04 = (1U << 28U);
+    STM32_PENDSV = (1U << 28U);
     asm volatile (
         "dsb\n"
         "isb"
