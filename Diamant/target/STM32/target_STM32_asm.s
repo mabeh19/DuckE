@@ -7,7 +7,9 @@
 @
 
         .syntax unified
-
+        .cpu cortex-m4
+        .thumb
+        .text
 
 @
 @ cortex-m0+ exceptions/interrupts stores the following
@@ -37,32 +39,23 @@
 @ r0: void *stackPtr
 @ r1: void *ctx
 @ r2: void *entrypoint
-        .thumb_func
-        .code   16
-        .align  2
+        .type Target_SetEntryRegisters,%function
 Target_SetEntryRegisters:
         subs    r0, #28
         str     r1, [r0]                @ argument
         movs    r1, #0
         str     r1, [r0, #20]           @ LR
         str     r2, [r0, #24]           @ PC
-        ldr     r1, =init_xpsr
-        ldr     r1, [r1]
+        mov     r1, 0x01000000
         str     r1, [r0, #28]           @ xPSR
         subs    r0, #32                 @ setup stack stack pointer for task start
         bx      lr
-
-        .align 4
-init_xpsr: .word        0x01000000
-
 
 
 @---------------------------------------------------
 @ Target_StartFirstTask
 @ r0: first task
-        .thumb_func
-        .code   16
-        .align  2
+        .type Target_StartFirstTask, %function
 Target_StartFirstTask:
         ldr     r1, [r0]        @ get stack pointer
         adds    r1, #32
@@ -79,9 +72,7 @@ Target_StartFirstTask:
 
 
 @---------------------------------------------------
-        .thumb_func
-        .code 16
-        .align 2
+        .type Target_SaveStackPointer,%function
 @ r0: void** stackPtrPtr
 Target_SaveStackPointer:
         mov     r1, sp
@@ -94,9 +85,6 @@ Target_SaveStackPointer:
 @---------------------------------------------------
 
         .type SysTick_Handler,%function
-        .thumb_func
-        .code 16
-        .align 2
 SysTick_Handler:
         mrs     r3, primask
         cpsid   i
@@ -104,6 +92,7 @@ SysTick_Handler:
         push    {r3, r4}
         push    {lr}
         
+        bl      HAL_IncTick
         bl      Scheduler_UpdateTicks
         cmp     r0, #0
         pop     {r0}
@@ -130,9 +119,6 @@ ICSR_REG:   .word   0xe000ed04
 @ bool Target_InInterruptContext(void)
 @ return: true if in ISR or exception
         .type Target_InInterruptContext, %function
-        .thumb_func
-        .code 16
-        .align 2
 Target_InInterruptContext:
         movs    r1, #0x0F
         mrs     r0, xpsr
@@ -147,21 +133,18 @@ Target_InInterruptContext:
 @       PendSV_Handler
 @ switches task
         .type PendSV_Handler, %function
-        .thumb_func
-        .code 16
-        .align 2
 PendSV_Handler:
         cpsid   i
         @ Save stack pointer
         push    {lr}
         bl      Scheduler_GetCurrentTask
         mov     r1, r0
+        //ldr     r0, [r0]
         pop     {r0}
         mov     lr, r0
-        add     sp, #4
-        subs    r1, #4
+        sub     r1, #4
         mrs     r0, psp
-        subs    r0, #32
+        sub     r0, #32
         str     r0, [r1]
 
         @ Save registers
@@ -172,47 +155,59 @@ PendSV_Handler:
         mov     r7, r11
         stmia   r0!, {r4-r7}
 
+        @ Save FPU registers if needed
+        ldrb    r2, [r1, #(4 + 20 + 4 + 4 + 4 + 4)]
+        cmp     r2, #0
+        beq     PendSV_Handler.SwitchTask
+        sub     r0, #32
+        vstmdb  r0!, {s0-s31}
+
+
+PendSV_Handler.SwitchTask:
+
         bl      Scheduler_ContextSwitch
-        push    {r0}
-        bl      Scheduler_GetCurrentTask
-        subs    r0, #4          @ get stack pointer
-        ldr     r0, [r0]
-        cpsie   i
 
         @ fall through to SwitchTask
 
-        .thumb_func
-        .code 16
-        .align 2
+
 @ Target_SwitchTask()
 @ r0: void* newStackPtr
+        .type Target_SwitchTask,%function
 Target_SwitchTask:
+        bl      Scheduler_GetCurrentTask
+        subs    r0, #4          @ get stack pointer
+        ldr     r1, [r0]
 
-        .thumb_func
-        .code 16
-        .align 2
+
+        .type Target_SwitchTaskNoSp,%function
 Target_SwitchTaskNoSp:
+
+        @ Restore FPU registers if needed
+        ldrb    r2, [r0, #(4 + 20 + 4 + 4 + 4 + 4)]
+        cmp     r2, #0
+        beq     Target_SwitchTaskNoSp.RestoreCoreRegisters
+        vldmdb  r1!, {s0-s31}
+        add     r1, #(32 * 4)
+
+
+Target_SwitchTaskNoSp.RestoreCoreRegisters:
         @ Restore registers
-        adds    r0, r0, #16     @ move to high registers
-        ldmia   r0!, {r4-r7}
+        adds    r1, #16     @ move to high registers
+        ldmia   r1!, {r4-r7}
         mov     r8, r4
         mov     r9, r5
         mov     r10, r6
         mov     r11, r7
 
-        msr     psp, r0         @ save new top of stack
-        subs    r0, r0, #32     @ grab low registers
-        ldmia   r0!, {r4-r7}
+        msr     psp, r1         @ save new top of stack
+        subs    r1, #32         @ grab low registers
+        ldmia   r1!, {r4-r7}
 
 
         @ Return
-        ldr     r0, =EXC_RET
-        ldr     r0, [r0]
+        mvn     r0, #2
+        cpsie   i
         bx      r0
-
-
-        .align 4
-EXC_RET: .word  0xfffffffd
 
 
 
@@ -225,11 +220,8 @@ EXC_RET: .word  0xfffffffd
 @       | void disable_ints(void)       |   1 |          
 @       |                               |     |          
 @---------------------------------------------------
-        .type SVCall_Handler, %function
-        .thumb_func
-        .code 16
-        .align 2
-SVCall_Handler:
+        .type SVC_Handler, %function
+SVC_Handler:
 @        sub     sp, #8
 @        str     r3, [sp]
 @        mov     r3, r12
@@ -250,19 +242,15 @@ func_table:
         .word   0 @ Target_EnableInterrupts
         .word   0 @ Target_DisableInterrupts
         
+
+
         .type Target_EnableInterrupts, %function
-        .thumb_func
-        .code   16
-        .align  2
 Target_EnableInterrupts:
         cpsie   i
         bx      lr
 
 
         .type Target_DisableInterrupts, %function
-        .thumb_func
-        .code   16
-        .align  2
 Target_DisableInterrupts:
         cpsid   i
         bx      lr

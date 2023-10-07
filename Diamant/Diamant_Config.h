@@ -16,7 +16,7 @@
 #define DIAMANT_IDLE_STACK_SIZE             DIAMANT_SCHEDULER_MIN_STACK_SIZE
 #define DIAMANT_INTERNAL_STACK_SIZE         (512U)
 #define DIAMANT_TICK_RATE_HZ                (1000U)
-
+#define DIAMANT_FPU_SUPPORT					(1U)
 
 
 
