@@ -12,12 +12,11 @@
         .text
 
 @
-@ cortex-m0+ exceptions/interrupts stores the following
+@ cortex-m4 exceptions/interrupts stores the following
 @ on the stack
 @ r0-r3, r12, lr, pc, xPSR
 @
 @
-
 
 
         .global Target_SetEntryRegisters
@@ -29,6 +28,7 @@
         .global Target_StartFirstTask
         .global Target_EnableInterrupts
         .global Target_DisableInterrupts
+
         .global SysTick_Handler
         .global SVCall_Handler
         .global PendSV_Handler
@@ -41,21 +41,20 @@
 @ r2: void *entrypoint
         .type Target_SetEntryRegisters,%function
 Target_SetEntryRegisters:
-        subs    r0, #28
+        sub     r0, #28
         str     r1, [r0]                @ argument
-        movs    r1, #0
+        mov     r1, #0
         str     r1, [r0, #20]           @ LR
         str     r2, [r0, #24]           @ PC
-        mov     r1, 0x01000000
+        mov	r1, #0x01000000
         str     r1, [r0, #28]           @ xPSR
         subs    r0, #32                 @ setup stack stack pointer for task start
         bx      lr
 
-
 @---------------------------------------------------
 @ Target_StartFirstTask
 @ r0: first task
-        .type Target_StartFirstTask, %function
+        .type	Target_StartFirstTask, %function
 Target_StartFirstTask:
         ldr     r1, [r0]        @ get stack pointer
         adds    r1, #32
@@ -72,7 +71,7 @@ Target_StartFirstTask:
 
 
 @---------------------------------------------------
-        .type Target_SaveStackPointer,%function
+        .type   Target_SaveStackPointer, %function
 @ r0: void** stackPtrPtr
 Target_SaveStackPointer:
         mov     r1, sp
@@ -83,8 +82,7 @@ Target_SaveStackPointer:
 
 
 @---------------------------------------------------
-
-        .type SysTick_Handler,%function
+        .type   SysTick_Handler, %function
 SysTick_Handler:
         mrs     r3, primask
         cpsid   i
@@ -101,9 +99,8 @@ SysTick_Handler:
 
         @ Set PendSV interrupt
         ldr     r0, =ICSR_REG
-        movs    r1, 0x1
         ldr     r0, [r0]
-        lsls    r1, r1, #28
+        mov     r1, #0x10000000
         str     r1, [r0]
 
 systick.return:
@@ -164,12 +161,15 @@ PendSV_Handler:
 
 
 PendSV_Handler.SwitchTask:
+        dsb
+        isb
 
         bl      Scheduler_ContextSwitch
 
         @ fall through to SwitchTask
 
 
+        .type   Target_SwitchTask, %function
 @ Target_SwitchTask()
 @ r0: void* newStackPtr
         .type Target_SwitchTask,%function
@@ -178,8 +178,7 @@ Target_SwitchTask:
         subs    r0, #4          @ get stack pointer
         ldr     r1, [r0]
 
-
-        .type Target_SwitchTaskNoSp,%function
+        .type   Target_SwitchTaskNoSp, %function
 Target_SwitchTaskNoSp:
 
         @ Restore FPU registers if needed
@@ -208,7 +207,6 @@ Target_SwitchTaskNoSp.RestoreCoreRegisters:
         mvn     r0, #2
         cpsie   i
         bx      r0
-
 
 
 @---------------------------------------------------
