@@ -10,21 +10,20 @@
  * The setup is inspired by the FreeRTOS port for RP2040
  */
 
-#include <stdio.h>
 #include <stdint.h>
 
-#include "../../scheduler/scheduler.h"
+#include "../../Diamant_Config.h"
 
 
-#define STM32_SYSTICK_CTRL_REG             	(*((volatile uint32_t *)0xe000e010))
-#define STM32_SYSTICK_LOAD_REG             	(*((volatile uint32_t *)0xe000e014))
-#define STM32_SYSTICK_CURRENT_VALUE_REG    	(*((volatile uint32_t *)0xe000e018))
-#define STM32_SHPR3_REG                    	(*((volatile uint32_t *)0xe000ed20))
-#define STM32_PENDSV						(*((volatile uint32_t *)0xe000ed04))
+#define STM32_SYSTICK_CTRL_REG             	(*((volatile uint32_t *)0xe000e010UL))
+#define STM32_SYSTICK_LOAD_REG             	(*((volatile uint32_t *)0xe000e014UL))
+#define STM32_SYSTICK_CURRENT_VALUE_REG    	(*((volatile uint32_t *)0xe000e018UL))
+#define STM32_SHPR3_REG                    	(*((volatile uint32_t *)0xe000ed20UL))
+#define STM32_PENDSV						(*((volatile uint32_t *)0xe000ed04UL))
 #define STM32_SYSTICK_CLK_BIT              	(1UL << 2UL)
 #define STM32_SYSTICK_INT_BIT              	(1UL << 1UL)
 #define STM32_SYSTICK_ENABLE_BIT           	(1UL << 0UL)
-#define STM32_MIN_INTERRUPT_PRIORITY       	(0xFFU)
+#define STM32_MIN_INTERRUPT_PRIORITY       	(0xFFUL)
 #define STM32_PENDSV_PRI                   	(STM32_MIN_INTERRUPT_PRIORITY << 16UL)
 #define STM32_SYSTICK_PRI                  	(STM32_MIN_INTERRUPT_PRIORITY << 24UL)
 #define STM32_CORE_FREQUENCY				((uint64_t)100000000ULL)
@@ -65,7 +64,7 @@ Target_InitTick(void)
 
 void Target_Yield(void)
 {
-    STM32_PENDSV = (1U << 28U);
+    STM32_PENDSV = (1UL << 28UL);
     asm volatile (
         "dsb\n"
         "isb"

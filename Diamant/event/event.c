@@ -97,13 +97,13 @@ Event_AddListener(struct Event_t *ev, struct EventListener_t *newListener)
 {
     uint8_t prio = Event_ListenerGetPriority(newListener);
 
-    if (!ev->listeners || Event_ListenerGetPriority(ev->listeners) < prio) {
+    if ((!ev->listeners) || (Event_ListenerGetPriority(ev->listeners) < prio)) {
         newListener->next = ev->listeners;
         ev->listeners = newListener;
     }
     else {
         struct EventListener_t *sub = NULL;
-        for (sub = ev->listeners; Event_ListenerGetPriority(sub) > prio && sub->next != NULL; sub = sub->next) {
+        for (sub = ev->listeners; (Event_ListenerGetPriority(sub) > prio) && (sub->next != NULL); sub = sub->next) {
             /* do nothing */
         }
 
@@ -118,11 +118,12 @@ Event_RemoveListener(struct Event_t* event, const struct EventListener_t *listen
     struct EventListener_t **l = &event->listeners;
     struct EventListener_t *prev = NULL;
 
-    while (*l) {
+    while (*l != NULL) {
         if (*l == listener) {
             if (prev != NULL) {
                 prev->next = (*l)->next;
-            } else {
+            }
+            else {
                 *l = (*l)->next;
             }
             break;
@@ -138,7 +139,7 @@ Event_RemoveListener(struct Event_t* event, const struct EventListener_t *listen
 void
 Event_Create(Event *event, const char *name)
 {
-    if (event != NULL && name != NULL) {
+    if ((event != NULL) && (name != NULL)) {
 
         struct Event_t *ev = (struct Event_t*)event;
 
@@ -156,7 +157,8 @@ void Event_CreateTyped(Event *event, const char *name, EventType type)
 
         if (name == NULL) {
             ev->name = "UNKNOWN EVENT";
-        } else {
+        }
+        else {
             ev->name = name;
         }
         ev->listeners = NULL;
@@ -188,10 +190,6 @@ Event_Listen(Event* event, EventListener *listener, uint8_t priority, EventHandl
 
     Event_AddListener(ev, newListener);
 }
-
-
-void
-Scheduler_WakeTask(TaskHandle task);
 
 
 bool

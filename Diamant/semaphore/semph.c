@@ -22,16 +22,14 @@ struct Semph_t {
 void
 Semaphore_Create(Semaphore *semaphore, uint32_t maxValue, uint32_t startValue)
 {
-    if (!semaphore) {
-        return;
+    if (semaphore != NULL) {
+        struct Semph_t *semph = (struct Semph_t*)semaphore;
+
+        Event_CreateTyped(&semph->giveEvent, "semphGive", EventType_AwakeOne);
+        Event_CreateTyped(&semph->takeEvent, "semphTake", EventType_AwakeOne);
+        semph->max = maxValue;
+        semph->current = startValue;
     }
-
-    struct Semph_t *semph = (struct Semph_t*)semaphore;
-
-    Event_CreateTyped(&semph->giveEvent, "semphGive", EventType_AwakeOne);
-    Event_CreateTyped(&semph->takeEvent, "semphTake", EventType_AwakeOne);
-    semph->max = maxValue;
-    semph->current = startValue;
 }
 
 
@@ -54,7 +52,8 @@ Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
         taken = true;
         Event_Broadcast(&sem->takeEvent, sem);
         Scheduler_ExitCriticalSection();
-    } else {
+    }
+    else {
         taken = Event_Wait(&sem->giveEvent, waiter, NULL, ticksToWait);
         if (taken) {
             sem->current--;
@@ -68,22 +67,24 @@ Semaphore_Take(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
 bool
 Semaphore_Give(Semaphore* semph, SemaphoreWaiter *waiter, uint32_t ticksToWait)
 {
+    bool success = false;
     struct Semph_t *sem = (struct Semph_t*)semph;
 
     if (sem->current < sem->max) {
         Scheduler_EnterCriticalSection();
         sem->current++;
         Scheduler_ExitCriticalSection();
-    } else {
-        if (!Event_Wait(&sem->takeEvent, waiter, NULL, ticksToWait)) {
-            return false;
-        } else {
+        success = true;
+    }
+    else {
+        success = Event_Wait(&sem->takeEvent, waiter, NULL, ticksToWait);
+        if (success) {
             sem->current++;
         }
     }
 
     Event_Broadcast(&sem->giveEvent, sem);
 
-    return true;
+    return success;
 }
 

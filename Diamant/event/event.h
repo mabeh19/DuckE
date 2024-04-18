@@ -50,11 +50,11 @@ typedef struct EventListener {
 } EventListener;
 
 
-typedef struct Event {
+struct Event {
     void *dummy1;
     enum DummyEnum dummy2;
     void *dummy3;
-} Event;
+};
 
 
 

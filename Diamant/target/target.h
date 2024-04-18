@@ -16,6 +16,10 @@
 
 #include "../Diamant_Config.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void Target_SwitchTask(void* newStack);
 void Target_SwitchTaskNoSp(void);
 void Target_InitTick(void);
@@ -33,7 +37,9 @@ uint32_t MultiCore_GetCoreNumber(void);
 #define MultiCore_GetCoreNumber()	((uint32_t)0U)
 #endif
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* DIAMANT_PORT_H */
 

@@ -25,8 +25,29 @@ extern "C" {
 #define DIAMANT_TASK_NO_FPU		(0U)
 #define DIAMANT_TASK_USE_FPU	(1U)
 
+
+/*
+ * Helpers for easy static creation of tasks
+ * Simply allocates a task struct, a stack, 
+ * and declares the task function
+ */
+#if DIAMANT_FPU_SUPPORT == 1U
+#define DIAMANT_TASK(taskName, stackSize, fpu_support)  DIAMANT_TASK_INTERNAL(taskName, stackSize, fpu_support) 
+#else
+#define DIAMANT_TASK(taskName, stackSize)               DIAMANT_TASK_INTERNAL(taskName, stackSize)
+#endif
+
+
+
+
 typedef void (*Scheduler_TaskFunc)(void* data);
 typedef void* TaskHandle;
+typedef DIAMANT_MESSAGE_TYPE Scheduler_Message;
+
+typedef struct {
+    Scheduler_Message message;
+    bool pending;
+} Scheduler_Mailbox;
 
 typedef struct {
     void* stackPtr;
@@ -41,6 +62,8 @@ typedef struct {
     bool earlyWake;
     bool isRunning;
     bool isDynamicallyAllocated;
+
+    Scheduler_Mailbox mail[DIAMANT_TASK_MAILBOXES];
 
     void* next;
     void* prev;
@@ -62,19 +85,27 @@ void Scheduler_DeleteTask(TaskHandle handle);
 bool Scheduler_Sleep(const uint32_t ticks);
 TaskHandle Scheduler_GetCurrentTask(void);
 uint8_t Scheduler_TaskGetPriority(const TaskHandle handle);
+void Scheduler_WakeTask(TaskHandle task);
 
 
 void Scheduler_EnterCriticalSection(void);
 void Scheduler_ExitCriticalSection(void);
 
 
+void Scheduler_SendMessage(TaskHandle receiver, const Scheduler_Message message);
+void Scheduler_SendMessageTo(TaskHandle receiver, const uint32_t mailbox, const Scheduler_Message message);
+bool Scheduler_AwaitMessage(Scheduler_Message *message, const uint32_t maxTicks);
+bool Scheduler_AwaitMessageFrom(Scheduler_Message *message, const uint32_t mailbox, const uint32_t maxTicks);
+
+
+
 #if DIAMANT_FPU_SUPPORT == 1U
-#define DIAMANT_TASK(taskName, stackSize, fpu_support) \
+#define DIAMANT_TASK_INTERNAL(taskName, stackSize, fpu_support) \
     static uint8_t taskName##StackBuffer[(stackSize)]; \
     static Scheduler_Task taskName##Task = { .name = #taskName, .useFPU = (fpu_support) }; \
     static void taskName(void* ctx);
 #else
-#define DIAMANT_TASK(taskName, stackSize) \
+#define DIAMANT_TASK_INTERNAL(taskName, stackSize) \
     static uint8_t taskName##StackBuffer[(stackSize)]; \
     static Scheduler_Task taskName##Task = { .name = #taskName }; \
     static void taskName(void* ctx);
