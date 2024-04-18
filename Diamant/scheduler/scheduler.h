@@ -22,24 +22,48 @@
 extern "C" {
 #endif
 
+#define DIAMANT_TASK_NO_FPU		(0U)
+#define DIAMANT_TASK_USE_FPU	(1U)
 
-#if DIAMANT_SCHEDULER_VARG_TASK == 1U
-typedef void* Scheduler_TaskFunc;
+
+/*
+ * Helpers for easy static creation of tasks
+ * Simply allocates a task struct, a stack, 
+ * and declares the task function
+ */
+#if DIAMANT_FPU_SUPPORT == 1U
+#define DIAMANT_TASK(taskName, stackSize, fpu_support)  DIAMANT_TASK_INTERNAL(taskName, stackSize, fpu_support) 
 #else
-typedef void (*Scheduler_TaskFunc)(void* data);
+#define DIAMANT_TASK(taskName, stackSize)               DIAMANT_TASK_INTERNAL(taskName, stackSize)
 #endif
+
+
+
+
+typedef void (*Scheduler_TaskFunc)(void* data);
 typedef void* TaskHandle;
+typedef DIAMANT_MESSAGE_TYPE Scheduler_Message;
+
+typedef struct {
+    Scheduler_Message message;
+    bool pending;
+} Scheduler_Mailbox;
 
 typedef struct {
     void* stackPtr;
-    char name[20];
+    const char name[20];
     void* entryPoint;
     uint32_t priority;
     void* stack;
     uint32_t ticksRemaining;
+#if DIAMANT_FPU_SUPPORT == 1U
+    const bool useFPU;
+#endif
     bool earlyWake;
     bool isRunning;
     bool isDynamicallyAllocated;
+
+    Scheduler_Mailbox mail[DIAMANT_TASK_MAILBOXES];
 
     void* next;
     void* prev;
@@ -49,50 +73,47 @@ typedef struct {
 int32_t Scheduler_Initialize(void);
 void Scheduler_Start(void);
 
-#if DIAMANT_SCHEDULER_VARG_TASK == 1U
-TaskHandle Scheduler_CreateTask(const char* name, const uint32_t stackSize, const uint8_t priority, const Scheduler_TaskFunc task, const uint8_t numArgs, ...);
-#else
 TaskHandle Scheduler_CreateTask(const char* name, const uint32_t stackSize, const uint8_t priority, const Scheduler_TaskFunc task, void* data);
-#endif
-TaskHandle Scheduler_CreateTaskStatic(  const char *name, 
-                                        const uint32_t stackSize, 
-                                        const uint8_t priority, 
+TaskHandle Scheduler_CreateTaskStatic(  const uint32_t stackSize,
+										const uint8_t priority,
                                         const Scheduler_TaskFunc task, 
                                         uint8_t* stackBuffer,
                                         Scheduler_Task *taskBuffer,
-#if DIAMANT_SCHEDULER_VARG_TASK == 1
-                                        const uint8_t numArgs,
-                                        ...);
-#else
                                         void *ctx);
-#endif 
 
 void Scheduler_DeleteTask(TaskHandle handle);
 bool Scheduler_Sleep(const uint32_t ticks);
 TaskHandle Scheduler_GetCurrentTask(void);
 uint8_t Scheduler_TaskGetPriority(const TaskHandle handle);
+void Scheduler_WakeTask(TaskHandle task);
 
 
 void Scheduler_EnterCriticalSection(void);
 void Scheduler_ExitCriticalSection(void);
 
 
-#if DIAMANT_SCHEDULER_VARG_TASK == 1
-/* Uses K&R syntax to allow varargs */
-#define DIAMANT_TASK(taskName, stackSize) \
-    static uint8_t func##StackBuffer[stackSize]; \
-    Scheduler_Task func##Task; \
-    void func();
+void Scheduler_SendMessage(TaskHandle receiver, const Scheduler_Message message);
+void Scheduler_SendMessageTo(TaskHandle receiver, const uint32_t mailbox, const Scheduler_Message message);
+bool Scheduler_AwaitMessage(Scheduler_Message *message, const uint32_t maxTicks);
+bool Scheduler_AwaitMessageFrom(Scheduler_Message *message, const uint32_t mailbox, const uint32_t maxTicks);
+
+
+
+#if DIAMANT_FPU_SUPPORT == 1U
+#define DIAMANT_TASK_INTERNAL(taskName, stackSize, fpu_support) \
+    static uint8_t taskName##StackBuffer[(stackSize)]; \
+    static Scheduler_Task taskName##Task = { .name = #taskName, .useFPU = (fpu_support) }; \
+    static void taskName(void* ctx);
 #else
-#define DIAMANT_TASK(taskName, stackSize) \
-    static uint8_t taskName##StackBuffer[stackSize]; \
-    Scheduler_Task taskName##Task; \
-    void taskName(void* ctx);
+#define DIAMANT_TASK_INTERNAL(taskName, stackSize) \
+    static uint8_t taskName##StackBuffer[(stackSize)]; \
+    static Scheduler_Task taskName##Task = { .name = #taskName }; \
+    static void taskName(void* ctx);
 #endif
 
 
-#define DIAMANT_REGISTER_TASK(taskName, priority, ...) \
-    Scheduler_CreateTaskStatic(#taskName, sizeof(taskName##StackBuffer), priority, &taskName, taskName##StackBuffer, &taskName##Task __VA_OPT__(, __VA_ARGS__));
+#define DIAMANT_REGISTER_TASK(taskName, priority, _ctx) \
+    Scheduler_CreateTaskStatic(sizeof(taskName##StackBuffer), priority, &taskName, taskName##StackBuffer, &taskName##Task, _ctx);
 
 
 

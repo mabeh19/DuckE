@@ -7,9 +7,10 @@
 @
 
         .syntax unified
-        .thumb
         .cpu cortex-m4
+        .thumb
         .text
+
 @
 @ cortex-m4 exceptions/interrupts stores the following
 @ on the stack
@@ -38,7 +39,7 @@
 @ r0: void *stackPtr
 @ r1: void *ctx
 @ r2: void *entrypoint
-        .type	Target_SetEntryRegisters, %function
+        .type Target_SetEntryRegisters,%function
 Target_SetEntryRegisters:
         sub     r0, #28
         str     r1, [r0]                @ argument
@@ -135,12 +136,12 @@ PendSV_Handler:
         push    {lr}
         bl      Scheduler_GetCurrentTask
         mov     r1, r0
+        //ldr     r0, [r0]
         pop     {r0}
         mov     lr, r0
-        add     sp, #4
-        subs    r1, #4
+        sub     r1, #4
         mrs     r0, psp
-        subs    r0, #32
+        sub     r0, #32
         str     r0, [r1]
 
         @ Save registers
@@ -151,40 +152,60 @@ PendSV_Handler:
         mov     r7, r11
         stmia   r0!, {r4-r7}
 
+        @ Save FPU registers if needed
+        ldrb    r2, [r1, #(4 + 20 + 4 + 4 + 4 + 4)]
+        cmp     r2, #0
+        beq     PendSV_Handler.SwitchTask
+        sub     r0, #32
+        vstmdb  r0!, {s0-s31}
+
+
+PendSV_Handler.SwitchTask:
         dsb
         isb
 
         bl      Scheduler_ContextSwitch
-        push    {r0}
-        bl      Scheduler_GetCurrentTask
-        subs    r0, #4          @ get stack pointer
-        ldr     r0, [r0]
-        cpsie   i
 
         @ fall through to SwitchTask
+
 
         .type   Target_SwitchTask, %function
 @ Target_SwitchTask()
 @ r0: void* newStackPtr
+        .type Target_SwitchTask,%function
 Target_SwitchTask:
+        bl      Scheduler_GetCurrentTask
+        subs    r0, #4          @ get stack pointer
+        ldr     r1, [r0]
 
         .type   Target_SwitchTaskNoSp, %function
 Target_SwitchTaskNoSp:
+
+        @ Restore FPU registers if needed
+        ldrb    r2, [r0, #(4 + 20 + 4 + 4 + 4 + 4)]
+        cmp     r2, #0
+        beq     Target_SwitchTaskNoSp.RestoreCoreRegisters
+        vldmdb  r1!, {s0-s31}
+        add     r1, #(32 * 4)
+
+
+Target_SwitchTaskNoSp.RestoreCoreRegisters:
         @ Restore registers
-        adds    r0, r0, #16     @ move to high registers
-        ldmia   r0!, {r4-r7}
+        adds    r1, #16     @ move to high registers
+        ldmia   r1!, {r4-r7}
         mov     r8, r4
         mov     r9, r5
         mov     r10, r6
         mov     r11, r7
 
-        msr     psp, r0         @ save new top of stack
-        subs    r0, r0, #32     @ grab low registers
-        ldmia   r0!, {r4-r7}
+        msr     psp, r1         @ save new top of stack
+        subs    r1, #32         @ grab low registers
+        ldmia   r1!, {r4-r7}
 
 
         @ Return
-        mvn     r0, #2          @ 0xFFFFFFFD
+        mvn     r0, #2
+        cpsie   i
         bx      r0
 
 
@@ -219,6 +240,8 @@ func_table:
         .word   0 @ Target_EnableInterrupts
         .word   0 @ Target_DisableInterrupts
         
+
+
         .type Target_EnableInterrupts, %function
 Target_EnableInterrupts:
         cpsie   i
